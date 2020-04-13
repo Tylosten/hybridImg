@@ -5,7 +5,7 @@ import { App } from 'components/App';
 
 export async function serverRenderer() {
   const initialData = {
-    appName: 'Reactful',
+    appName: 'Images hybrides',
   };
 
   const pageData = {
