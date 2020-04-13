@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ImgUpload from './ImgUpload';
 
 const ImgCell = props => {
-  const onImgUpload = () => {};
+  const [imgUrl, setImgUrl] = useState('');
+
+  const onImgUpload = imgFile => {
+    const newUrl = './Images/' + imgFile.name;
+    setImgUrl(newUrl);
+  };
 
   const deleteImg = () => {};
 
@@ -9,7 +15,7 @@ const ImgCell = props => {
     <td>
       <img
         className="image is-128x128"
-        src=""
+        src={imgUrl}
         alt={`${props.col} / ${props.line}`}
       />
       <div
@@ -17,11 +23,7 @@ const ImgCell = props => {
         style={props.edit ? {} : { display: 'none' }}
       >
         <div className="control">
-          <button className="button is-small is-light" onClick={onImgUpload}>
-            <span className="icon">
-              <i className="fas fa-upload"></i>
-            </span>
-          </button>
+          <ImgUpload onUpload={onImgUpload} />
         </div>
         <div className="control">
           <button className="button is-small is-light" onClick={deleteImg}>
