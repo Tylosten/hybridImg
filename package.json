@@ -15,7 +15,9 @@
     "prod-start": "cross-env NODE_ENV=production NODE_PATH=./build pm2 start -i max build/server/server.js --update-env --name hybridImgProd",
     "prod-stop": "pm2 stop hybridImgProd",
     "prod-reload": "pm2 reload --update-env hybridImgProd",
-    "prod-logs": "pm2 logs --update-env hybridImgProd"
+    "prod-logs": "pm2 logs --update-env hybridImgProd",
+    "test-connect": "babel-node src/server/connect-db",
+    "initialize": "babel-node src/server/initialize-db"
   },
   "jest": {
     "modulePaths": [
@@ -44,6 +46,7 @@
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "mini-css-extract-plugin": "^0.9.0",
+    "mongodb": "^3.5.5",
     "morgan": "^1.10.0",
     "node-sass": "^4.13.1",
     "pm2": "^4.2.3",

@@ -2,6 +2,7 @@ node_modules/
 public/bundles/
 build/
 coverage/
+data/
 .reactful.json
 .env
 .vscode/
