@@ -38,6 +38,7 @@
     "@babel/runtime": "^7.9.2",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
+    "bulma": "^0.8.2",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.2",
     "ejs": "^3.0.2",
