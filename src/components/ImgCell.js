@@ -34,6 +34,7 @@ const ImgCell = props => {
     };
     const res = await axios.post('/hybrids/new', { hybrid });
     console.info('Created hybrid in db', res);
+    setImgUrl(newUrl);
   };
 
   const updateHybrid = async newUrl => {
@@ -46,11 +47,11 @@ const ImgCell = props => {
       },
     });
     console.info('Updated hybrid in db', res);
+    setImgUrl(newUrl);
   };
 
   const onImgUpload = async imgFile => {
     const newUrl = './Images/' + imgFile.name;
-    setImgUrl(newUrl);
     hybridId ? updateHybrid(newUrl) : createHybrid(newUrl);
   };
 
