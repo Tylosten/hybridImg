@@ -1,17 +1,38 @@
 import React, { useState } from 'react';
+import ImgGrid from './ImgGrid';
 
 export function App({ initialData }) {
-  const [count, setCount] = useState(0);
+  const lineThemes = [
+    'Sucette',
+    'arc-en-ciel',
+    'Pingouin',
+    'Mammouth',
+    'Espace',
+    'Spaghetti',
+  ];
+  const colThemes = [
+    'Papier toilette',
+    'Cataclysme',
+    'Cookie',
+    'Chaussette',
+    'Abeille',
+    'Rococo',
+  ];
+
   return (
-    <div>
-      <h1>{initialData.appName}</h1>
-      This is a sample stateful and server-side rendered React application.
-      <br />
-      <br />
-      Here is a button that will track how many times you click it:
-      <br />
-      <br />
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-    </div>
+    <>
+      <section className="hero is-primary">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">{initialData.appName}</h1>
+            <h2 className="subtitle">
+              Ici vous pouvez uploader vos fabuleux dessins.
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <ImgGrid colThemes={colThemes} lineThemes={lineThemes} edit={true} />
+    </>
   );
 }
