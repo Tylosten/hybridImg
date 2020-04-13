@@ -19,9 +19,12 @@ const ImgGrid = props => {
               <tr key={props.lineThemes.indexOf(line)}>
                 <th>{line}</th>
                 {props.colThemes.map(col => (
-                  <td key={props.colThemes.indexOf(col)}>
-                    {col} / {line}
-                  </td>
+                  <ImgCell
+                    key={props.colThemes.indexOf(col)}
+                    col={col}
+                    line={line}
+                    edit={props.edit}
+                  />
                 ))}
               </tr>
             ))}
