@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import ImgUpload from './ImgUpload';
 const url = 'http://localhost:4242';
 
-export const ImgCell = ({ line, col, hybrid, edit }) => {
+const ImgCell = ({ line, col, hybrid, edit }) => {
   const [author, setAuthor] = useState('Mag');
 
   const saveHybrid = async () => {
@@ -65,4 +65,5 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export const ConnectedImgCell = connect(mapStateToProps)(ImgCell);
+const ConnectedImgCell = connect(mapStateToProps)(ImgCell);
+export default ConnectedImgCell;

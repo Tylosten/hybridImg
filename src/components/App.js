@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
+import { Router, Route } from 'react-router-dom';
 
+import history from '../store/history';
 import { store } from '../store';
-import { ConnectedImgGrid } from './ImgGrid';
+import ImgGrid from './ImgGrid';
+import Navigation from './Navigation';
 
 export function App({ initialData }) {
   return (
-    <>
-      <section className="hero is-primary">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">{initialData.appName}</h1>
-            <h2 className="subtitle">
-              Ici vous pouvez uploader vos fabuleux dessins.
-            </h2>
-          </div>
-        </div>
-      </section>
-
+    <Router history={history}>
       <Provider store={store}>
-        <ConnectedImgGrid edit={true} />
+        <Navigation />
+        <Route
+          exact
+          path="/mygrid"
+          render={() => <ImgGrid edit={true} />}
+        ></Route>
       </Provider>
-    </>
+    </Router>
   );
 }
