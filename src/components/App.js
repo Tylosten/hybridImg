@@ -4,11 +4,12 @@ import { Router, Route } from 'react-router-dom';
 
 import history from '../store/history';
 import { store } from '../store';
-import ImgGrid from './ImgGrid';
+import GridDisplay from './GridDisplay';
 import GridsDiplay from './GridsDisplay';
+import HybridsDisplay from './HybridsDisplay';
 import Navigation from './Navigation';
 
-export function App({ initialData }) {
+export function App() {
   return (
     <Router history={history}>
       <Provider store={store}>
@@ -16,9 +17,10 @@ export function App({ initialData }) {
         <Route
           exact
           path="/mygrid"
-          render={() => <ImgGrid edit={true} gridId="G1" />}
+          render={() => <GridDisplay edit={true} gridId="G1" />}
         ></Route>
         <Route exact path="/grids" render={() => <GridsDiplay />}></Route>
+        <Route exact path="/images" render={() => <HybridsDisplay />}></Route>
       </Provider>
     </Router>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ImgCell from './ImgCell';
 
-const ImgGrid = props => {
+const GridDisplay = props => {
   return (
     <section className="table-container">
       <table className="table is-fullwidth">
@@ -48,5 +48,5 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const ConnectedImgGrid = connect(mapStateToProps)(ImgGrid);
-export default ConnectedImgGrid;
+const ConnectedGridDisplay = connect(mapStateToProps)(GridDisplay);
+export default ConnectedGridDisplay;
