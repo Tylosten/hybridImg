@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
 import ImgUpload from './ImgUpload';
-const url = 'http://localhost:4242';
 
 const ImgCell = ({ lineTheme, colTheme, hybrid, edit }) => {
   const [author, setAuthor] = useState('Mag');
