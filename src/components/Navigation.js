@@ -22,7 +22,7 @@ export const Navigation = () => {
           <Link to="/mygrid" className="navbar-item">
             Ma grille
           </Link>
-          <Link to="/usergrids" className="navbar-item">
+          <Link to="/grids" className="navbar-item">
             Les Grilles
           </Link>
           <Link to="/images" className="navbar-item">
