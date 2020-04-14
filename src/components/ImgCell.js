@@ -1,58 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+
 import ImgUpload from './ImgUpload';
 const url = 'http://localhost:4242';
 
-const ImgCell = props => {
+export const ImgCell = ({ line, col, hybrid, edit }) => {
   const [author, setAuthor] = useState('Mag');
-  const [imgUrl, setImgUrl] = useState('');
-  const [tags, setTags] = useState([props.col, props.line]);
-  const [hybridId, setHybridId] = useState();
 
-  const loadHybrid = async () => {
-    const res = await axios.get(
-      url + `/hybrids/find?author=${author}&tags=${tags}`
-    );
-    const hybrid = res.data[0];
-    if (hybrid) {
-      setImgUrl(hybrid.url);
-      setHybridId(hybrid.id);
-    }
-  };
-
-  useEffect(() => {
-    loadHybrid();
-  }, []);
-
-  const createHybrid = async newUrl => {
-    const hybrid = {
-      id: uuid(),
-      author,
-      url: newUrl,
-      tags,
-    };
-    const res = await axios.post('/hybrids/new', { hybrid });
-    console.info('Created hybrid in db', res);
-    setImgUrl(newUrl);
-  };
-
-  const updateHybrid = async newUrl => {
-    const res = await axios.post('/hybrids/update', {
-      hybrid: {
-        id: hybridId,
-        author,
-        url: newUrl,
-        tags,
-      },
-    });
-    console.info('Updated hybrid in db', res);
-    setImgUrl(newUrl);
+  const saveHybrid = async () => {
+    const res = await axios.post('/hybrids/save', { hybrid });
+    console.info('Saved hybrid in db', res);
   };
 
   const onImgUpload = async imgFile => {
-    const newUrl = './Images/' + imgFile.name;
-    hybridId ? updateHybrid(newUrl) : createHybrid(newUrl);
+    hybrid.url = './Images/' + imgFile.name;
+    if (!hybrid.id) {
+      hybrid.id = uuid();
+      hybrid.tags = [col, line];
+      hybrid.author = author;
+    }
+    await saveHybrid();
   };
 
   const deleteImg = () => {};
@@ -61,13 +30,10 @@ const ImgCell = props => {
     <td>
       <img
         className="image is-128x128"
-        src={imgUrl}
-        alt={`${props.col} / ${props.line}`}
+        src={hybrid.url}
+        alt={`${col} / ${line}`}
       />
-      <div
-        className="field is-grouped"
-        style={props.edit ? {} : { display: 'none' }}
-      >
+      <div className="field is-grouped" style={edit ? {} : { display: 'none' }}>
         <div className="control">
           <ImgUpload onUpload={onImgUpload} />
         </div>
@@ -83,4 +49,20 @@ const ImgCell = props => {
   );
 };
 
-export default ImgCell;
+function mapStateToProps(state, ownProps) {
+  const hybridCandidates = state.hybrids.filter(
+    hybrid =>
+      hybrid.tags.includes(ownProps.line) && hybrid.tags.includes(ownProps.col)
+  );
+  const hybrid =
+    hybridCandidates.length === 0 ? { url: '' } : hybridCandidates[0];
+
+  return {
+    line: ownProps.line,
+    col: ownProps.col,
+    edit: ownProps.edit,
+    hybrid: hybrid,
+  };
+}
+
+export const ConnectedImgCell = connect(mapStateToProps)(ImgCell);

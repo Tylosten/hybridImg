@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
-import ImgGrid from './ImgGrid';
+import { Provider } from 'react-redux';
+
+import { store } from '../store';
+import { ConnectedImgGrid } from './ImgGrid';
 
 export function App({ initialData }) {
-  const lineThemes = [
-    'Sucette',
-    'arc-en-ciel',
-    'Pingouin',
-    'Mammouth',
-    'Espace',
-    'Spaghetti',
-  ];
-  const colThemes = [
-    'Papier toilette',
-    'Cataclysme',
-    'Cookie',
-    'Chaussette',
-    'Abeille',
-    'Rococo',
-  ];
-
   return (
     <>
       <section className="hero is-primary">
@@ -32,7 +18,9 @@ export function App({ initialData }) {
         </div>
       </section>
 
-      <ImgGrid colThemes={colThemes} lineThemes={lineThemes} edit={true} />
+      <Provider store={store}>
+        <ConnectedImgGrid edit={true} />
+      </Provider>
     </>
   );
 }

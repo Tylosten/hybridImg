@@ -1,7 +1,8 @@
 import React from 'react';
-import ImgCell from './ImgCell';
+import { connect } from 'react-redux';
+import { ConnectedImgCell } from './ImgCell';
 
-const ImgGrid = props => {
+export const ImgGrid = props => {
   return (
     <section className="table-container">
       <table className="table is-fullwidth">
@@ -19,7 +20,7 @@ const ImgGrid = props => {
               <tr key={props.lineThemes.indexOf(line)}>
                 <th>{line}</th>
                 {props.colThemes.map(col => (
-                  <ImgCell
+                  <ConnectedImgCell
                     key={props.colThemes.indexOf(col)}
                     col={col}
                     line={line}
@@ -34,4 +35,11 @@ const ImgGrid = props => {
   );
 };
 
-export default ImgGrid;
+function mapStateToProps(state) {
+  return {
+    lineThemes: state.lineThemes,
+    colThemes: state.colThemes,
+  };
+}
+
+export const ConnectedImgGrid = connect(mapStateToProps)(ImgGrid);
