@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import ImgUpload from './ImgUpload';
 const url = 'http://localhost:4242';
 
-const ImgCell = ({ line, col, hybrid, edit }) => {
+const ImgCell = ({ lineTheme, colTheme, hybrid, edit }) => {
   const [author, setAuthor] = useState('Mag');
 
   const saveHybrid = async () => {
@@ -18,7 +18,7 @@ const ImgCell = ({ line, col, hybrid, edit }) => {
     hybrid.url = './Images/' + imgFile.name;
     if (!hybrid.id) {
       hybrid.id = uuid();
-      hybrid.tags = [col, line];
+      hybrid.tags = [colTheme.id, lineTheme.id];
       hybrid.author = author;
     }
     await saveHybrid();
@@ -31,7 +31,7 @@ const ImgCell = ({ line, col, hybrid, edit }) => {
       <img
         className="image is-128x128"
         src={hybrid.url}
-        alt={`${col} / ${line}`}
+        alt={`${colTheme.name} / ${lineTheme.name}`}
       />
       <div className="field is-grouped" style={edit ? {} : { display: 'none' }}>
         <div className="control">
@@ -50,18 +50,22 @@ const ImgCell = ({ line, col, hybrid, edit }) => {
 };
 
 function mapStateToProps(state, ownProps) {
-  const hybridCandidates = state.hybrids.filter(
-    hybrid =>
-      hybrid.tags.includes(ownProps.line) && hybrid.tags.includes(ownProps.col)
-  );
+  const lineTheme = state.themes.find(theme => theme.id === ownProps.line);
+  const colTheme = state.themes.find(theme => theme.id === ownProps.col);
+  const hybridCandidates = state.hybrids.filter(hybrid => {
+    const hasTags =
+      hybrid.tags.includes(lineTheme.id) && hybrid.tags.includes(colTheme.id);
+    const isInGrid = !ownProps.gridId || hybrid.grid === ownProps.gridId;
+    return hasTags && isInGrid;
+  });
   const hybrid =
     hybridCandidates.length === 0 ? { url: '' } : hybridCandidates[0];
 
   return {
-    line: ownProps.line,
-    col: ownProps.col,
+    lineTheme,
+    colTheme,
     edit: ownProps.edit,
-    hybrid: hybrid,
+    hybrid,
   };
 }
 

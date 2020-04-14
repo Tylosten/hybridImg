@@ -15,7 +15,7 @@ export function App({ initialData }) {
         <Route
           exact
           path="/mygrid"
-          render={() => <ImgGrid edit={true} />}
+          render={() => <ImgGrid edit={true} gridId="G1" />}
         ></Route>
       </Provider>
     </Router>
