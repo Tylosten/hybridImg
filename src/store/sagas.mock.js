@@ -10,6 +10,7 @@ export function* hybridSavingSaga() {
     yield put(
       mutations.saveHybrid(
         hybrid.id || uuid(),
+        hybrid.name || hybrid.tags.map(t => t.name).join('/'),
         hybrid.grid,
         hybrid.tags,
         'Mag',

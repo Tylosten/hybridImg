@@ -11,7 +11,7 @@ const defaultState = {
   ],
   themes: [
     { id: 'T1', name: 'Sucette' },
-    { id: 'T2', name: 'arc-en-ciel' },
+    { id: 'T2', name: 'Arc-en-ciel' },
     { id: 'T3', name: 'Pingouin' },
     { id: 'T4', name: 'Mammouth' },
     { id: 'T5', name: 'Espace' },

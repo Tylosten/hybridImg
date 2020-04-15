@@ -31,19 +31,19 @@ const ImgCell = ({ lineTheme, colTheme, hybrid, edit, saveHybrid }) => {
       />
       <div className="field is-grouped" style={edit ? {} : { display: 'none' }}>
         <div className="control">
-          <button className="button is-small is-light" onClick={onHybridUpload}>
+          <div className="button is-small is-light" onClick={onHybridUpload}>
             <span className="icon">
               <i className="fas fa-upload"></i>
             </span>
-          </button>
+          </div>
           {/*<ImgUpload onUpload={onImgUpload} />*/}
         </div>
         <div className="control">
-          <button className="button is-small is-light" onClick={deleteImg}>
+          <div className="button is-small is-light" onClick={deleteImg}>
             <span className="icon">
               <i className="fas fa-trash"></i>
             </span>
-          </button>
+          </div>
         </div>
       </div>
     </td>

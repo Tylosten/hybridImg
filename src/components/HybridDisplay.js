@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const HybridDisplay = ({ hybrid, tags }) => {
   return (
     <div className="box">
-      <img className="image" src={hybrid.url} />
+      <Link to={`/hybrid/${hybrid.id}`}>
+        <img className="image" src={hybrid.url} />
+      </Link>
       <div className="level">
         {tags.map(tag => (
-          <span key={tags.indexOf(tag)} className="tag">
+          <span key={tags.indexOf(tag)} className="tag is-info">
             {tag.name}
           </span>
         ))}
