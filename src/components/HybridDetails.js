@@ -100,7 +100,7 @@ const HybridDetails = props => {
           </Form.Field>
           <Form.Field>
             <Form.Control>
-              <Link to="/home">
+              <Link to="/hybrids">
                 <Button color="primary" onClick={onSave}>
                   Enregister
                 </Button>

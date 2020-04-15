@@ -15,13 +15,14 @@ export function App() {
     <Router history={history}>
       <Provider store={store}>
         <Navigation />
+        <Route exact path="/home" render={() => <div>home</div>}></Route>
+        <Route exact path="/grids" render={() => <GridsDiplay />}></Route>
         <Route
           exact
-          path="/home"
-          render={() => <GridDisplay edit={true} gridId="G1" />}
+          path="/grid/:id"
+          render={({ match }) => <GridDisplay match={match} />}
         ></Route>
-        <Route exact path="/grids" render={() => <GridsDiplay />}></Route>
-        <Route exact path="/images" render={() => <HybridsDisplay />}></Route>
+        <Route exact path="/hybrids" render={() => <HybridsDisplay />}></Route>
         <Route
           exact
           path="/hybrid/:id"

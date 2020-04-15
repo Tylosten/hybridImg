@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Image, Tile } from 'react-bulma-components';
+import { Link } from 'react-router-dom';
+import { Box, Image, Heading } from 'react-bulma-components';
 
 const GridPreview = ({ grid, hybrids }) => {
   return (
-    <Card>
-      <Card.Header>
-        <div className="card-header-title">{grid.name}</div>
-      </Card.Header>
-      <Card.Content>
+    <Link to={`/grid/${grid.id}`}>
+      <Box>
+        <Heading>{grid.name}</Heading>
         <div style={{ flexWrap: 'wrap' }}>
           {hybrids.map(hybrid => (
             <div
@@ -19,8 +18,8 @@ const GridPreview = ({ grid, hybrids }) => {
             </div>
           ))}
         </div>
-      </Card.Content>
-    </Card>
+      </Box>
+    </Link>
   );
 };
 

@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
-import * as sagas from './sagas.mock';
+import * as sagas from './sagas';
 import * as mutations from './mutations';
 
 export const store = createStore(

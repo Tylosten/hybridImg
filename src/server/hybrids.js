@@ -6,7 +6,7 @@ export const hybrids = app => {
     const collection = db.collection('hybrids');
     await collection.insertOne(hybrid);
   };
-  app.post('/hybrids/new', async (req, res) => {
+  app.post('/hybrid/new', async (req, res) => {
     const hybrid = req.body.hybrid;
     await addNewHybrid(hybrid);
     res.status(200).send();
@@ -17,7 +17,7 @@ export const hybrids = app => {
     const collection = db.collection('hybrids');
     await collection.save(hybrid);
   };
-  app.post('/hybrids/save', async (req, res) => {
+  app.post('/hybrid/save', async (req, res) => {
     const hybrid = req.body.hybrid;
     await saveHybrid(hybrid);
     res.status(200).send();
@@ -30,7 +30,7 @@ export const hybrids = app => {
       .find()
       .toArray();
   };
-  app.get('/hybrids/findAll', async (req, res) => {
+  app.get('/hybrid/findAll', async (req, res) => {
     const hybrids = await findAllHybrids();
     res.status(200).json(hybrids);
   });
@@ -49,17 +49,20 @@ export const hybrids = app => {
       .find(search)
       .toArray();
   };
-  app.get('/hybrids/find', async (req, res) => {
+  app.get('/hybrid/find', async (req, res) => {
     const { user, tags } = req.query;
     const hybrids = await findHybrids(user, tags);
     res.status(200).json(hybrids);
   });
 
   const updateHybrid = async hybrid => {
-    const { id, tags, url, user } = hybrid;
+    const { id, name, tags, url, user, grid } = hybrid;
     const db = await connectDB();
     const collection = db.collection('hybrids');
 
+    if (name) {
+      await collection.updateOne({ id }, { $set: { name } });
+    }
     if (user) {
       await collection.updateOne({ id }, { $set: { user } });
     }
@@ -69,8 +72,11 @@ export const hybrids = app => {
     if (url) {
       await collection.updateOne({ id }, { $set: { url } });
     }
+    if (grid) {
+      await collection.updateOne({ id }, { $set: { grid } });
+    }
   };
-  app.post('/hybrids/update', async (req, res) => {
+  app.post('/hybrid/update', async (req, res) => {
     const hybrid = req.body.hybrid;
     await updateHybrid(hybrid);
     res.status(200).send();

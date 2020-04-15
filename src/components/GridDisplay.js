@@ -36,13 +36,14 @@ const GridDisplay = props => {
 };
 
 function mapStateToProps(state, ownProps) {
-  const grid = state.grids.find(grid => grid.id === ownProps.gridId);
+  const id = ownProps.match.params.id;
+  const grid = state.grids.find(grid => grid.id === id);
   return {
     lineThemes: state.themes.filter(theme =>
       grid.lineThemes.includes(theme.id)
     ),
     colThemes: state.themes.filter(theme => grid.colThemes.includes(theme.id)),
-    gridId: ownProps.gridId,
+    gridId: id,
     edit: ownProps.edit,
   };
 }
