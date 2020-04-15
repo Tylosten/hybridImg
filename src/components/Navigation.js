@@ -10,7 +10,7 @@ export const Navigation = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link to="/home" className="navbar-item">
+        <Link to="/" className="navbar-item">
           <h1 className="title" style={{ color: 'inherit' }}>
             Images hybrides
           </h1>
