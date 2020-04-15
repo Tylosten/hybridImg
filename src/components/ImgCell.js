@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Image, Form, Button, Icon } from 'react-bulma-components';
 // import axios from 'axios';
 import { requestHybridSaving } from '../store/mutations';
 
@@ -24,28 +25,27 @@ const ImgCell = ({ lineTheme, colTheme, hybrid, edit, saveHybrid }) => {
 
   return (
     <td>
-      <img
+      <Image
         className="image is-128x128"
         src={hybrid.url}
         alt={`${colTheme.name} / ${lineTheme.name}`}
       />
-      <div className="field is-grouped" style={edit ? {} : { display: 'none' }}>
-        <div className="control">
-          <div className="button is-small is-light" onClick={onHybridUpload}>
-            <span className="icon">
-              <i className="fas fa-upload"></i>
-            </span>
-          </div>
+      <Form.Field
+        className="is-grouped"
+        style={edit ? {} : { display: 'none' }}
+      >
+        <Form.Control>
+          <Button size="small" color="light" onClick={onHybridUpload}>
+            <Icon className="fas fa-upload" />
+          </Button>
           {/*<ImgUpload onUpload={onImgUpload} />*/}
-        </div>
-        <div className="control">
-          <div className="button is-small is-light" onClick={deleteImg}>
-            <span className="icon">
-              <i className="fas fa-trash"></i>
-            </span>
-          </div>
-        </div>
-      </div>
+        </Form.Control>
+        <Form.Control>
+          <Button size="small" color="light" onClick={deleteImg}>
+            <Icon className="fas fa-trash" />
+          </Button>
+        </Form.Control>
+      </Form.Field>
     </td>
   );
 };

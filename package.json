@@ -54,6 +54,7 @@
     "node-sass": "^4.13.1",
     "pm2": "^4.2.3",
     "react": "^16.13.1",
+    "react-bulma-components": "^3.2.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",

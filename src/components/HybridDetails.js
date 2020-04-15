@@ -1,81 +1,90 @@
 import React from 'react';
-import { connect, dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as mutations from '../store/mutations';
-import { Tile } from 'react-bulma-components';
+import { Tile, Image, Form, Button, Tag } from 'react-bulma-components';
 
 const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
-  const onTagSelect = event => {
-    console.log(event.target.value);
+  const onTagSelect = event => {};
+
+  const onSave = () => {
+    setHybridTags(id, hybrid.tags.map(t => t.id));
   };
 
   return (
-    <div className="tile is-ancestor">
-      <div className="tile is-parent">
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <figure className="image">
-              <img src={hybrid.url} alt={`Image ${hybrid.name}`} />
-            </figure>
-          </div>
-        </div>
-        <div className="tile is-child" style={{ padding: '10px' }}>
-          <form className="container">
-            <div className="field">
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  value={hybrid.name}
-                  placeholder="Nom de l'image"
-                />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label">Auteurice</label>
-              <div className="control">
-                <input className="input" value={hybrid.author.name} />
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <label className="label">Tags</label>
-                <div className="select is-rounded">
-                  <select onChange={onTagSelect}>
-                    <option>...</option>
-                    {tags.map(tag => (
-                      <option key={tag.id} value={tag.id}>
-                        {tag.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+    <Tile className="is-ancestor">
+      <Tile className="is-parent">
+        <Tile className="is-parent is-4">
+          <Tile className="is-child">
+            <Image src={hybrid.url} alt={`Image ${hybrid.name}`} />
+          </Tile>
+        </Tile>
+        <Tile className="is-child" style={{ padding: '10px' }}>
+          <Form.Field>
+            <Form.Control>
+              <Form.Input
+                type="text"
+                value={hybrid.name}
+                onChange={e => (hybrid.name = e.target.value)}
+                placeholder="Nom de l'image"
+                disabled
+              />
+            </Form.Control>
+          </Form.Field>
+          <Form.Field>
+            <Form.Label>Auteurice</Form.Label>
+            <Form.Control>
+              <Form.Input
+                value={hybrid.author.name}
+                onChange={e => (hybrid.author.name = e.target.value)}
+                disabled
+              />
+            </Form.Control>
+          </Form.Field>
+          <Form.Field>
+            <Form.Label>Grille</Form.Label>
+            <Form.Control>
+              <Form.Input
+                value={hybrid.grid.name}
+                onChange={e => (hybrid.grid.name = e.target.value)}
+                disabled
+              />
+            </Form.Control>
+          </Form.Field>
+          <Form.Field>
+            <Form.Control>
+              <Form.Label>Tags</Form.Label>
+              <Form.Select className="is-rounded" onChange={onTagSelect}>
+                <option>...</option>
+                {tags.map(tag => (
+                  <option key={tag.id} value={tag.id}>
+                    {tag.name}
+                  </option>
+                ))}
+              </Form.Select>
 
-                <div>
-                  {hybrid.tags.map(tag => (
-                    <span
-                      key={tag.id}
-                      className="tag is-info "
-                      style={{ margin: '5px' }}
-                    >
-                      {tag.name}
-                      <div className="delete is-small"></div>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <Link to="/home">
-                  <div className="button is-primary">Save</div>
-                </Link>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+              <span>
+                {hybrid.tags.map(tag => (
+                  <Tag key={tag.id} color="info" style={{ margin: '5px' }}>
+                    {tag.name}
+                    <span className="delete is-small"></span>
+                  </Tag>
+                ))}
+              </span>
+            </Form.Control>
+          </Form.Field>
+          <Form.Field>
+            <Form.Control>
+              <Link to="/home">
+                <Button color="primary" onClick={onSave}>
+                  Save
+                </Button>
+              </Link>
+            </Form.Control>
+          </Form.Field>
+        </Tile>
+      </Tile>
+    </Tile>
   );
 };
 
@@ -85,7 +94,8 @@ const mapStateToProps = (state, ownProps) => {
   const tags = state.themes;
   tags.sort((a, b) => a.name > b.name);
   hybrid.tags = state.themes.filter(t => hybrid.tags.includes(t.id));
-  hybrid.author = state.users.filter(u => hybrid.author === u.id);
+  hybrid.author = state.users.find(u => hybrid.author === u.id);
+  hybrid.grid = state.grids.find(g => hybrid.grid === g.id);
 
   return {
     id,
@@ -103,6 +113,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const ConnectedHybridDetails = connect(mapStateToProps)(HybridDetails);
+const ConnectedHybridDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HybridDetails);
 
 export default ConnectedHybridDetails;

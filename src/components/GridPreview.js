@@ -1,23 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Card, Image, Tile } from 'react-bulma-components';
 
 const GridPreview = ({ grid, hybrids }) => {
   return (
-    <div className="card">
-      <div className="card-header">
+    <Card>
+      <Card.Header>
         <div className="card-header-title">{grid.name}</div>
-      </div>
-      <div className="card-content" style={{ overflowX: 'auto' }}>
-        {hybrids.map(hybrid => (
-          <img
-            key={hybrids.indexOf(hybrid)}
-            className=" image is-48x48"
-            src={hybrid.url}
-            style={{ display: 'inline', marginRight: '10px' }}
-          />
-        ))}
-      </div>
-    </div>
+      </Card.Header>
+      <Card.Content>
+        <div style={{ flexWrap: 'wrap' }}>
+          {hybrids.map(hybrid => (
+            <div
+              key={hybrids.indexOf(hybrid)}
+              style={{ display: 'inline-block', marginRight: '10px' }}
+            >
+              <Image size={48} src={hybrid.url} />
+            </div>
+          ))}
+        </div>
+      </Card.Content>
+    </Card>
   );
 };
 

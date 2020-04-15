@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Tile } from 'react-bulma-components';
 
 import HybridDisplay from './HybridDisplay';
 
@@ -9,20 +10,20 @@ const HybridsDisplay = ({ hybrids }) => {
   return (
     <>
       <br />
-      <div className="tile is-ancestor">
-        <div className="tile" style={{ flexWrap: 'wrap' }}>
+      <Tile className="is-ancestor">
+        <Tile style={{ flexWrap: 'wrap' }}>
           {hybrids.map(hybrid => (
-            <div
+            <Tile
               key={hybrids.indexOf(hybrid)}
-              className={`tile is-parent is-${12 / hybridByLine}`}
+              className={`is-parent is-${12 / hybridByLine}`}
             >
-              <div className="tile is-child">
+              <Tile className="is-child">
                 <HybridDisplay hybridId={hybrid.id} />
-              </div>
-            </div>
+              </Tile>
+            </Tile>
           ))}
-        </div>
-      </div>
+        </Tile>
+      </Tile>
     </>
   );
 };

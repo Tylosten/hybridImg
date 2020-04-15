@@ -1,21 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Box, Level, Tag } from 'react-bulma-components';
 
 const HybridDisplay = ({ hybrid, tags }) => {
   return (
-    <div className="box">
+    <Box>
       <Link to={`/hybrid/${hybrid.id}`}>
         <img className="image" src={hybrid.url} />
       </Link>
-      <div className="level">
+      <Level>
         {tags.map(tag => (
-          <span key={tags.indexOf(tag)} className="tag is-info">
+          <Tag key={tags.indexOf(tag)} color="info">
             {tag.name}
-          </span>
+          </Tag>
         ))}
-      </div>
-    </div>
+      </Level>
+    </Box>
   );
 };
 

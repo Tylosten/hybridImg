@@ -1,33 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Navbar, Heading } from 'react-bulma-components';
 
 export const Navigation = () => {
   return (
-    <nav
-      className="navbar is-dark"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div className="navbar-brand">
+    <Navbar color="dark" role="navigation" aria-label="main navigation">
+      <Navbar.Brand>
         <Link to="/home" className="navbar-item">
-          <h1 className="title" style={{ color: 'inherit' }}>
-            Images hybrides
-          </h1>
+          <Heading style={{ color: 'inherit' }}>Images hybrides</Heading>
         </Link>
-      </div>
+      </Navbar.Brand>
 
-      <div id="navbarBasicExample" className="navbar-menu">
-        <div className="navbar-start">
+      <Navbar.Menu>
+        <Navbar.Container>
           <Link to="/grids" className="navbar-item">
             Les Grilles
           </Link>
           <Link to="/images" className="navbar-item">
             Les Images
           </Link>
-        </div>
-      </div>
-    </nav>
+        </Navbar.Container>
+      </Navbar.Menu>
+    </Navbar>
   );
 };
 
