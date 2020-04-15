@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as mutations from '../store/mutations';
 import { Tile, Image, Form, Button, Tag } from 'react-bulma-components';
 
-const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
-  const onTagSelect = event => {};
+const HybridDetails = props => {
+  const [tags, setTags] = useState(props.tags);
+  const [grid, setGrid] = useState(props.grid);
+  const [name, setName] = useState(props.name);
+  const [hybridTags, setHybridTags] = useState(props.hybridTags);
+  const { id, url, user, grids, updateHybrid } = props;
+
+  const onTagSelect = event => {
+    const tagId = event.target.value;
+    if (tagId) {
+      const tag = tags.find(t => t.id === tagId);
+      setHybridTags([...hybridTags, tag]);
+      setTags(tags.filter(t => t.id !== tagId));
+    }
+  };
+
+  const deleteTag = tag => {
+    const newHybridTags = hybridTags.filter(t => t.id !== tag.id);
+    setHybridTags(newHybridTags);
+    const newTags = [...tags, tag];
+    newTags.sort((a, b) => a.name > b.name);
+    setTags(newTags);
+  };
 
   const onSave = () => {
-    setHybridTags(id, hybrid.tags.map(t => t.id));
+    updateHybrid(id, name, grid, hybridTags.map(t => t.id));
   };
 
   return (
@@ -16,7 +37,7 @@ const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
       <Tile className="is-parent">
         <Tile className="is-parent is-4">
           <Tile className="is-child">
-            <Image src={hybrid.url} alt={`Image ${hybrid.name}`} />
+            <Image src={url} alt={`Image ${name}`} />
           </Tile>
         </Tile>
         <Tile className="is-child" style={{ padding: '10px' }}>
@@ -24,31 +45,32 @@ const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
             <Form.Control>
               <Form.Input
                 type="text"
-                value={hybrid.name}
-                onChange={e => (hybrid.name = e.target.value)}
+                value={name}
+                onChange={e => setName(e.target.value)}
                 placeholder="Nom de l'image"
-                disabled
               />
             </Form.Control>
           </Form.Field>
           <Form.Field>
             <Form.Label>Auteurice</Form.Label>
             <Form.Control>
-              <Form.Input
-                value={hybrid.author.name}
-                onChange={e => (hybrid.author.name = e.target.value)}
-                disabled
-              />
+              <Form.Input value={user} disabled />
             </Form.Control>
           </Form.Field>
           <Form.Field>
             <Form.Label>Grille</Form.Label>
             <Form.Control>
-              <Form.Input
-                value={hybrid.grid.name}
-                onChange={e => (hybrid.grid.name = e.target.value)}
-                disabled
-              />
+              <Form.Select
+                className="is-rounded"
+                onChange={event => setGrid(event.target.value)}
+                value={grid}
+              >
+                {grids.map(grid => (
+                  <option key={grid.id} value={grid.id}>
+                    {grid.name}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Control>
           </Form.Field>
           <Form.Field>
@@ -64,10 +86,13 @@ const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
               </Form.Select>
 
               <span>
-                {hybrid.tags.map(tag => (
+                {hybridTags.map(tag => (
                   <Tag key={tag.id} color="info" style={{ margin: '5px' }}>
                     {tag.name}
-                    <span className="delete is-small"></span>
+                    <span
+                      className="delete is-small"
+                      onClick={() => deleteTag(tag)}
+                    ></span>
                   </Tag>
                 ))}
               </span>
@@ -77,7 +102,7 @@ const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
             <Form.Control>
               <Link to="/home">
                 <Button color="primary" onClick={onSave}>
-                  Save
+                  Enregister
                 </Button>
               </Link>
             </Form.Control>
@@ -90,24 +115,30 @@ const HybridDetails = ({ id, tags, hybrid, setHybridTags }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
-  const hybrid = state.hybrids.find(h => h.id === id);
-  const tags = state.themes;
+  const hybrid = { ...state.hybrids.find(h => h.id === id) };
+  const tags = state.themes.filter(t => !hybrid.tags.includes(t.id));
   tags.sort((a, b) => a.name > b.name);
   hybrid.tags = state.themes.filter(t => hybrid.tags.includes(t.id));
-  hybrid.author = state.users.find(u => hybrid.author === u.id);
-  hybrid.grid = state.grids.find(g => hybrid.grid === g.id);
+  hybrid.user = state.users.find(u => hybrid.user === u.id);
 
   return {
     id,
-    hybrid,
+    hybridTags: hybrid.tags,
+    name: hybrid.name,
+    grid: hybrid.grid,
+    url: hybrid.url,
+    user: hybrid.user.name,
     tags,
+    grids: state.grids.filter(g => hybrid.user.id === g.user),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const id = ownProps.match.params.id;
   return {
-    setHybridTags(id, tags) {
+    updateHybrid(id, name, grid, tags) {
+      dispatch(mutations.setHybridName(id, name));
+      dispatch(mutations.setHybridGrid(id, grid));
       dispatch(mutations.setHybridTags(id, tags));
     },
   };

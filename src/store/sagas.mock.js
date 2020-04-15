@@ -5,16 +5,15 @@ import * as mutations from './mutations';
 
 export function* hybridSavingSaga() {
   while (true) {
-    const { hybrid } = yield take(mutations.REQUEST_HYBRID_SAVING);
-    console.log('hybrid : ', hybrid);
+    const { url, tags, grid } = yield take(mutations.REQUEST_HYBRID_CREATING);
     yield put(
-      mutations.saveHybrid(
-        hybrid.id || uuid(),
-        hybrid.name || hybrid.tags.map(t => t.name).join('/'),
-        hybrid.grid,
-        hybrid.tags,
-        'Mag',
-        hybrid.url
+      mutations.createHybrid(
+        uuid(),
+        tags.map(t => t.name).join('/'),
+        url,
+        tags,
+        grid,
+        'U1'
       )
     );
   }

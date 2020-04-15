@@ -35,10 +35,10 @@ export const hybrids = app => {
     res.status(200).json(hybrids);
   });
 
-  const findHybrids = async (author, tags) => {
+  const findHybrids = async (user, tags) => {
     const search = {};
-    if (author) {
-      search.author = author;
+    if (user) {
+      search.user = user;
     }
     if (tags) {
       search.tags = { $all: (tags = tags.split(',')) };
@@ -50,18 +50,18 @@ export const hybrids = app => {
       .toArray();
   };
   app.get('/hybrids/find', async (req, res) => {
-    const { author, tags } = req.query;
-    const hybrids = await findHybrids(author, tags);
+    const { user, tags } = req.query;
+    const hybrids = await findHybrids(user, tags);
     res.status(200).json(hybrids);
   });
 
   const updateHybrid = async hybrid => {
-    const { id, tags, url, author } = hybrid;
+    const { id, tags, url, user } = hybrid;
     const db = await connectDB();
     const collection = db.collection('hybrids');
 
-    if (author) {
-      await collection.updateOne({ id }, { $set: { author } });
+    if (user) {
+      await collection.updateOne({ id }, { $set: { user } });
     }
     if (tags) {
       await collection.updateOne({ id }, { $set: { tags } });

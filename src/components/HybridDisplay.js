@@ -9,7 +9,7 @@ const HybridDisplay = ({ hybrid, tags }) => {
       <Link to={`/hybrid/${hybrid.id}`}>
         <img className="image" src={hybrid.url} />
       </Link>
-      <Level>
+      <Level style={{ flexWrap: 'wrap' }}>
         {tags.map(tag => (
           <Tag key={tags.indexOf(tag)} color="info">
             {tag.name}

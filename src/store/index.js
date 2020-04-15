@@ -19,25 +19,36 @@ export const store = createStore(
       return grids;
     },
     hybrids(hybrids = defaultState.hybrids, action) {
+      console.log(action);
       switch (action.type) {
-        case mutations.SAVE_HYBRID:
-          console.log(action);
-          const existingHybrid = hybrids.find(el => el.id === action.hybridId);
-          if (existingHybrid) {
-            hybrids.splice(hybrids.indexOf(existingHybrid), 1);
-            existingHybrid.url = action.url;
-            return [...hybrids, existingHybrid];
-          }
+        case mutations.CREATE_HYBRID:
           return [
             ...hybrids,
             {
-              id: action.hybridId,
-              author: action.author,
-              grid: action.gridId,
+              id: action.id,
+              name: action.name,
+              grid: action.grid,
               tags: action.tags,
               url: action.url,
+              user: action.user,
             },
           ];
+        case mutations.SET_HYBRID_NAME:
+          return hybrids.map(h => {
+            return h.id === action.id ? { ...h, name: action.name } : h;
+          });
+        case mutations.SET_HYBRID_TAGS:
+          return hybrids.map(h => {
+            return h.id === action.id ? { ...h, tags: action.tags } : h;
+          });
+        case mutations.SET_HYBRID_URL:
+          return hybrids.map(h => {
+            return h.id === action.id ? { ...h, url: action.url } : h;
+          });
+        case mutations.SET_HYBRID_GRID:
+          return hybrids.map(h => {
+            return h.id === action.id ? { ...h, grid: action.grid } : h;
+          });
       }
       return hybrids;
     },

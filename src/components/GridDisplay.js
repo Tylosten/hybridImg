@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ImgCell from './ImgCell';
+import HybridCell from './HybridCell';
 import { TableContainer, Table } from 'react-bulma-components';
 
 const GridDisplay = props => {
-  console.log({ Table });
-
   return (
-    <Table className="is-fullwidth">
+    <Table>
       <thead>
         <tr>
           <th></th>
@@ -22,7 +20,7 @@ const GridDisplay = props => {
             <tr key={props.lineThemes.indexOf(line)}>
               <th>{line.name}</th>
               {props.colThemes.map(col => (
-                <ImgCell
+                <HybridCell
                   key={props.colThemes.indexOf(col)}
                   col={col.id}
                   line={line.id}

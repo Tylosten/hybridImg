@@ -1,20 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App renders correctly 1`] = `
-<div>
-  <h1>
-    TEST
-  </h1>
-  This is a sample stateful and server-side rendered React application.
-  <br />
-  <br />
-  Here is a button that will track how many times you click it:
-  <br />
-  <br />
-  <button
-    onClick={[Function]}
+<nav
+  aria-label="main navigation"
+  className="navbar is-dark"
+  role="navigation"
+>
+  <div
+    className="navbar-brand"
   >
-    0
-  </button>
-</div>
+    <a
+      className="navbar-item"
+      href="/home"
+      onClick={[Function]}
+    >
+      <h1
+        className="title"
+        style={
+          Object {
+            "color": "inherit",
+          }
+        }
+      >
+        Images hybrides
+      </h1>
+    </a>
+  </div>
+  <div
+    className="navbar-menu"
+  >
+    <div
+      className="navbar-start"
+    >
+      <a
+        className="navbar-item"
+        href="/grids"
+        onClick={[Function]}
+      >
+        Les Grilles
+      </a>
+      <a
+        className="navbar-item"
+        href="/images"
+        onClick={[Function]}
+      >
+        Les Images
+      </a>
+    </div>
+  </div>
+</nav>
 `;
