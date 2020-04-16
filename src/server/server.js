@@ -33,7 +33,7 @@ try {
 
 app.get('/', async (req, res) => {
   try {
-    const vars = await serverRenderer();
+    const vars = await serverRenderer(req.url);
     res.render('index', vars);
   } catch (err) {
     console.error(err);
