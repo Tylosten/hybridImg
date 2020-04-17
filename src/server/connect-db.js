@@ -12,6 +12,5 @@ export async function connectDB() {
     useUnifiedTopology: true,
   });
   db = client.db();
-  console.info('Got DB', db);
   return db;
 }
