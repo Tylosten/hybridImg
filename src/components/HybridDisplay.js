@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Level, Tag, Image } from 'react-bulma-components';
 
-const HybridDisplay = ({ hybrid, hideTags }) => {
+export const HybridDisplay = ({ hybrid, hideTags }) => {
   return (
     <Box>
       <Link to={`/hybrid/${hybrid.id}`}>

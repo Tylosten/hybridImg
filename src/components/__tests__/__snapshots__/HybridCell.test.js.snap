@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HybridCell renders correctly 1`] = `
+Array [
+  <td>
+    <button
+      className="is-light button"
+      disabled={true}
+      style={
+        Object {
+          "height": "128px",
+          "width": "128px",
+        }
+      }
+      tabIndex={-1}
+    >
+      <span
+        className="icon fa fa-plus is-auto"
+      >
+        <i
+          className="rbc"
+        />
+      </span>
+    </button>
+  </td>,
+  <td>
+    <button
+      className="is-light button"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "height": "128px",
+          "width": "128px",
+        }
+      }
+      tabIndex={0}
+    >
+      <span
+        className="icon fa fa-plus is-auto"
+      >
+        <i
+          className="rbc"
+        />
+      </span>
+    </button>
+  </td>,
+  <td>
+    <div
+      style={
+        Object {
+          "position": "relative",
+          "width": "128px",
+        }
+      }
+    >
+      <div
+        className="box"
+      >
+        <a
+          href="/hybrid/H1"
+          onClick={[Function]}
+        >
+          <figure
+            className="image"
+          >
+            <img
+              alt=""
+              className=""
+              onError={[Function]}
+              src="./Images/20200409_174234.jpg"
+            />
+          </figure>
+        </a>
+        <div
+          className="level"
+          style={
+            Object {
+              "display": "none",
+              "flexWrap": "wrap",
+            }
+          }
+        >
+          <span
+            className="tag is-info"
+          >
+            T1
+          </span>
+          <span
+            className="tag is-info"
+          >
+            T2
+          </span>
+        </div>
+      </div>
+      <span
+        className="delete is-small"
+        onClick={[Function]}
+        style={
+          Object {
+            "dislay": "none",
+            "position": "absolute",
+            "right": "4px",
+            "top": "4px",
+          }
+        }
+      />
+    </div>
+  </td>,
+  <td>
+    <div
+      style={
+        Object {
+          "position": "relative",
+          "width": "128px",
+        }
+      }
+    >
+      <div
+        className="box"
+      >
+        <a
+          href="/hybrid/H1"
+          onClick={[Function]}
+        >
+          <figure
+            className="image"
+          >
+            <img
+              alt=""
+              className=""
+              onError={[Function]}
+              src="./Images/20200409_174234.jpg"
+            />
+          </figure>
+        </a>
+        <div
+          className="level"
+          style={
+            Object {
+              "display": "none",
+              "flexWrap": "wrap",
+            }
+          }
+        >
+          <span
+            className="tag is-info"
+          >
+            T1
+          </span>
+          <span
+            className="tag is-info"
+          >
+            T2
+          </span>
+        </div>
+      </div>
+      <span
+        className="delete is-small"
+        onClick={[Function]}
+        style={
+          Object {
+            "dislay": "default",
+            "position": "absolute",
+            "right": "4px",
+            "top": "4px",
+          }
+        }
+      />
+    </div>
+  </td>,
+]
+`;

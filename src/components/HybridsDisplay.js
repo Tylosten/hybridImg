@@ -4,7 +4,7 @@ import { Tile } from 'react-bulma-components';
 import HybridDisplay from './HybridDisplay';
 import StoreProvider from './StoreProvider';
 
-const HybridsDisplay = ({ hybrids }) => {
+export const HybridsDisplay = ({ hybrids }) => {
   const hybridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
 
   return (

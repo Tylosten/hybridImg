@@ -4,7 +4,7 @@ import { Tile, Image, Form, Button, Tag } from 'react-bulma-components';
 
 import StoreProvider from './StoreProvider';
 
-const HybridDetails = props => {
+export const HybridDetails = props => {
   const { grids, saveHybrid } = props;
   const [hybrid, setHybrid] = useState(props.hybrid);
   const [tags, setTags] = useState(props.tags);

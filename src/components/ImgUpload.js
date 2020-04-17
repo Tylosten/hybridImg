@@ -1,7 +1,7 @@
 import React from 'react';
 import { File } from 'react-bulma-components';
 
-const ImgUpload = props => {
+export const ImgUpload = props => {
   return (
     <>
       <File size="small" color="light">

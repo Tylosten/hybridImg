@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HybridsDisplay renders correctly 1`] = `
+<Fragment>
+  <br />
+  <Tile
+    className="is-ancestor"
+    notification={false}
+    renderAs="div"
+    vertical={false}
+  >
+    <Tile
+      notification={false}
+      renderAs="div"
+      style={
+        Object {
+          "flexWrap": "wrap",
+        }
+      }
+      vertical={false}
+    >
+      <Tile
+        className="is-parent is-3"
+        key="H1"
+        notification={false}
+        renderAs="div"
+        vertical={false}
+      >
+        <Tile
+          className="is-child"
+          notification={false}
+          renderAs="div"
+          vertical={false}
+        >
+          <HybridDisplay
+            hybrid={
+              Object {
+                "id": "H1",
+              }
+            }
+          />
+        </Tile>
+      </Tile>
+      <Tile
+        className="is-parent is-3"
+        key="H2"
+        notification={false}
+        renderAs="div"
+        vertical={false}
+      >
+        <Tile
+          className="is-child"
+          notification={false}
+          renderAs="div"
+          vertical={false}
+        >
+          <HybridDisplay
+            hybrid={
+              Object {
+                "id": "H2",
+              }
+            }
+          />
+        </Tile>
+      </Tile>
+    </Tile>
+  </Tile>
+</Fragment>
+`;

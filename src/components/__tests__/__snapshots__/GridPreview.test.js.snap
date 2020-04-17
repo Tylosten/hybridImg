@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridPreview renders correctly 1`] = `
+<a
+  href="/grid/G1"
+  onClick={[Function]}
+>
+  <div
+    className="box"
+  >
+    <h1
+      className="title is-4"
+    >
+      La grille de Mag
+    </h1>
+    <div
+      style={
+        Object {
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+            "marginRight": "10px",
+          }
+        }
+      >
+        <figure
+          className="image is-48x48"
+        >
+          <img
+            alt=""
+            className=""
+            onError={[Function]}
+            src="./Images/20200409_174234.jpg"
+          />
+        </figure>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+            "marginRight": "10px",
+          }
+        }
+      >
+        <figure
+          className="image is-48x48"
+        >
+          <img
+            alt=""
+            className=""
+            onError={[Function]}
+            src="./Images/20200411_112906.jpg"
+          />
+        </figure>
+      </div>
+    </div>
+  </div>
+</a>
+`;

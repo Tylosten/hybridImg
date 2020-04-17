@@ -4,7 +4,7 @@ import { Box, Image, Heading } from 'react-bulma-components';
 
 import StoreProvider from './StoreProvider';
 
-const GridPreview = ({ grid, hybrids }) => {
+export const GridPreview = ({ grid, hybrids }) => {
   return (
     <Link to={`/grid/${grid.id}`}>
       <Box>

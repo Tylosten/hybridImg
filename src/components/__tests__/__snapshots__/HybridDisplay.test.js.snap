@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HybridDisplay renders correctly 1`] = `
+Array [
+  <div
+    className="box"
+  >
+    <a
+      href="/hybrid/H1"
+      onClick={[Function]}
+    >
+      <figure
+        className="image"
+      >
+        <img
+          alt=""
+          className=""
+          onError={[Function]}
+          src="./Images/20200409_174234.jpg"
+        />
+      </figure>
+    </a>
+    <div
+      className="level"
+      style={
+        Object {
+          "display": "default",
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      <span
+        className="tag is-info"
+      >
+        Sucette
+      </span>
+      <span
+        className="tag is-info"
+      >
+        Arc-en-ciel
+      </span>
+    </div>
+  </div>,
+  <div
+    className="box"
+  >
+    <a
+      href="/hybrid/H1"
+      onClick={[Function]}
+    >
+      <figure
+        className="image"
+      >
+        <img
+          alt=""
+          className=""
+          onError={[Function]}
+          src="./Images/20200409_174234.jpg"
+        />
+      </figure>
+    </a>
+    <div
+      className="level"
+      style={
+        Object {
+          "display": "default",
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      <span
+        className="tag is-info"
+      >
+        Sucette
+      </span>
+      <span
+        className="tag is-info"
+      >
+        Arc-en-ciel
+      </span>
+    </div>
+  </div>,
+]
+`;

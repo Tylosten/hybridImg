@@ -4,7 +4,7 @@ import { Tile } from 'react-bulma-components';
 import StoreProvider from './StoreProvider';
 import GridPreview from './GridPreview';
 
-const GridsDisplay = ({ grids }) => {
+export const GridsDisplay = ({ grids }) => {
   const gridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
   return (
     <>

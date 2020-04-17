@@ -4,7 +4,7 @@ import { Table } from 'react-bulma-components';
 import HybridCell from './HybridCell';
 import StoreProvider from './StoreProvider';
 
-const GridDisplay = ({ grid, edit }) => {
+export const GridDisplay = ({ grid, edit }) => {
   return (
     <Table>
       <thead>

@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HybridDetails renders correctly 1`] = `
+<div
+  className="tile is-ancestor"
+>
+  <div
+    className="tile is-parent"
+  >
+    <div
+      className="tile is-parent is-4"
+    >
+      <div
+        className="tile is-child"
+      >
+        <figure
+          className="image"
+        >
+          <img
+            alt="Image Spaghetti/Cataclysme"
+            className=""
+            onError={[Function]}
+            src="./Images/20200409_174234.jpg"
+          />
+        </figure>
+      </div>
+    </div>
+    <div
+      className="tile is-child"
+      style={
+        Object {
+          "padding": "10px",
+        }
+      }
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="control"
+        >
+          <input
+            className="input"
+            disabled={false}
+            onChange={[Function]}
+            placeholder="Nom de l'image"
+            readOnly={false}
+            type="text"
+            value="Spaghetti/Cataclysme"
+          />
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <label
+          className="label"
+        >
+          Auteurice
+        </label>
+        <div
+          className="control"
+        >
+          <input
+            className="input"
+            disabled={true}
+            placeholder=""
+            readOnly={false}
+            type="text"
+            value="U1"
+          />
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <label
+          className="label"
+        >
+          Grille
+        </label>
+        <div
+          className="control"
+        >
+          <div
+            className="select is-rounded"
+          >
+            <select
+              disabled={false}
+              multiple={false}
+              onChange={[Function]}
+              readOnly={false}
+              value="G1"
+            >
+              <option>
+                ...
+              </option>
+              <option
+                value="G1"
+              >
+                La grille de Mag
+              </option>
+              <option
+                value="G2"
+              >
+                La grille de Matt
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <div
+          className="control"
+        >
+          <label
+            className="label"
+          >
+            Tags
+          </label>
+          <div
+            className="select is-rounded"
+          >
+            <select
+              disabled={false}
+              multiple={false}
+              onChange={[Function]}
+              readOnly={false}
+              value=""
+            >
+              <option>
+                ...
+              </option>
+              <option
+                value="T3"
+              >
+                Pingouin
+              </option>
+              <option
+                value="T4"
+              >
+                Mammouth
+              </option>
+              <option
+                value="T5"
+              >
+                Espace
+              </option>
+              <option
+                value="T6"
+              >
+                Spaghetti
+              </option>
+              <option
+                value="T7"
+              >
+                Papier toilette
+              </option>
+              <option
+                value="T8"
+              >
+                Cataclysme
+              </option>
+              <option
+                value="T9"
+              >
+                Cookie
+              </option>
+              <option
+                value="T10"
+              >
+                Chaussette
+              </option>
+              <option
+                value="T11"
+              >
+                Abeille
+              </option>
+              <option
+                value="T12"
+              >
+                Rococo
+              </option>
+            </select>
+          </div>
+          <span>
+            <span
+              className="tag is-info"
+              style={
+                Object {
+                  "margin": "5px",
+                }
+              }
+            >
+              Sucette
+              <button
+                className="delete is-small"
+                onClick={[Function]}
+              />
+            </span>
+            <span
+              className="tag is-info"
+              style={
+                Object {
+                  "margin": "5px",
+                }
+              }
+            >
+              Arc-en-ciel
+              <button
+                className="delete is-small"
+                onClick={[Function]}
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <div
+          className="control"
+        >
+          <a
+            href="/hybrids"
+            onClick={[Function]}
+          >
+            <button
+              className="is-primary button"
+              disabled={false}
+              onClick={[Function]}
+              tabIndex={0}
+            >
+              Enregister
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

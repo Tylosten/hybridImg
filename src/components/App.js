@@ -12,7 +12,7 @@ export const App = props => {
   return (
     <StoreContext.Provider value={props.store}>
       <Navigation />
-      <Route exact path="/home" render={() => <div>home</div>}></Route>
+      <Route exact path="/home" render={() => <div></div>}></Route>
       <Route exact path="/grids" render={() => <GridsDiplay />}></Route>
       <Route
         exact
