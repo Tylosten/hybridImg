@@ -13,6 +13,7 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
       return {
         ...hybrid,
         tags: hybrid.tags.map(id => store.tags[id]),
+        user: store.users[hybrid.user],
       };
     };
 
@@ -34,12 +35,7 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
         h =>
           h.grid == grid && h.tags.includes(line.id) && h.tags.includes(col.id)
       );
-      return hybrid
-        ? {
-          ...hybrid,
-          tags: hybrid.tags.map(id => store.tags[id]),
-        }
-        : undefined;
+      return hybrid ? getHybrid(hybrid.id) : undefined;
     };
 
     const getGridHybrids = grid => {

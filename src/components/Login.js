@@ -60,11 +60,13 @@ const Login = ({ dispatchToStore }) => {
             </Field>
             <Field>
               <Control>
-                <Button color="primary" onClick={onSubmit}>
-                  <Link to="/home" style={{ color: 'inherit' }}>
-                    Se connecter
-                  </Link>
-                </Button>
+                <Link
+                  className="button is-primary"
+                  to="/home"
+                  onClick={onSubmit}
+                >
+                  Se connecter
+                </Link>
               </Control>
             </Field>
           </form>

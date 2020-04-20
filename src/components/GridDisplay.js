@@ -36,8 +36,10 @@ export const GridDisplay = ({ grid, edit }) => {
 };
 
 function extraProps(store, props) {
+  const grid = store.getGrid(props.match.params.id);
   return {
-    grid: store.getGrid(props.match.params.id),
+    grid,
+    edit: store.session.authenticated && store.session.user.id === grid.user,
   };
 }
 

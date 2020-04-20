@@ -26,6 +26,16 @@ export const StoreMiddleware = dispatch => {
             dispatch({ ...action, session });
           });
       }
+      case actionTypes.LOGOUT: {
+        return axios
+          .get('/logout')
+          .catch(err => {
+            console.info(err);
+          })
+          .finally(() => {
+            dispatch(action);
+          });
+      }
       case actionTypes.CREATE_HYBRID: {
         return axios
           .post('/hybrid/new', {
@@ -61,6 +71,9 @@ export const StoreReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN: {
       return { ...state, session: action.session };
+    }
+    case actionTypes.LOGOUT: {
+      return { ...state, session: { authenticated: false } };
     }
     case actionTypes.CREATE_HYBRID: {
       const newHybrids = { ...state.hybrids };

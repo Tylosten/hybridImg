@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Icon } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
 import {
@@ -64,7 +64,7 @@ export const HybridCell = ({
           style={{ width: `${imgSize}px`, height: `${imgSize}px` }}
           disabled={!edit}
         >
-          <Icon size="auto" className="fa fa-plus" />
+          <Icon size="auto" className="fa fa-image" />
         </Button>
       )}
     </td>

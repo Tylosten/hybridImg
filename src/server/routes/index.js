@@ -52,7 +52,7 @@ router.post('/register', async (req, res) => {
  */
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 const getCollectionArray = async name => {

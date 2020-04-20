@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Heading, Icon } from 'react-bulma-components';
+import { Navbar, Heading, Icon, Button } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
+import { logout } from '../store/StoreActions';
 
-export const Navigation = ({ store }) => {
+export const Navigation = ({ store, dispatchToStore }) => {
+  const onLogOut = () => {
+    dispatchToStore(logout());
+  };
   return (
     <>
       <Navbar color="dark" role="navigation" aria-label="main navigation">
@@ -35,7 +39,7 @@ export const Navigation = ({ store }) => {
             ) : (
               <>
                 <Navbar.Item>{store.session.user.name}</Navbar.Item>
-                <Link to="/logout" className="navbar-item">
+                <Link to="/login" onClick={onLogOut} className="navbar-item">
                   <Icon className="fa fa-sign-out-alt" />
                 </Link>
               </>

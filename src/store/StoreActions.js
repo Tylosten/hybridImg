@@ -1,5 +1,6 @@
 export const actionTypes = {
   LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
   REQUEST_CREATE_HYBRID: 'REQUEST_CREATE_HYBRID',
   CREATE_HYBRID: 'CREATE_HYBRID',
   UPDATE_HYBRID: 'UPDATE_HYBRID',
@@ -10,6 +11,10 @@ export const login = (username, password) => ({
   type: actionTypes.LOGIN,
   username,
   password,
+});
+
+export const logout = () => ({
+  type: actionTypes.LOGOUT,
 });
 
 export const requestCreateHybrid = ({ name, url, tags, grid }) => ({
