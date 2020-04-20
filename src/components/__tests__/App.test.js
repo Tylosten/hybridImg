@@ -3,18 +3,16 @@ import { StaticRouter } from 'react-router-dom';
 
 import { App } from '../App';
 
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 describe('App', () => {
   it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <StaticRouter>
-          <App initialData={{ appName: 'TEST' }} />
-        </StaticRouter>
-      )
-      .toJSON();
+    const wrapper = shallow(
+      <StaticRouter>
+        <App initialData={{ appName: 'TEST' }} />
+      </StaticRouter>
+    );
 
-    expect(tree).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

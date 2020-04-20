@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Route } from 'react-router-dom';
 
-import StoreContext from './StoreContext';
+import {
+  StoreContext,
+  StoreReducer,
+  StoreMiddleware,
+} from '../store/StoreReducer';
 import GridDisplay from './GridDisplay';
 import GridsDiplay from './GridsDisplay';
 import HybridsDisplay from './HybridsDisplay';
@@ -9,22 +13,18 @@ import Navigation from './Navigation';
 import HybridDetails from './HybridDetails';
 
 export const App = props => {
+  const [store, dispatchToStore] = useReducer(StoreReducer, props.store);
+
   return (
-    <StoreContext.Provider value={props.store}>
+    <StoreContext.Provider value={[store, StoreMiddleware(dispatchToStore)]}>
       <Navigation />
-      <Route exact path="/home" render={() => <div></div>}></Route>
-      <Route exact path="/grids" render={() => <GridsDiplay />}></Route>
-      <Route
-        exact
-        path="/grid/:id"
-        render={({ match }) => <GridDisplay match={match} edit={true} />}
-      ></Route>
-      <Route exact path="/hybrids" render={() => <HybridsDisplay />}></Route>
-      <Route
-        exact
-        path="/hybrid/:id"
-        render={({ match }) => <HybridDetails match={match} />}
-      ></Route>
+      <Route exact path="/home">
+        <></>
+      </Route>
+      <Route exact path="/grids" component={GridsDiplay}></Route>
+      <Route exact path="/grid/:id" component={GridDisplay}></Route>
+      <Route exact path="/hybrids" component={HybridsDisplay}></Route>
+      <Route exact path="/hybrid/:id" component={HybridDetails}></Route>
     </StoreContext.Provider>
   );
 };

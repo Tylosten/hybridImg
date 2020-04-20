@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Image, Heading } from 'react-bulma-components';
 
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
 
 export const GridPreview = ({ grid, hybrids }) => {
   return (

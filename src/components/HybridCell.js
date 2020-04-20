@@ -1,46 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Icon } from 'react-bulma-components';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
+import {
+  createHybrid,
+  updateHybrid,
+  deleteHybrid,
+} from '../store/StoreActions';
 import HybridDisplay from './HybridDisplay';
 
-export const HybridCell = props => {
-  const {
-    edit,
-    grid,
-    line,
-    col,
-    addHybrid,
-    deleteHybrid,
-    saveHybrid,
-    store,
-  } = props;
-  const [hybrid, setHybrid] = useState(props.hybrid);
-
-  const onStoreChange = () => {
-    setHybrid(store.getGridHybrid(props));
-  };
-
-  useEffect(() => {
-    const subscription = store.subscribe(onStoreChange);
-    return () => {
-      store.unsubscribe(subscription);
-    };
-  }, []);
-
-  const onHybridUpload = () => {
+export const HybridCell = ({
+  edit,
+  grid,
+  line,
+  col,
+  dispatchToStore,
+  hybrid,
+}) => {
+  const onHybridUpload = async () => {
     const newUrl = './Images/20200412_003859.jpg';
 
     if (!hybrid) {
-      addHybrid({
-        url: newUrl,
-        name: `${line.name}/${col.name}`,
-        tags: [line.id, col.id],
-        grid: grid,
-      });
+      await dispatchToStore(
+        createHybrid({
+          url: newUrl,
+          name: `${line.name}/${col.name}`,
+          tags: [line.id, col.id],
+          grid: grid,
+        })
+      );
     } else {
       hybrid.url = newUrl;
-      setHybrid(hybrid);
-      saveHybrid(hybrid);
+      await dispatchToStore(updateHybrid(hybrid));
     }
   };
 
@@ -51,18 +41,21 @@ export const HybridCell = props => {
       {hybrid ? (
         <div style={{ position: 'relative', width: `${imgSize}px` }}>
           <HybridDisplay hybrid={hybrid} hideTags />
-          <span
-            className="delete is-small"
-            style={{
-              position: 'absolute',
-              top: '4px',
-              right: '4px',
-              dislay: edit ? 'default' : 'none',
-            }}
-            onClick={() => {
-              deleteHybrid(hybrid.id);
-            }}
-          ></span>
+          {edit ? (
+            <span
+              className="delete is-small"
+              style={{
+                position: 'absolute',
+                top: '4px',
+                right: '4px',
+              }}
+              onClick={() => {
+                dispatchToStore(deleteHybrid(hybrid.id));
+              }}
+            ></span>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <Button
@@ -81,8 +74,6 @@ export const HybridCell = props => {
 function extraProps(store, props) {
   return {
     hybrid: store.getGridHybrid(props),
-    addHybrid: store.addHybrid,
-    deleteHybrid: store.deleteHybrid,
   };
 }
 

@@ -1,11 +1,11 @@
-import StateApi from '../state-api';
 import defaultState from '../server/defaultState';
+import StateApi from '../store';
 
-const store = new StateApi({ data: defaultState });
+const store = new StateApi(defaultState);
 
 describe('StateApi', () => {
   it('exposes hybrid images as an object', () => {
-    const hybrids = store.getState().hybrids;
+    const hybrids = store.hybrids;
     const hybrid0 = defaultState.hybrids[0];
 
     expect(hybrids).toHaveProperty(hybrid0.id);

@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import config from 'server/config';
-import StateApi from 'state-api';
+import StateApi from 'store';
 import { App } from 'components/App';
 
 export async function serverRenderer(url) {

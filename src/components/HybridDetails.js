@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tile, Image, Form, Button, Tag } from 'react-bulma-components';
 
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
+import { updateHybrid } from '../store/StoreActions';
 
 export const HybridDetails = props => {
-  const { grids, saveHybrid } = props;
+  const { grids, dispatchToStore } = props;
   const [hybrid, setHybrid] = useState(props.hybrid);
   const [tags, setTags] = useState(props.tags);
 
@@ -27,7 +28,9 @@ export const HybridDetails = props => {
   };
 
   const onSave = () => {
-    saveHybrid({ ...hybrid, tags: hybrid.tags.map(t => t.id) });
+    dispatchToStore(
+      updateHybrid({ ...hybrid, tags: hybrid.tags.map(t => t.id) })
+    );
   };
 
   return (
@@ -117,10 +120,10 @@ function extraProps(store, props) {
   const hybrid = store.getHybrid(id);
   return {
     hybrid,
-    tags: Object.values(store.getState().tags).filter(
+    tags: Object.values(store.tags).filter(
       t => !hybrid.tags.map(hybridTag => hybridTag.id).includes(t.id)
     ),
-    grids: store.getState().grids,
+    grids: store.grids,
     saveHybrid: store.saveHybrid,
   };
 }

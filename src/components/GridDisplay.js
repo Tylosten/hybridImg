@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'react-bulma-components';
 
 import HybridCell from './HybridCell';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
 
 export const GridDisplay = ({ grid, edit }) => {
   return (

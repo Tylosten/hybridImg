@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from 'components/App';
-import StateApi from 'state-api';
+import StateApi from 'store';
 
 import '../styles/index.scss';
 

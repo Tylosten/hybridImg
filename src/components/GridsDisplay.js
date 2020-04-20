@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tile } from 'react-bulma-components';
 
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
 import GridPreview from './GridPreview';
 
 export const GridsDisplay = ({ grids }) => {
@@ -29,7 +29,7 @@ export const GridsDisplay = ({ grids }) => {
 
 function extraProps(store) {
   return {
-    grids: store.getState().grids,
+    grids: store.grids,
   };
 }
 

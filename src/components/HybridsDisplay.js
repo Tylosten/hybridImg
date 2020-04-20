@@ -2,7 +2,7 @@ import React from 'react';
 import { Tile } from 'react-bulma-components';
 
 import HybridDisplay from './HybridDisplay';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
 
 export const HybridsDisplay = props => {
   const hybridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
@@ -39,7 +39,7 @@ export const HybridsDisplay = props => {
 
 function extraProps(store) {
   return {
-    hybrids: Object.values(store.getState().hybrids).map(h => ({
+    hybrids: Object.values(store.hybrids).map(h => ({
       ...h,
       tags: store.getHybridTags(h.id),
     })),
