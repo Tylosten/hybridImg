@@ -1,13 +1,13 @@
 import { MongoClient } from 'mongodb';
+import config from '../config';
 
-const url = 'mongodb://localhost:27017/hybridImgDb';
 let db = null;
 
 export async function connectDB() {
   if (db) {
     return db;
   }
-  const client = await MongoClient.connect(url, {
+  const client = await MongoClient.connect(config.dbString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

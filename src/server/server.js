@@ -2,28 +2,36 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 import morgan from 'morgan';
 import serialize from 'serialize-javascript';
+import cors from 'cors';
+import passport from 'passport';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
+const MongoStore = connectMongo(session);
 
-import { connectDB } from './connect-db';
+import routes from 'server/routes';
 import config from 'server/config';
-import { serverRenderer } from 'renderers/server';
-import { hybrids } from './hybrids';
-import defaultState from './defaultState';
+import 'server/dev/initialize-db';
+import 'server/config/passport';
 
+/**
+ * -------------- GENERAL SETUP ----------------
+ */
 const app = express();
 app.enable('trust proxy');
 app.use(morgan('common'));
 app.use(express.static('public'));
-
-app.use(cors());
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-hybrids(app);
+app.use(
+  cors({
+    origin: `http://${config.host}:${config.port}`,
+    credentials: true,
+  })
+);
 
 app.locals.serialize = serialize;
 
@@ -33,33 +41,45 @@ try {
   app.locals.gVars = {};
 }
 
-app.get(
-  ['/', '/home', '/hybrids', '/grids', '/hybrid/*', '/grid/*'],
-  async (req, res) => {
-    try {
-      const vars = await serverRenderer(req.url);
-      res.render('index', vars);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error');
-    }
-  }
+/**
+ * -------------- SESSION SETUP ----------------
+ */
+const sessionStore = new MongoStore({
+  url: config.dbString,
+  collection: 'sessions',
+});
+
+app.use(
+  session({
+    secret: config.secret,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    mongoOptions: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
 );
 
-const getCollectionArray = async name => {
-  const db = await connectDB();
-  return db
-    .collection(name)
-    .find()
-    .toArray();
-};
-app.get('/data', async (req, res) => {
-  const hybrids = await getCollectionArray('hybrids');
-  const tags = await getCollectionArray('tags');
-  const users = await getCollectionArray('users');
-  const grids = await getCollectionArray('grids');
-  res.status(200).json({ hybrids, tags, users, grids });
-});
+/**
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+/**
+ * -------------- ROUTES ----------------
+ */
+app.use(routes);
+
+/**
+ * -------------- SERVER ----------------
+ */
 
 app.listen(config.port, config.host, () => {
   fs.writeFileSync(

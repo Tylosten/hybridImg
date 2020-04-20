@@ -1,4 +1,5 @@
-import { connectDB } from './connect-db';
+import { connectDB } from '../config/database';
+import { v4 as uuid } from 'uuid';
 
 export const hybrids = app => {
   const addNewHybrid = async hybrid => {
@@ -8,7 +9,7 @@ export const hybrids = app => {
     return hybrid;
   };
   app.post('/hybrid/new', async (req, res) => {
-    const newHybrid = await addNewHybrid(req.body);
+    const newHybrid = await addNewHybrid({ id: uuid(), ...req.body });
     res.status(200).json(newHybrid);
   });
 

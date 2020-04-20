@@ -1,21 +1,18 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import axios from 'axios';
 
-import config from 'server/config';
 import StateApi from 'store';
 import { App } from 'components/App';
 
-export async function serverRenderer(url) {
-  const resp = await axios.get(`http://${config.host}:${config.port}/data`);
+export async function serverRenderer(url, data) {
   const store = new StateApi({
-    data: resp.data,
+    ...data,
   });
 
   const initialData = {
     appName: 'Images hybrides',
-    data: resp.data,
+    ...data,
   };
 
   const pageData = {

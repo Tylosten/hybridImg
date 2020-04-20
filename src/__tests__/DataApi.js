@@ -1,5 +1,5 @@
-import defaultState from '../server/defaultState';
 import StateApi from '../store';
+import defaultState from '../server/dev/defaultState';
 
 const store = new StateApi(defaultState);
 

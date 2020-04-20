@@ -20,14 +20,60 @@ exports[`HybridsDisplay renders correctly 1`] = `
         notification={false}
         renderAs="div"
         vertical={false}
-      />
+      >
+        <Tile
+          className="is-parent"
+          key="H1"
+          notification={false}
+          renderAs="div"
+          vertical={false}
+        >
+          <Tile
+            className="is-child"
+            notification={false}
+            renderAs="div"
+            vertical={false}
+          >
+            <HybridDisplay
+              hybrid={
+                Object {
+                  "id": "H1",
+                }
+              }
+            />
+          </Tile>
+        </Tile>
+      </Tile>
       <Tile
         className="is-vertical"
         key="1"
         notification={false}
         renderAs="div"
         vertical={false}
-      />
+      >
+        <Tile
+          className="is-parent"
+          key="H2"
+          notification={false}
+          renderAs="div"
+          vertical={false}
+        >
+          <Tile
+            className="is-child"
+            notification={false}
+            renderAs="div"
+            vertical={false}
+          >
+            <HybridDisplay
+              hybrid={
+                Object {
+                  "id": "H2",
+                }
+              }
+            />
+          </Tile>
+        </Tile>
+      </Tile>
       <Tile
         className="is-vertical"
         key="2"

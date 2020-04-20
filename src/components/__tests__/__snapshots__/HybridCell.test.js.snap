@@ -93,18 +93,6 @@ Array [
           </span>
         </div>
       </div>
-      <span
-        className="delete is-small"
-        onClick={[Function]}
-        style={
-          Object {
-            "dislay": "none",
-            "position": "absolute",
-            "right": "4px",
-            "top": "4px",
-          }
-        }
-      />
     </div>
   </td>,
   <td>
@@ -160,7 +148,6 @@ Array [
         onClick={[Function]}
         style={
           Object {
-            "dislay": "default",
             "position": "absolute",
             "right": "4px",
             "top": "4px",

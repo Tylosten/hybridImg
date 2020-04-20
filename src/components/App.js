@@ -6,6 +6,8 @@ import {
   StoreReducer,
   StoreMiddleware,
 } from '../store/StoreReducer';
+
+import Login from './Login';
 import GridDisplay from './GridDisplay';
 import GridsDiplay from './GridsDisplay';
 import HybridsDisplay from './HybridsDisplay';
@@ -18,6 +20,7 @@ export const App = props => {
   return (
     <StoreContext.Provider value={[store, StoreMiddleware(dispatchToStore)]}>
       <Navigation />
+      <Route exact path="/login" component={Login}></Route>
       <Route exact path="/home">
         <></>
       </Route>

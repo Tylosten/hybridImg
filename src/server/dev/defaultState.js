@@ -1,12 +1,16 @@
+import { genPassword } from '../lib/passwordUtils';
+
 const defaultState = {
   users: [
     {
       id: 'U1',
       name: 'Mag',
+      ...genPassword('ILoveCat'),
     },
     {
       id: 'U2',
       name: 'Matt',
+      ...genPassword('ILoveDog'),
     },
   ],
   tags: [
