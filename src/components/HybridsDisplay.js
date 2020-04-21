@@ -4,15 +4,26 @@ import { Tile } from 'react-bulma-components';
 import HybridDisplay from './HybridDisplay';
 import StoreProvider from '../store/StoreProvider';
 
-export const HybridsDisplay = props => {
-  const hybridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
+export const HybridsDisplay = ({ hybrids, filter }) => {
+  filter = { nbByLine: 4, ...filter };
+
+  const filterHybrids = hybrids.filter(h => {
+    return (
+      (!filter.user || filter.user === h.user) &&
+      (!filter.grid || filter.grid === h.grid) &&
+      (!filter.tags || filter.tags.every(t => h.tags.includes(t))) &&
+      (!filter.name ||
+        h.name.toLowerCase().match(`/.*${filter.name.toLowerCase()}.*/`))
+    );
+  });
+
   const maxHybridByCol = Math.max(
     1,
-    Math.floor(props.hybrids.length / hybridByLine)
+    Math.floor(hybrids.length / filter.nbByLine)
   );
   let gridHybrids = [];
-  for (let i = 0; i < hybridByLine; i++) {
-    gridHybrids = [...gridHybrids, props.hybrids.splice(0, maxHybridByCol)];
+  for (let i = 0; i < filter.nbByLine; i++) {
+    gridHybrids = [...gridHybrids, filterHybrids.splice(0, maxHybridByCol)];
   }
 
   return (

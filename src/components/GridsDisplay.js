@@ -4,17 +4,30 @@ import { Tile } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
 import GridPreview from './GridPreview';
 
-export const GridsDisplay = ({ grids }) => {
-  const gridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
+export const GridsDisplay = ({ grids, filter }) => {
+  filter = { nbByLine: 4, ...filter };
+
+  const filterGrids = grids.filter(g => {
+    return (
+      (!filter.user || filter.user === g.user) &&
+      (!filter.tags ||
+        filter.tags.every(
+          t => g.lineThemes.includes(t) || g.lineThemes.includes(t)
+        )) &&
+      (!filter.name ||
+        g.name.toLowerCase().match(`/.*${filter.name.toLowerCase()}.*/`))
+    );
+  });
+
   return (
     <>
       <br />
       <Tile className="is-ancestor">
         <Tile style={{ flexWrap: 'wrap' }}>
-          {Object.values(grids).map(grid => (
+          {filterGrids.map(grid => (
             <div
               key={grid.id}
-              className={`tile is-parent is-${12 / gridByLine}`}
+              className={`tile is-parent is-${12 / filter.nbByLine}`}
             >
               <Tile className="is-child">
                 <GridPreview id={grid.id} />
@@ -29,7 +42,7 @@ export const GridsDisplay = ({ grids }) => {
 
 function extraProps(store) {
   return {
-    grids: store.grids,
+    grids: Object.values(store.grids),
   };
 }
 
