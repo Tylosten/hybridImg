@@ -18,7 +18,8 @@
     "prod-logs": "pm2 logs --update-env hybridImgProd",
     "test-connect": "babel-node src/server/connect-db",
     "initialize": "babel-node src/server/initialize-db",
-    "start-db": "mongod --dbpath=\"./data\""
+    "start-db": "mongod --dbpath=\"./data\"",
+    "init-default-state": "babel-node src/server/dev/create-default-state"
   },
   "jest": {
     "modulePaths": [

@@ -6,3 +6,4 @@ data/
 .reactful.json
 .env
 .vscode/
+src/server/dev/create-default-state.js
