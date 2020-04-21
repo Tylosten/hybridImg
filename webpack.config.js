@@ -7,9 +7,6 @@ const isDev = process.env.NODE_ENV !== 'production';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
-  node: {
-    fs: 'empty',
-  },
   resolve: {
     modules: [path.resolve('./src'), path.resolve('./node_modules')],
   },
@@ -27,13 +24,6 @@ const config = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.sass$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'sass-loader',
         },
       },
       {

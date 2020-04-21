@@ -1,8 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HybridsDisplay renders correctly 1`] = `
-<Fragment>
-  <br />
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "position": "absolute",
+        "right": "20px",
+      }
+    }
+  >
+    <input
+      className="slider is-small is-primary"
+      max="5"
+      min="0"
+      onChange={[Function]}
+      step="1"
+      type="range"
+      value={2}
+    />
+  </div>
   <Tile
     className="is-ancestor"
     notification={false}
@@ -90,5 +113,5 @@ exports[`HybridsDisplay renders correctly 1`] = `
       />
     </Tile>
   </Tile>
-</Fragment>
+</div>
 `;

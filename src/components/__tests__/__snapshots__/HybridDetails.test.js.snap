@@ -130,6 +130,10 @@ exports[`HybridDetails renders correctly 1`] = `
               }
             >
               Sucette
+              <button
+                className="delete is-small"
+                onClick={[Function]}
+              />
             </span>
             <span
               className="tag is-info"
@@ -140,6 +144,10 @@ exports[`HybridDetails renders correctly 1`] = `
               }
             >
               Arc-en-ciel
+              <button
+                className="delete is-small"
+                onClick={[Function]}
+              />
             </span>
           </span>
         </div>

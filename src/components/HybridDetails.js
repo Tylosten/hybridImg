@@ -5,7 +5,6 @@ import {
   Image,
   Form,
   Button,
-  Tag,
   Icon,
   Notification,
   Heading,
@@ -14,29 +13,12 @@ const { Field, Control, Input, Label, Select } = Form;
 
 import StoreProvider from '../store/StoreProvider';
 import { updateHybrid, deleteHybrid } from '../store/StoreActions';
+import SelectMultiple from './SelectMultiple';
 
 export const HybridDetails = props => {
-  const { grids, edit, dispatchToStore } = props;
+  const { tags, grids, edit, dispatchToStore } = props;
   const [hybrid, setHybrid] = useState(props.hybrid);
-  const [tags, setTags] = useState(props.tags);
   const [alertDelete, setAlertDelete] = useState(false);
-
-  const onTagSelect = e => {
-    const tagId = e.target.value;
-    if (tagId) {
-      const tag = tags.find(t => t.id === tagId);
-      setHybrid({ ...hybrid, tags: [...hybrid.tags, tag] });
-      setTags(tags.filter(t => t.id !== tagId));
-    }
-  };
-
-  const deleteTag = tag => {
-    const newHybridTags = hybrid.tags.filter(t => t.id !== tag.id);
-    setHybrid({ ...hybrid, tags: newHybridTags });
-    const newTags = [...tags, tag];
-    newTags.sort((a, b) => a.name > b.name);
-    setTags(newTags);
-  };
 
   const onSave = () => {
     dispatchToStore(
@@ -46,7 +28,6 @@ export const HybridDetails = props => {
 
   const onCancel = () => {
     setHybrid(props.hybrid);
-    setTags(props.tags);
   };
 
   const onDelete = async () => {
@@ -150,34 +131,14 @@ export const HybridDetails = props => {
             <Field>
               <Control>
                 <Label>Tags</Label>
-                {edit ? (
-                  <Select className="is-rounded" onChange={onTagSelect}>
-                    <option>...</option>
-                    {Object.values(tags).map(tag => (
-                      <option key={tag.id} value={tag.id}>
-                        {tag.name}
-                      </option>
-                    ))}
-                  </Select>
-                ) : (
-                  <></>
-                )}
-
-                <span>
-                  {hybrid.tags.map(tag => (
-                    <Tag key={tag.id} color="info" style={{ margin: '5px' }}>
-                      {tag.name}
-                      {edit ? (
-                        <button
-                          className="delete is-small"
-                          onClick={() => deleteTag(tag)}
-                        ></button>
-                      ) : (
-                        <></>
-                      )}
-                    </Tag>
-                  ))}
-                </span>
+                <SelectMultiple
+                  options={tags}
+                  selected={hybrid.tags}
+                  onChange={selected =>
+                    setHybrid({ ...hybrid, tags: selected })
+                  }
+                  disabled={!edit}
+                />
               </Control>
             </Field>
             {edit ? (

@@ -10,7 +10,7 @@ import {
 import Login from './Login';
 import GridDisplay from './GridDisplay';
 import GridsDiplay from './GridsDisplay';
-import HybridsDisplay from './HybridsDisplay';
+import FilteredHybrids from './FilteredHybrids';
 import Navigation from './Navigation';
 import HybridDetails from './HybridDetails';
 import Home from './Home';
@@ -37,7 +37,7 @@ export const App = props => {
       <Route
         exact
         path="/hybrids"
-        component={RouteGuard(HybridsDisplay)}
+        component={RouteGuard(FilteredHybrids)}
       ></Route>
       <Route
         exact

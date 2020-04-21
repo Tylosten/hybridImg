@@ -33,7 +33,7 @@ const Login = ({ authenticated, dispatchToStore }) => {
                       value={username}
                       onChange={e => setUserName(e.target.value)}
                       required
-                    />
+                    />{' '}
                     <Help
                       color="danger"
                       style={{ display: username ? 'none' : 'default' }}
