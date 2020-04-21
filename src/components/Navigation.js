@@ -1,19 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Heading, Icon, Button } from 'react-bulma-components';
+import { Navbar, Heading, Icon, Button, Image } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
 import { logout } from '../store/StoreActions';
 
-export const Navigation = ({ store, dispatchToStore }) => {
+export const Navigation = ({ match, store, dispatchToStore }) => {
   const onLogOut = () => {
     dispatchToStore(logout());
   };
   return (
     <>
-      <Navbar color="dark" role="navigation" aria-label="main navigation">
+      <Navbar
+        color={match.url === '/' ? 'white' : 'white'}
+        role="navigation"
+        aria-label="main navigation"
+      >
         <Navbar.Brand>
-          <Link to="/home" className="navbar-item">
-            <Heading style={{ color: 'inherit' }}>Hybrides</Heading>
+          <Link to="/" className="navbar-item">
+            <Image className="is-rounded" src="./Images/mamouth-abeille.png" />
           </Link>
           <Navbar.Burger
             data-target="mainnav"
@@ -24,6 +28,9 @@ export const Navigation = ({ store, dispatchToStore }) => {
 
         <Navbar.Menu id="mainnav">
           <Navbar.Container>
+            <Link to="/home" className="navbar-item">
+              Home
+            </Link>
             <Link to="/grids" className="navbar-item">
               Les Grilles
             </Link>
@@ -38,7 +45,9 @@ export const Navigation = ({ store, dispatchToStore }) => {
               </Link>
             ) : (
               <>
-                <Navbar.Item>{store.session.user.name}</Navbar.Item>
+                <Link to="/home" className="navbar-item">
+                  {store.session.user.name}
+                </Link>
                 <Link to="/login" onClick={onLogOut} className="navbar-item">
                   <Icon className="fa fa-sign-out-alt" />
                 </Link>

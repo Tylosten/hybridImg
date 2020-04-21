@@ -13,6 +13,8 @@ import GridsDiplay from './GridsDisplay';
 import HybridsDisplay from './HybridsDisplay';
 import Navigation from './Navigation';
 import HybridDetails from './HybridDetails';
+import Home from './Home';
+import About from './About';
 
 export const App = props => {
   const [store, dispatchToStore] = useReducer(StoreReducer, props.store);
@@ -26,11 +28,10 @@ export const App = props => {
 
   return (
     <StoreContext.Provider value={[store, StoreMiddleware(dispatchToStore)]}>
-      <Navigation />
+      <Route path="*" component={Navigation} />
       <Route exact path="/login" component={Login}></Route>
-      <Route exact path="/home">
-        <></>
-      </Route>
+      <Route exact path="/" component={About}></Route>
+      <Route exact path="/home" component={RouteGuard(Home)}></Route>
       <Route exact path="/grids" component={RouteGuard(GridsDiplay)}></Route>
       <Route exact path="/grid/:id" component={RouteGuard(GridDisplay)}></Route>
       <Route
