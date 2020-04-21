@@ -4,8 +4,8 @@ import { connectDB } from '../config/database';
 async function initializeDB() {
   const db = await connectDB();
 
-  const user = await db.collection('users').findOne({ id: 'U1' });
-  if (!user) {
+  const userNb = await db.collection('users').countDocuments();
+  if (userNb === 0) {
     for (const collectionName in defaultState) {
       const collection = db.collection(collectionName);
       await collection.insertMany(defaultState[collectionName]);
