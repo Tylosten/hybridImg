@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Heading, Icon, Button, Image } from 'react-bulma-components';
+import { Navbar, Icon, Image } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
 import { logout } from '../store/StoreActions';
 
@@ -41,7 +41,9 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
           <Navbar.Container position="end">
             {!store.session.authenticated ? (
               <Link to="/login" className="navbar-item">
-                <Icon className="fa fa-sign-in-alt" />
+                <div>
+                  <Icon className="fa fa-sign-in-alt" />
+                </div>
               </Link>
             ) : (
               <>
@@ -49,7 +51,9 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
                   {store.session.user.name}
                 </Link>
                 <Link to="/login" onClick={onLogOut} className="navbar-item">
-                  <Icon className="fa fa-sign-out-alt" />
+                  <div>
+                    <Icon className="fa fa-sign-out-alt" />
+                  </div>
                 </Link>
               </>
             )}
