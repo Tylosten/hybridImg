@@ -14,11 +14,14 @@ export const HybridsDisplay = ({ hybrids, filter }) => {
       (!filter.user || filter.user === h.user) &&
       (!filter.grid || filter.grid === h.grid) &&
       (!filter.tags || filter.tags.every(t => h.tags.includes(t))) &&
-      (!filter.name || h.name.toLowerCase().includes(filter.name.toLowerCase))
+      (!filter.name || h.name.toLowerCase().includes(filter.name.toLowerCase()))
     );
   });
 
-  const maxHybridByCol = Math.max(1, Math.floor(hybrids.length / nbByLine));
+  const maxHybridByCol = Math.max(
+    1,
+    Math.floor(filterHybrids.length / nbByLine)
+  );
   let gridHybrids = [];
   for (let i = 0; i < nbByLine; i++) {
     gridHybrids = [...gridHybrids, filterHybrids.splice(0, maxHybridByCol)];
@@ -26,18 +29,26 @@ export const HybridsDisplay = ({ hybrids, filter }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', right: '20px' }}>
-        <input
-          className="slider is-small is-primary"
-          step="1"
-          min="0"
-          max="5"
-          value={sliderValues.indexOf(nbByLine)}
-          onChange={e => setnbByLine(sliderValues[e.target.value])}
-          type="range"
-        />
-      </div>
-      <Tile className="is-ancestor">
+      <div style={{ position: 'absolute', right: '20px' }}></div>
+      <Tile className="is-vertical">
+        <Tile>
+          <Tile></Tile>
+          <Tile className="is-6">
+            <Tile className="is-child">
+              <input
+                className="slider is-fullwidth is-small is-primary"
+                step="1"
+                min="0"
+                max="5"
+                value={sliderValues.indexOf(nbByLine)}
+                onChange={e => setnbByLine(sliderValues[e.target.value])}
+                type="range"
+                style={{ margin: '0' }}
+              />
+            </Tile>
+          </Tile>
+          <Tile></Tile>
+        </Tile>
         <Tile>
           {gridHybrids.map(colhybrids => (
             <Tile key={gridHybrids.indexOf(colhybrids)} className="is-vertical">

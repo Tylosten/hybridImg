@@ -15,23 +15,57 @@ exports[`HybridsDisplay renders correctly 1`] = `
         "right": "20px",
       }
     }
-  >
-    <input
-      className="slider is-small is-primary"
-      max="5"
-      min="0"
-      onChange={[Function]}
-      step="1"
-      type="range"
-      value={2}
-    />
-  </div>
+  />
   <Tile
-    className="is-ancestor"
+    className="is-vertical"
     notification={false}
     renderAs="div"
     vertical={false}
   >
+    <Tile
+      notification={false}
+      renderAs="div"
+      vertical={false}
+    >
+      <Tile
+        notification={false}
+        renderAs="div"
+        vertical={false}
+      />
+      <Tile
+        className="is-6"
+        notification={false}
+        renderAs="div"
+        vertical={false}
+      >
+        <Tile
+          className="is-child"
+          notification={false}
+          renderAs="div"
+          vertical={false}
+        >
+          <input
+            className="slider is-fullwidth is-small is-primary"
+            max="5"
+            min="0"
+            onChange={[Function]}
+            step="1"
+            style={
+              Object {
+                "margin": "0",
+              }
+            }
+            type="range"
+            value={2}
+          />
+        </Tile>
+      </Tile>
+      <Tile
+        notification={false}
+        renderAs="div"
+        vertical={false}
+      />
+    </Tile>
     <Tile
       notification={false}
       renderAs="div"

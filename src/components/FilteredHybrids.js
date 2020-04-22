@@ -9,14 +9,14 @@ const FilteredHybrids = () => {
 
   return (
     <Tile className="is-ancestor">
-      <Tile className={'is-parent is-2'}>
-        <Tile className="is-child">
-          <HybridsFilter filter={filter} setFilter={setFilter} />
-        </Tile>
-      </Tile>
-      <Tile className={'is-parent is-10'}>
+      <Tile className={'is-parent is-9'}>
         <Tile className="is-child">
           <HybridsDisplay filter={filter} />
+        </Tile>
+      </Tile>
+      <Tile className={'is-parent is-3'}>
+        <Tile className="is-child">
+          <HybridsFilter filter={filter} setFilter={setFilter} />
         </Tile>
       </Tile>
     </Tile>

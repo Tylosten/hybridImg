@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Level, Notification } from 'react-bulma-components';
+import { Form, Notification } from 'react-bulma-components';
 const { Input, Field, Control, Label, Select } = Form;
 
 import StoreProvider from '../store/StoreProvider';
@@ -7,7 +7,7 @@ import SelectMultiple from './SelectMultiple';
 
 const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
   return (
-    <>
+    <Notification color="primary" weight="light">
       <Field>
         <Label>Nom</Label>
         <Control>
@@ -61,7 +61,7 @@ const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
           ))}
         </Select>
       </Field>
-    </>
+    </Notification>
   );
 };
 
