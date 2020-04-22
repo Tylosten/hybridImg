@@ -1,17 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Box, Level, Tag } from 'react-bulma-components';
+import { Box, Level, Tag, Image } from 'react-bulma-components';
 
-const HybridDisplay = ({ hybrid, tags }) => {
+const HybridDisplay = ({ hybrid, hideTags }) => {
   return (
     <Box>
       <Link to={`/hybrid/${hybrid.id}`}>
-        <img className="image" src={hybrid.url} />
+        <Image src={hybrid.url} />
       </Link>
-      <Level style={{ flexWrap: 'wrap' }}>
-        {tags.map(tag => (
-          <Tag key={tags.indexOf(tag)} color="info">
+      <Level
+        style={{ flexWrap: 'wrap', display: hideTags ? 'none' : 'default' }}
+      >
+        {hybrid.tags.map(tag => (
+          <Tag key={tag.id} color="info">
             {tag.name}
           </Tag>
         ))}
@@ -20,14 +21,4 @@ const HybridDisplay = ({ hybrid, tags }) => {
   );
 };
 
-function mapStateToProps(state, ownProps) {
-  const hybrid = state.hybrids.find(hybrid => hybrid.id === ownProps.hybridId);
-  const tags = state.themes.filter(tag => hybrid.tags.includes(tag.id));
-  return {
-    hybrid,
-    tags,
-  };
-}
-
-const ConnectedHybridDisplay = connect(mapStateToProps)(HybridDisplay);
-export default ConnectedHybridDisplay;
+export default HybridDisplay;

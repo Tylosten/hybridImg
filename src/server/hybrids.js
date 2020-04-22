@@ -5,10 +5,20 @@ export const hybrids = app => {
     const db = await connectDB();
     const collection = db.collection('hybrids');
     await collection.insertOne(hybrid);
+    return hybrid;
   };
   app.post('/hybrid/new', async (req, res) => {
-    const hybrid = req.body.hybrid;
-    await addNewHybrid(hybrid);
+    const newHybrid = await addNewHybrid(req.body);
+    res.status(200).json(newHybrid);
+  });
+
+  const deleteHybrid = async hybridId => {
+    const db = await connectDB();
+    const collection = db.collection('hybrids');
+    await collection.deleteOne({ id: hybridId });
+  };
+  app.delete('/hybrid/:id', async (req, res) => {
+    await deleteHybrid(req.params.id);
     res.status(200).send();
   });
 
@@ -21,38 +31,6 @@ export const hybrids = app => {
     const hybrid = req.body.hybrid;
     await saveHybrid(hybrid);
     res.status(200).send();
-  });
-
-  const findAllHybrids = async () => {
-    const db = await connectDB();
-    return db
-      .collection('hybrids')
-      .find()
-      .toArray();
-  };
-  app.get('/hybrid/findAll', async (req, res) => {
-    const hybrids = await findAllHybrids();
-    res.status(200).json(hybrids);
-  });
-
-  const findHybrids = async (user, tags) => {
-    const search = {};
-    if (user) {
-      search.user = user;
-    }
-    if (tags) {
-      search.tags = { $all: (tags = tags.split(',')) };
-    }
-    const db = await connectDB();
-    return db
-      .collection('hybrids')
-      .find(search)
-      .toArray();
-  };
-  app.get('/hybrid/find', async (req, res) => {
-    const { user, tags } = req.query;
-    const hybrids = await findHybrids(user, tags);
-    res.status(200).json(hybrids);
   });
 
   const updateHybrid = async hybrid => {
@@ -77,8 +55,7 @@ export const hybrids = app => {
     }
   };
   app.post('/hybrid/update', async (req, res) => {
-    const hybrid = req.body.hybrid;
-    await updateHybrid(hybrid);
+    await updateHybrid(req.body);
     res.status(200).send();
   });
 };

@@ -1,17 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Box, Image, Heading } from 'react-bulma-components';
+
+import StoreProvider from './StoreProvider';
 
 const GridPreview = ({ grid, hybrids }) => {
   return (
     <Link to={`/grid/${grid.id}`}>
       <Box>
-        <Heading>{grid.name}</Heading>
+        <Heading size={4}>{grid.name}</Heading>
         <div style={{ flexWrap: 'wrap' }}>
           {hybrids.map(hybrid => (
             <div
-              key={hybrids.indexOf(hybrid)}
+              key={hybrid.id}
               style={{ display: 'inline-block', marginRight: '10px' }}
             >
               <Image size={48} src={hybrid.url} />
@@ -23,12 +24,11 @@ const GridPreview = ({ grid, hybrids }) => {
   );
 };
 
-function mapStateToProps(state, ownProps) {
+function extraProps(store, props) {
   return {
-    grid: state.grids.find(g => g.id === ownProps.gridId),
-    hybrids: state.hybrids.filter(h => h.grid === ownProps.gridId),
+    grid: store.getGrid(props.id),
+    hybrids: store.getGridHybrids(props.id),
   };
 }
 
-const ConnectedGridPreview = connect(mapStateToProps)(GridPreview);
-export default ConnectedGridPreview;
+export default StoreProvider(extraProps)(GridPreview);

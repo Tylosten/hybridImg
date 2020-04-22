@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Navbar, Heading } from 'react-bulma-components';
 
 export const Navigation = () => {
@@ -33,5 +32,4 @@ export const Navigation = () => {
   );
 };
 
-const ConnectedNavigation = connect(state => state)(Navigation);
-export default ConnectedNavigation;
+export default Navigation;

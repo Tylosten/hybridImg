@@ -17,7 +17,8 @@
     "prod-reload": "pm2 reload --update-env hybridImgProd",
     "prod-logs": "pm2 logs --update-env hybridImgProd",
     "test-connect": "babel-node src/server/connect-db",
-    "initialize": "babel-node src/server/initialize-db"
+    "initialize": "babel-node src/server/initialize-db",
+    "start-mongodb": "mongod --dbpath=\"./data\""
   },
   "jest": {
     "modulePaths": [

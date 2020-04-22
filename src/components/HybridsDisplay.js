@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Tile } from 'react-bulma-components';
 
 import HybridDisplay from './HybridDisplay';
+import StoreProvider from './StoreProvider';
 
 const HybridsDisplay = ({ hybrids }) => {
   const hybridByLine = 4; // Must be 1, 2, 3, 4, 6 or 12
@@ -14,11 +14,11 @@ const HybridsDisplay = ({ hybrids }) => {
         <Tile style={{ flexWrap: 'wrap' }}>
           {hybrids.map(hybrid => (
             <Tile
-              key={hybrids.indexOf(hybrid)}
+              key={hybrid.id}
               className={`is-parent is-${12 / hybridByLine}`}
             >
               <Tile className="is-child">
-                <HybridDisplay hybridId={hybrid.id} />
+                <HybridDisplay hybrid={hybrid} />
               </Tile>
             </Tile>
           ))}
@@ -28,11 +28,13 @@ const HybridsDisplay = ({ hybrids }) => {
   );
 };
 
-function mapStateToProps(state) {
+function extraProps(store) {
   return {
-    hybrids: state.hybrids,
+    hybrids: Object.values(store.getState().hybrids).map(h => ({
+      ...h,
+      tags: store.getHybridTags(h.id),
+    })),
   };
 }
 
-const ConnectedHybridsDisplay = connect(mapStateToProps)(HybridsDisplay);
-export default ConnectedHybridsDisplay;
+export default StoreProvider(extraProps)(HybridsDisplay);

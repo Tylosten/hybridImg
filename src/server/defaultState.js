@@ -9,7 +9,7 @@ const defaultState = {
       name: 'Matt',
     },
   ],
-  themes: [
+  tags: [
     { id: 'T1', name: 'Sucette' },
     { id: 'T2', name: 'Arc-en-ciel' },
     { id: 'T3', name: 'Pingouin' },
