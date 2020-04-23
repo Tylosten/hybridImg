@@ -18,13 +18,14 @@ export const HybridsDisplay = ({ hybrids, filter }) => {
     );
   });
 
-  const maxHybridByCol = Math.max(
-    1,
-    Math.floor(filterHybrids.length / nbByLine)
-  );
+  const minHybridByCol = Math.floor(filterHybrids.length / nbByLine);
+
   let gridHybrids = [];
   for (let i = 0; i < nbByLine; i++) {
-    gridHybrids = [...gridHybrids, filterHybrids.splice(0, maxHybridByCol)];
+    gridHybrids = [...gridHybrids, filterHybrids.splice(0, minHybridByCol)];
+  }
+  for (let i = 0; i < filterHybrids.length; i++) {
+    gridHybrids[i].push(filterHybrids[i]);
   }
 
   return (
@@ -59,6 +60,7 @@ export const HybridsDisplay = ({ hybrids, filter }) => {
                   </Tile>
                 </Tile>
               ))}
+              <Tile></Tile>
             </Tile>
           ))}
         </Tile>
