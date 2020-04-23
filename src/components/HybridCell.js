@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Form } from 'react-bulma-components';
 const File = Form.InputFile;
 import StoreProvider from '../store/StoreProvider';
-import { createHybrid, deleteHybrid } from '../store/StoreActions';
+import { createHybrid, updateHybrid } from '../store/StoreActions';
 import HybridDisplay from './HybridDisplay';
 
 export const HybridCell = ({
@@ -28,6 +28,15 @@ export const HybridCell = ({
     }
   };
 
+  const unlinkHybrid = hybrid => () => {
+    dispatchToStore(
+      updateHybrid({
+        id: hybrid.id,
+        grid: 'no grid',
+      })
+    );
+  };
+
   const imgSize = 128;
 
   return (
@@ -43,9 +52,7 @@ export const HybridCell = ({
                 top: '4px',
                 right: '4px',
               }}
-              onClick={() => {
-                dispatchToStore(deleteHybrid(hybrid.id));
-              }}
+              onClick={unlinkHybrid(hybrid)}
             ></span>
           ) : (
             <></>

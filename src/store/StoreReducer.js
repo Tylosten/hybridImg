@@ -80,15 +80,12 @@ export const StoreReducer = (state, action) => {
     }
     case actionTypes.UPDATE_HYBRID: {
       const newHybrids = { ...state.hybrids };
-      const oldH = newHybrids[action.id];
-      newHybrids[action.id] = {
-        ...oldH,
-        id: action.id,
-        name: action.name,
-        url: action.url,
-        tags: action.tags,
-        grid: action.grid,
-      };
+
+      if (action.name) {newHybrids[action.id].name = action.name;}
+      if (action.url) {newHybrids[action.id].url = action.url;}
+      if (action.tags) {newHybrids[action.id].tags = action.tags;}
+      if (action.grid) {newHybrids[action.id].grid = action.grid;}
+
       return { ...state, hybrids: newHybrids };
     }
     case actionTypes.DELETE_HYBRID: {
