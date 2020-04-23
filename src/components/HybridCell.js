@@ -33,7 +33,7 @@ export const HybridCell = ({
   return (
     <td>
       {hybrid ? (
-        <div style={{ position: 'relative', width: `${imgSize}px` }}>
+        <div style={{ position: 'relative', minWidth: `${imgSize}px` }}>
           <HybridDisplay hybrid={hybrid} hideTags />
           {edit ? (
             <span

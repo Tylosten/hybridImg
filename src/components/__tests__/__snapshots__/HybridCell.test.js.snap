@@ -86,8 +86,8 @@ Array [
     <div
       style={
         Object {
+          "minWidth": "128px",
           "position": "relative",
-          "width": "128px",
         }
       }
     >
@@ -136,8 +136,8 @@ Array [
     <div
       style={
         Object {
+          "minWidth": "128px",
           "position": "relative",
-          "width": "128px",
         }
       }
     >
