@@ -3,47 +3,84 @@
 exports[`HybridCell renders correctly 1`] = `
 Array [
   <td>
-    <button
-      className="is-light button"
-      disabled={true}
-      style={
+    <div
+      className="file"
+      input-props={
         Object {
-          "height": "128px",
-          "width": "128px",
+          "accept": "image/*",
         }
       }
-      tabIndex={-1}
     >
-      <span
-        className="icon fa fa-image is-auto"
+      <label
+        className="file-label"
       >
-        <i
-          className="rbc"
+        <input
+          className="file-input"
+          onChange={[Function]}
+          type="file"
         />
-      </span>
-    </button>
+        <span
+          className="file-cta"
+        >
+          <span
+            className="file-icon"
+          >
+            <span
+              className="icon fa fa-image"
+            >
+              <i
+                className="rbc"
+              />
+            </span>
+          </span>
+          <span
+            className="file-label"
+          >
+            
+          </span>
+        </span>
+      </label>
+    </div>
   </td>,
   <td>
-    <button
-      className="is-light button"
-      disabled={false}
-      onClick={[Function]}
-      style={
+    <div
+      className="file"
+      input-props={
         Object {
-          "height": "128px",
-          "width": "128px",
+          "accept": "image/*",
         }
       }
-      tabIndex={0}
     >
-      <span
-        className="icon fa fa-image is-auto"
+      <label
+        className="file-label"
       >
-        <i
-          className="rbc"
+        <input
+          className="file-input"
+          onChange={[Function]}
+          type="file"
         />
-      </span>
-    </button>
+        <span
+          className="file-cta"
+        >
+          <span
+            className="file-icon"
+          >
+            <span
+              className="icon fa fa-image"
+            >
+              <i
+                className="rbc"
+              />
+            </span>
+          </span>
+          <span
+            className="file-label"
+          >
+            
+          </span>
+        </span>
+      </label>
+    </div>
   </td>,
   <td>
     <div
