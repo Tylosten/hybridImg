@@ -77,7 +77,7 @@ const defaultState = {
     {
       id: 'b4cdc801-583a-4bd9-81b7-6c2f4e5ef896',
       name: 'Spaghetti/Cataclysme',
-      url: './Images/20200409_174234.jpg',
+      url: '/Images/20200409_174234.jpg',
       tags: [
         '2baf6088-9fb9-4226-839c-dc6d32f46fad',
         'b028f39a-e692-4f58-b240-2289dde9759b',
@@ -88,7 +88,7 @@ const defaultState = {
     {
       id: '46a3a968-5b9c-4c47-8e60-16b493e37e0f',
       name: 'Sucette/Abeille',
-      url: './Images/20200411_112906.jpg',
+      url: '/Images/20200411_112906.jpg',
       tags: [
         '7d4eb136-bf8f-4713-b1d3-d7bcd880f2be',
         '2d89e74a-097d-4936-969e-dafdf5d693b2',
@@ -99,7 +99,7 @@ const defaultState = {
     {
       id: '4f9f0ce7-30e0-42b9-9f61-4517ba68bb5a',
       name: 'Spaghetti/Cataclysme',
-      url: './Images/20200409_174234.jpg',
+      url: '/Images/20200409_174234.jpg',
       tags: [
         '2baf6088-9fb9-4226-839c-dc6d32f46fad',
         'b028f39a-e692-4f58-b240-2289dde9759b',
@@ -110,7 +110,7 @@ const defaultState = {
     {
       id: '6b52fe7a-837b-44a4-a128-cd914fd19e75',
       name: 'Sucette/Abeille',
-      url: './Images/20200411_112906.jpg',
+      url: '/Images/20200411_112906.jpg',
       tags: [
         '7d4eb136-bf8f-4713-b1d3-d7bcd880f2be',
         '2d89e74a-097d-4936-969e-dafdf5d693b2',
