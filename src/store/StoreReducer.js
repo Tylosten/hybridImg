@@ -52,7 +52,7 @@ export const StoreMiddleware = dispatch => {
         });
       }
       case actionTypes.DELETE_HYBRID: {
-        return axios.delete(`/hybrid/${action.id}`).then(() => {
+        return axios.post('/hybrid/delete', { id: action.id }).then(() => {
           dispatch(action);
         });
       }

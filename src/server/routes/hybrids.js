@@ -2,6 +2,9 @@ import { connectDB } from '../config/database';
 import { v4 as uuid } from 'uuid';
 import isAuth from './isAuth';
 import { uploadImage, resizeImage } from './imgUpload';
+import fs from 'fs';
+import util from 'util';
+const unlink = util.promisify(fs.unlink);
 
 export const hybrids = app => {
   const addNewHybrid = async hybrid => {
@@ -16,6 +19,10 @@ export const hybrids = app => {
     uploadImage,
     resizeImage,
     async (req, res) => {
+      if (!req.file) {
+        throw 'File wasn\'t uploaded';
+      }
+
       const newHybrid = await addNewHybrid({
         id: uuid(),
         user: req.session.passport.user,
@@ -28,29 +35,29 @@ export const hybrids = app => {
     }
   );
 
-  const checkHybridOwner = async (hybridId, user) => {
+  const checkHybridOwner = async (req, res, next) => {
+    const hybridId = req.body.id;
+    const userId = req.session.passport.user;
     const db = await connectDB();
     const collection = db.collection('hybrids');
-    const hybrid = collection.findOne({ id: hybridId });
-    return hybrid.user === user.id;
+    const hybrid = await collection.findOne({ id: hybridId });
+    if (hybrid.user === userId) {
+      next();
+    } else {
+      return res.status(401).send('Unauthorized');
+    }
   };
 
   const deleteHybrid = async hybridId => {
     const db = await connectDB();
     const collection = db.collection('hybrids');
+    const hybrid = await collection.findOne({ id: hybridId });
+    await unlink('public' + hybrid.url);
     await collection.deleteOne({ id: hybridId });
   };
-  app.delete('/hybrid/:id', isAuth, async (req, res) => {
-    const isOwner = await checkHybridOwner(
-      req.params.id,
-      req.session.passport.user
-    );
-    if (isOwner) {
-      await deleteHybrid(req.params.id);
-      res.status(200).send();
-    } else {
-      res.status(401).send();
-    }
+  app.post('/hybrid/delete', isAuth, checkHybridOwner, async (req, res) => {
+    await deleteHybrid(req.body.id);
+    res.status(200).send();
   });
 
   const updateHybrid = async hybrid => {
@@ -68,22 +75,24 @@ export const hybrids = app => {
       await collection.updateOne({ id }, { $set: { tags } });
     }
     if (url) {
+      await unlink('public' + hybrid.url);
       await collection.updateOne({ id }, { $set: { url } });
     }
     if (grid) {
       await collection.updateOne({ id }, { $set: { grid } });
     }
   };
-  app.post('/hybrid/update', isAuth, async (req, res) => {
-    const isOwner = await checkHybridOwner(
-      req.body.id,
-      req.session.passport.user
-    );
-    if (isOwner) {
-      await updateHybrid(req.body);
+  app.post(
+    '/hybrid/update',
+    isAuth,
+    checkHybridOwner,
+    uploadImage,
+    resizeImage,
+    async (req, res) => {
+      const data = { ...req.body };
+      data.url = req.filepath ? req.filepath : undefined;
+      await updateHybrid(data);
       res.status(200).send();
-    } else {
-      res.status(401).send();
     }
-  });
+  );
 };
