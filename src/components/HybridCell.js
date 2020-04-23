@@ -1,9 +1,10 @@
-import React from 'react';
-import { Icon, Form } from 'react-bulma-components';
+import React, { useState } from 'react';
+import { Icon, Form, Button } from 'react-bulma-components';
 const File = Form.InputFile;
 import StoreProvider from '../store/StoreProvider';
 import { createHybrid, updateHybrid } from '../store/StoreActions';
 import HybridDisplay from './HybridDisplay';
+import SelectHybrid from './SelectHybrid';
 
 export const HybridCell = ({
   edit,
@@ -13,20 +14,7 @@ export const HybridCell = ({
   dispatchToStore,
   hybrid,
 }) => {
-  const onHybridUpload = async e => {
-    const file = e.target.files[0];
-
-    if (!hybrid) {
-      await dispatchToStore(
-        createHybrid({
-          file,
-          name: `${line.name}/${col.name}`,
-          tags: [line.id, col.id],
-          grid: grid,
-        })
-      );
-    }
-  };
+  const [showSelect, setShowSelect] = useState(false);
 
   const unlinkHybrid = hybrid => () => {
     dispatchToStore(
@@ -59,12 +47,26 @@ export const HybridCell = ({
           )}
         </div>
       ) : (
-        <File
-          input-props={{ accept: 'image/*' }}
-          label=""
-          icon={<Icon className="fa fa-image" />}
-          onChange={onHybridUpload}
-        />
+        <>
+          {showSelect ? (
+            <SelectHybrid
+              line={line}
+              col={col}
+              setShow={setShowSelect}
+              grid={grid}
+            />
+          ) : (
+            <></>
+          )}
+          <Button
+            style={{ width: `${imgSize}px`, height: `${imgSize}px` }}
+            onClick={() => {
+              setShowSelect(true);
+            }}
+          >
+            <Icon className="fa fa-image" />
+          </Button>
+        </>
       )}
     </td>
   );

@@ -8,6 +8,8 @@ export const ElementsDisplay = ({
   byLine,
   hideSlider,
 }) => {
+  getChildProps = getChildProps || (() => ({}));
+
   const sliderValues = [12, 6, 4, 3, 2, 1];
   const [nbByLine, setnbByLine] = useState(byLine || 4);
 

@@ -30,45 +30,72 @@ exports[`GridPreview renders correctly 1`] = `
       <div
         className="content"
       >
-        <div>
-          <span
-            className="tag is-info"
-          />
-          <span
-            className="tag is-info"
-          />
-          <span
-            className="tag is-info"
-          />
-          <span
-            className="tag is-info"
-          />
-          <span
-            className="tag is-info"
-          />
-          <span
-            className="tag is-info"
-          />
+        <div
+          className="field"
+        >
+          <label
+            className="label"
+          >
+            Auteurice
+          </label>
+          <div
+            className="control"
+          >
+            Mag
+          </div>
         </div>
-        <div>
-          <span
-            className="tag is-light is-info"
-          />
-          <span
-            className="tag is-light is-info"
-          />
-          <span
-            className="tag is-light is-info"
-          />
-          <span
-            className="tag is-light is-info"
-          />
-          <span
-            className="tag is-light is-info"
-          />
-          <span
-            className="tag is-light is-info"
-          />
+        <div
+          className="field"
+        >
+          <label
+            className="label"
+          >
+            Thèmes
+          </label>
+          <div
+            className="control"
+          >
+            <div>
+              <span
+                className="tag is-info"
+              />
+              <span
+                className="tag is-info"
+              />
+              <span
+                className="tag is-info"
+              />
+              <span
+                className="tag is-info"
+              />
+              <span
+                className="tag is-info"
+              />
+              <span
+                className="tag is-info"
+              />
+            </div>
+            <div>
+              <span
+                className="tag is-light is-info"
+              />
+              <span
+                className="tag is-light is-info"
+              />
+              <span
+                className="tag is-light is-info"
+              />
+              <span
+                className="tag is-light is-info"
+              />
+              <span
+                className="tag is-light is-info"
+              />
+              <span
+                className="tag is-light is-info"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </article>

@@ -50,10 +50,14 @@ const SelectMultiple = props => {
         {selected.map(option => (
           <Tag key={option.id} color="info" style={{ margin: '5px' }}>
             {option.name}
-            <button
-              className="delete is-small"
-              onClick={() => onDelete(option)}
-            ></button>
+            {disabled ? (
+              <></>
+            ) : (
+              <button
+                className="delete is-small"
+                onClick={() => onDelete(option)}
+              ></button>
+            )}
           </Tag>
         ))}
       </span>

@@ -4,6 +4,8 @@ export const actionTypes = {
   CREATE_HYBRID: 'CREATE_HYBRID',
   UPDATE_HYBRID: 'UPDATE_HYBRID',
   DELETE_HYBRID: 'DELETE_HYBRID',
+  CREATE_GRID: 'CREATE_GRID',
+  DELETE_GRID: 'DELETE_GRID',
 };
 
 export const login = (username, password) => ({

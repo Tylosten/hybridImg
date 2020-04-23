@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Image, Heading, Media, Tag } from 'react-bulma-components';
+import { Box, Image, Heading, Media, Tag, Form } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
-export const GridPreview = ({ grid, hybrids }) => {
+export const GridPreview = ({ grid, hybrids, user }) => {
   const hybrid = hybrids[Math.floor(Math.random() * hybrids.length)];
   return (
     <Link to={`/grid/${grid.id}`}>
@@ -16,20 +16,30 @@ export const GridPreview = ({ grid, hybrids }) => {
             </figure>
           </Media.Content>
           <Media.Content>
-            <div>
-              {grid.colThemes.map(tag => (
-                <Tag key={tag.id} color="info">
-                  {tag.name}
-                </Tag>
-              ))}
-            </div>
-            <div>
-              {grid.lineThemes.map(tag => (
-                <Tag key={tag.id} color="info" className="is-light">
-                  {tag.name}
-                </Tag>
-              ))}
-            </div>
+            <Form.Field>
+              <Form.Label>Auteurice</Form.Label>
+              <Form.Control>{user.name}</Form.Control>
+            </Form.Field>
+
+            <Form.Field>
+              <Form.Label>Thèmes</Form.Label>
+              <Form.Control>
+                <div>
+                  {grid.colThemes.map(tag => (
+                    <Tag key={tag.id} color="info">
+                      {tag.name}
+                    </Tag>
+                  ))}
+                </div>
+                <div>
+                  {grid.lineThemes.map(tag => (
+                    <Tag key={tag.id} color="info" className="is-light">
+                      {tag.name}
+                    </Tag>
+                  ))}
+                </div>
+              </Form.Control>
+            </Form.Field>
           </Media.Content>
         </Media>
       </Box>
@@ -38,9 +48,11 @@ export const GridPreview = ({ grid, hybrids }) => {
 };
 
 function extraProps(store, props) {
+  const grid = store.getGrid(props.id);
   return {
-    grid: store.getGrid(props.id),
+    grid,
     hybrids: store.getGridHybrids(props.id),
+    user: Object.values(store.users).find(u => u.id === grid.user),
   };
 }
 
