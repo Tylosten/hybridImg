@@ -1,173 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HybridsDisplay renders correctly 1`] = `
-<div
-  style={
-    Object {
-      "position": "relative",
-    }
-  }
->
-  <div
-    style={
+<ElementsDisplay
+  ChildComponent={[Function]}
+  elements={
+    Array [
       Object {
-        "position": "absolute",
-        "right": "20px",
-      }
-    }
-  />
-  <Tile
-    className="is-vertical"
-    notification={false}
-    renderAs="div"
-    vertical={false}
-  >
-    <Tile
-      notification={false}
-      renderAs="div"
-      vertical={false}
-    >
-      <Tile
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      />
-      <Tile
-        className="is-6"
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      >
-        <Tile
-          className="is-child"
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        >
-          <input
-            className="slider is-fullwidth is-small is-primary"
-            max="5"
-            min="0"
-            onChange={[Function]}
-            step="1"
-            style={
-              Object {
-                "margin": "0",
-              }
-            }
-            type="range"
-            value={2}
-          />
-        </Tile>
-      </Tile>
-      <Tile
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      />
-    </Tile>
-    <Tile
-      notification={false}
-      renderAs="div"
-      vertical={false}
-    >
-      <Tile
-        className="is-vertical"
-        key="0"
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      >
-        <Tile
-          className="is-parent"
-          key="H1"
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        >
-          <Tile
-            className="is-child"
-            notification={false}
-            renderAs="div"
-            vertical={false}
-          >
-            <HybridDisplay
-              hybrid={
-                Object {
-                  "id": "H1",
-                }
-              }
-            />
-          </Tile>
-        </Tile>
-        <Tile
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        />
-      </Tile>
-      <Tile
-        className="is-vertical"
-        key="1"
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      >
-        <Tile
-          className="is-parent"
-          key="H2"
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        >
-          <Tile
-            className="is-child"
-            notification={false}
-            renderAs="div"
-            vertical={false}
-          >
-            <HybridDisplay
-              hybrid={
-                Object {
-                  "id": "H2",
-                }
-              }
-            />
-          </Tile>
-        </Tile>
-        <Tile
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        />
-      </Tile>
-      <Tile
-        className="is-vertical"
-        key="2"
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      >
-        <Tile
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        />
-      </Tile>
-      <Tile
-        className="is-vertical"
-        key="3"
-        notification={false}
-        renderAs="div"
-        vertical={false}
-      >
-        <Tile
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        />
-      </Tile>
-    </Tile>
-  </Tile>
-</div>
+        "id": "H1",
+      },
+      Object {
+        "id": "H2",
+      },
+    ]
+  }
+  getChildProps={[Function]}
+/>
 `;

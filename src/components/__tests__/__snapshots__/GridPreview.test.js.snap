@@ -13,52 +13,65 @@ exports[`GridPreview renders correctly 1`] = `
     >
       La grille de Mag
     </h1>
-    <div
-      style={
-        Object {
-          "flexWrap": "wrap",
-        }
-      }
+    <article
+      className="media"
     >
       <div
-        style={
-          Object {
-            "display": "inline-block",
-            "marginRight": "10px",
-          }
-        }
+        className="content"
       >
         <figure
-          className="image is-48x48"
+          className="image is-square is-96x96"
         >
           <img
-            alt=""
-            className=""
-            onError={[Function]}
-            src="./Images/20200409_174234.jpg"
-          />
-        </figure>
-      </div>
-      <div
-        style={
-          Object {
-            "display": "inline-block",
-            "marginRight": "10px",
-          }
-        }
-      >
-        <figure
-          className="image is-48x48"
-        >
-          <img
-            alt=""
-            className=""
-            onError={[Function]}
             src="./Images/20200411_112906.jpg"
           />
         </figure>
       </div>
-    </div>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="tag is-info"
+          />
+          <span
+            className="tag is-info"
+          />
+          <span
+            className="tag is-info"
+          />
+          <span
+            className="tag is-info"
+          />
+          <span
+            className="tag is-info"
+          />
+          <span
+            className="tag is-info"
+          />
+        </div>
+        <div>
+          <span
+            className="tag is-light is-info"
+          />
+          <span
+            className="tag is-light is-info"
+          />
+          <span
+            className="tag is-light is-info"
+          />
+          <span
+            className="tag is-light is-info"
+          />
+          <span
+            className="tag is-light is-info"
+          />
+          <span
+            className="tag is-light is-info"
+          />
+        </div>
+      </div>
+    </article>
   </div>
 </a>
 `;

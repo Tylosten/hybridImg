@@ -23,19 +23,10 @@ const Home = ({ user }) => {
                 <Card.Header.Title>Vos grilles</Card.Header.Title>
               </Card.Header>
               <Card.Content>
-                <GridsDisplay filter={{ user: user.id, nbByLine: 1 }} />
-              </Card.Content>
-            </Card>
-          </Tile>
-        </Tile>
-        <Tile className="is-parent">
-          <Tile className="is-child">
-            <Card>
-              <Card.Header>
-                <Card.Header.Title>Vos images</Card.Header.Title>
-              </Card.Header>
-              <Card.Content>
-                <HybridsDisplay filter={{ user: user.id }} />
+                <GridsDisplay
+                  filter={{ user: user.id, nbByLine: 1 }}
+                  byLine={1}
+                />
               </Card.Content>
             </Card>
           </Tile>

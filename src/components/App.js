@@ -19,11 +19,11 @@ import About from './About';
 export const App = props => {
   const [store, dispatchToStore] = useReducer(StoreReducer, props.store);
 
-  const RouteGuard = Component => ({ match }) => {
+  const RouteGuard = (Component, props) => ({ match }) => {
     if (!store.session.authenticated) {
       return <Redirect to="/login" />;
     }
-    return <Component match={match} />;
+    return <Component match={match} {...props} />;
   };
 
   return (
@@ -32,7 +32,11 @@ export const App = props => {
       <Route exact path="/login" component={Login}></Route>
       <Route exact path="/" component={About}></Route>
       <Route exact path="/home" component={RouteGuard(Home)}></Route>
-      <Route exact path="/grids" component={RouteGuard(GridsDiplay)}></Route>
+      <Route
+        exact
+        path="/grids"
+        component={RouteGuard(GridsDiplay, { byLine: 2 })}
+      ></Route>
       <Route exact path="/grid/:id" component={RouteGuard(GridDisplay)}></Route>
       <Route
         exact

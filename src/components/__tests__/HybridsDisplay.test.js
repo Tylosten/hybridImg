@@ -8,7 +8,6 @@ describe('HybridsDisplay', () => {
       hybrids: [{ id: 'H1' }, { id: 'H2' }],
     };
     const wrapper = shallow(<HybridsDisplay {...props} />);
-    expect(wrapper.children().length).toBe(2);
     expect(wrapper).toMatchSnapshot();
   });
 });

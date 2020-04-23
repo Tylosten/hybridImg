@@ -1,11 +1,11 @@
 import React from 'react';
-import { Tile } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
+import ElementsDisplay from './ElementsDisplay';
 import GridPreview from './GridPreview';
 
-export const GridsDisplay = ({ grids, filter }) => {
-  filter = { nbByLine: 4, ...filter };
+export const GridsDisplay = ({ grids, filter, byLine }) => {
+  filter = filter || {};
 
   const filterGrids = grids.filter(g => {
     return (
@@ -20,23 +20,13 @@ export const GridsDisplay = ({ grids, filter }) => {
   });
 
   return (
-    <>
-      <br />
-      <Tile className="is-ancestor">
-        <Tile style={{ flexWrap: 'wrap' }}>
-          {filterGrids.map(grid => (
-            <div
-              key={grid.id}
-              className={`tile is-parent is-${12 / filter.nbByLine}`}
-            >
-              <Tile className="is-child">
-                <GridPreview id={grid.id} />
-              </Tile>
-            </div>
-          ))}
-        </Tile>
-      </Tile>
-    </>
+    <ElementsDisplay
+      ChildComponent={GridPreview}
+      getChildProps={grid => ({ id: grid.id })}
+      elements={filterGrids}
+      byLine={byLine}
+      hideSlider
+    />
   );
 };
 

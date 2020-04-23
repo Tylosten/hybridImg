@@ -1,55 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridsDisplay renders correctly 1`] = `
-<Fragment>
-  <br />
-  <Tile
-    className="is-ancestor"
-    notification={false}
-    renderAs="div"
-    vertical={false}
-  >
-    <Tile
-      notification={false}
-      renderAs="div"
-      style={
-        Object {
-          "flexWrap": "wrap",
-        }
-      }
-      vertical={false}
-    >
-      <div
-        className="tile is-parent is-3"
-        key="G1"
-      >
-        <Tile
-          className="is-child"
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        >
-          <Memo(GridPreviewContainer)
-            id="G1"
-          />
-        </Tile>
-      </div>
-      <div
-        className="tile is-parent is-3"
-        key="G2"
-      >
-        <Tile
-          className="is-child"
-          notification={false}
-          renderAs="div"
-          vertical={false}
-        >
-          <Memo(GridPreviewContainer)
-            id="G2"
-          />
-        </Tile>
-      </div>
-    </Tile>
-  </Tile>
-</Fragment>
+<ElementsDisplay
+  ChildComponent={
+    Object {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": [Function],
+    }
+  }
+  elements={
+    Array [
+      Object {
+        "id": "G1",
+      },
+      Object {
+        "id": "G2",
+      },
+    ]
+  }
+  getChildProps={[Function]}
+  hideSlider={true}
+/>
 `;

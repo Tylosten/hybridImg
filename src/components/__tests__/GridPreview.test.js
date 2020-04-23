@@ -16,14 +16,6 @@ describe('GridPreview', () => {
       },
       hybrids: [
         {
-          id: 'H1',
-          name: 'Spaghetti/Cataclysme',
-          url: './Images/20200409_174234.jpg',
-          tags: ['T6', 'T8'],
-          grid: 'G1',
-          user: 'U1',
-        },
-        {
           id: 'H2',
           name: 'Sucette/Abeille',
           url: './Images/20200411_112906.jpg',
