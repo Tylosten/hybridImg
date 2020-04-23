@@ -37,16 +37,14 @@ export const StoreMiddleware = dispatch => {
           });
       }
       case actionTypes.CREATE_HYBRID: {
-        return axios
-          .post('/hybrid/new', {
-            name: action.name,
-            url: action.url,
-            tags: action.tags,
-            grid: action.grid,
-          })
-          .then(res => {
-            dispatch({ ...action, hybrid: res.data });
-          });
+        const formData = new FormData();
+        formData.append('name', action.name);
+        formData.append('file', action.file);
+        formData.append('tags', action.tags);
+        formData.append('grid', action.grid);
+        return axios.post('/hybrid/new', formData).then(res => {
+          dispatch({ ...action, hybrid: res.data });
+        });
       }
       case actionTypes.UPDATE_HYBRID: {
         return axios.post('/hybrid/update', action).then(() => {

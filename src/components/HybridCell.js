@@ -1,11 +1,8 @@
 import React from 'react';
-import { Button, Icon } from 'react-bulma-components';
+import { Icon, Form } from 'react-bulma-components';
+const File = Form.InputFile;
 import StoreProvider from '../store/StoreProvider';
-import {
-  createHybrid,
-  updateHybrid,
-  deleteHybrid,
-} from '../store/StoreActions';
+import { createHybrid, deleteHybrid } from '../store/StoreActions';
 import HybridDisplay from './HybridDisplay';
 
 export const HybridCell = ({
@@ -16,21 +13,18 @@ export const HybridCell = ({
   dispatchToStore,
   hybrid,
 }) => {
-  const onHybridUpload = async () => {
-    const newUrl = './Images/20200412_003859.jpg';
+  const onHybridUpload = async e => {
+    const file = e.target.files[0];
 
     if (!hybrid) {
       await dispatchToStore(
         createHybrid({
-          url: newUrl,
+          file,
           name: `${line.name}/${col.name}`,
           tags: [line.id, col.id],
           grid: grid,
         })
       );
-    } else {
-      hybrid.url = newUrl;
-      await dispatchToStore(updateHybrid(hybrid));
     }
   };
 
@@ -58,14 +52,12 @@ export const HybridCell = ({
           )}
         </div>
       ) : (
-        <Button
-          color="light"
-          onClick={onHybridUpload}
-          style={{ width: `${imgSize}px`, height: `${imgSize}px` }}
-          disabled={!edit}
-        >
-          <Icon size="auto" className="fa fa-image" />
-        </Button>
+        <File
+          input-props={{ accept: 'image/*' }}
+          label=""
+          icon={<Icon className="fa fa-image" />}
+          onChange={onHybridUpload}
+        />
       )}
     </td>
   );

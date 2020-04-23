@@ -1,6 +1,7 @@
 import { connectDB } from '../config/database';
 import { v4 as uuid } from 'uuid';
 import isAuth from './isAuth';
+import { uploadImage, resizeImage } from './imgUpload';
 
 export const hybrids = app => {
   const addNewHybrid = async hybrid => {
@@ -9,14 +10,23 @@ export const hybrids = app => {
     await collection.insertOne(hybrid);
     return hybrid;
   };
-  app.post('/hybrid/new', isAuth, async (req, res) => {
-    const newHybrid = await addNewHybrid({
-      id: uuid(),
-      user: req.session.passport.user,
-      ...req.body,
-    });
-    res.status(200).json(newHybrid);
-  });
+  app.post(
+    '/hybrid/new',
+    isAuth,
+    uploadImage,
+    resizeImage,
+    async (req, res) => {
+      const newHybrid = await addNewHybrid({
+        id: uuid(),
+        user: req.session.passport.user,
+        url: req.filepath,
+        name: req.body.name,
+        grid: req.body.grid,
+        tags: req.body.tags.split(','),
+      });
+      res.status(200).json(newHybrid);
+    }
+  );
 
   const checkHybridOwner = async (hybridId, user) => {
     const db = await connectDB();
