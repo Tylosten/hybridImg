@@ -17,7 +17,7 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
       >
         <Navbar.Brand>
           <Link to="/" className="navbar-item">
-            <Image className="is-rounded" src="/Images/mamouth-abeille.png" />
+            <Image src="/Images/mamouth-abeille.ico" />
           </Link>
           <Navbar.Burger
             data-target="mainnav"
