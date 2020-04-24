@@ -58,23 +58,24 @@ export const SelectHybrid = ({
           <Level>
             <Level.Side>
               <Level.Item>
-                <div className="file is-boxed">
+                <div className="file">
                   <label className="file-label">
                     <input
                       className="file-input"
                       type="file"
                       accept="image/*"
+                      name="resume"
                       onChange={onUpload}
                     />
-                    <button
-                      className="file-cta"
+                    <div
+                      className="file-cta button"
                       style={{
                         height: `${imgSize}px`,
                         width: `${imgSize}px`,
                       }}
                     >
-                      <i className="fas fa-upload" />
-                    </button>
+                      <i className="file-icon fas fa-upload" />
+                    </div>
                   </label>
                 </div>
               </Level.Item>
