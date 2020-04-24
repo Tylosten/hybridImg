@@ -9,6 +9,7 @@ export const SelectCreateTags = props => {
   const minSearch = props.minSearch || 1;
 
   const [help, setHelp] = useState('');
+  const [isFocus, setIsFocus] = useState(false);
   const [search, setSearch] = useState('');
   const [candidates, setCandidates] = useState([]);
   const [selected, setSelected] = useState(props.value || []);
@@ -27,7 +28,7 @@ export const SelectCreateTags = props => {
 
   useEffect(() => {
     setCandidates(
-      search.length >= minSearch
+      search.length >= minSearch && isFocus
         ? options.filter(tag =>
           tag.name.toLowerCase().includes(search.toLowerCase())
         )
@@ -55,21 +56,27 @@ export const SelectCreateTags = props => {
   };
 
   const onCreate = async () => {
+    const searchTmp = search.trim().toLowerCase();
+
+    if (!searchTmp) {
+      return;
+    }
+
     const alreadySelected = selected.some(
-      tag => tag.name.toLowerCase() == search.toLowerCase()
+      tag => tag.name.toLowerCase() == searchTmp
     );
     if (alreadySelected) {
       setHelp('Ce tag est déjà selectionné.');
-      setSearch('');
       return;
     }
     const existing = props.tags.find(
-      tag => tag.name.toLowerCase() == search.toLowerCase()
+      tag => tag.name.toLowerCase() == searchTmp
     );
     if (existing) {
       onSelect(existing);
     }
-    setSelected([...selected, { name: search.toLowerCase() }]);
+    setSelected([...selected, { name: searchTmp }]);
+    setSearch('');
   };
 
   return (
@@ -83,6 +90,13 @@ export const SelectCreateTags = props => {
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') {
+                    onCreate();
+                  }
+                }}
+                onFocus={e => setIsFocus(true)}
+                onBlur={e => setIsFocus(false)}
                 disabled={disabled}
               />
               <Help color="danger">{help}</Help>
