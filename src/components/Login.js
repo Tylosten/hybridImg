@@ -10,10 +10,12 @@ import { login } from '../store/StoreActions';
 const Login = ({ authenticated, dispatchToStore }) => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [help, setHelp] = useState('');
 
   const onSubmit = async e => {
     e.preventDefault();
     await dispatchToStore(login(username, password));
+    setHelp('Nom ou mot de passe incorrect');
   };
 
   return (
@@ -62,7 +64,12 @@ const Login = ({ authenticated, dispatchToStore }) => {
                 </Field>
                 <Field>
                   <Control>
-                    <Button color="primary" onClick={onSubmit}>
+                    <Help color="danger">{help}</Help>
+                    <Button
+                      color="primary"
+                      onClick={onSubmit}
+                      disabled={!username || !password}
+                    >
                       Se connecter
                     </Button>
                   </Control>
