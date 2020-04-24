@@ -54,10 +54,14 @@ export const GridForm = props => {
         <Control>
           <Select
             value={template.id}
-            onChange={e => setTemplate(e.target.value)}
+            onChange={e =>
+              setTemplate(templates.find(t => t.id === e.target.value))
+            }
           >
             {templates.map(t => (
-              <option key={t.id}>{t.name}</option>
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
             ))}
           </Select>
         </Control>
