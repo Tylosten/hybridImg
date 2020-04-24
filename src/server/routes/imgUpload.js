@@ -27,6 +27,7 @@ export const uploadImage = upload.single('file');
 export const resizeImage = async (req, res, next) => {
   if (!req.file) {
     next();
+    return;
   }
 
   const filepath = `${upload_path}/${uuid()}.png`;

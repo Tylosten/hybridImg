@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Icon, Form, Button } from 'react-bulma-components';
-const File = Form.InputFile;
+import { Icon, Button } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
-import { createHybrid, updateHybrid } from '../store/StoreActions';
+import { updateHybrid } from '../store/StoreActions';
 import HybridDisplay from './HybridDisplay';
 import SelectHybrid from './SelectHybrid';
 

@@ -1,18 +1,17 @@
-class StateApi {
-  constructor(rawData) {
-    this.session = rawData.session || { authenticated: false };
-    this.hybrids = this.mapIntoObject(rawData.hybrids);
-    this.grids = this.mapIntoObject(rawData.grids);
-    this.users = this.mapIntoObject(rawData.users);
-    this.tags = this.mapIntoObject(rawData.tags);
-  }
+const mapIntoObject = arr => {
+  return arr.reduce((acc, curr) => {
+    acc[curr.id] = curr;
+    return acc;
+  }, {});
+};
 
-  mapIntoObject(arr) {
-    return arr.reduce((acc, curr) => {
-      acc[curr.id] = curr;
-      return acc;
-    }, {});
-  }
-}
+const initStore = rawData => ({
+  session: rawData.session || { authenticated: false },
+  hybrids: mapIntoObject(rawData.hybrids || []),
+  grids: mapIntoObject(rawData.grids || []),
+  users: mapIntoObject(rawData.users || []),
+  tags: mapIntoObject(rawData.tags || []),
+  templates: mapIntoObject(rawData.templates || []),
+});
 
-export default StateApi;
+export default initStore;

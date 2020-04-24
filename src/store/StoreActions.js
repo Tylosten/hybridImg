@@ -4,6 +4,8 @@ export const actionTypes = {
   CREATE_HYBRID: 'CREATE_HYBRID',
   UPDATE_HYBRID: 'UPDATE_HYBRID',
   DELETE_HYBRID: 'DELETE_HYBRID',
+  CREATE_TEMPLATE: 'CREATE_TEMPLATE',
+  CREATE_TAG: 'CREATE_TAG',
   CREATE_GRID: 'CREATE_GRID',
   DELETE_GRID: 'DELETE_GRID',
 };
@@ -18,9 +20,8 @@ export const logout = () => ({
   type: actionTypes.LOGOUT,
 });
 
-export const createHybrid = ({ id, name, file, tags, grid }) => ({
+export const createHybrid = ({ name, file, tags, grid }) => ({
   type: actionTypes.CREATE_HYBRID,
-  id,
   name,
   file,
   tags,
@@ -39,4 +40,16 @@ export const updateHybrid = ({ id, name, url, tags, grid }) => ({
 export const deleteHybrid = id => ({
   type: actionTypes.DELETE_HYBRID,
   id,
+});
+
+export const createTemplate = ({ name, lineThemes, colThemes }) => ({
+  type: actionTypes.CREATE_TEMPLATE,
+  name,
+  lineThemes,
+  colThemes,
+});
+
+export const createTag = ({ name }) => ({
+  type: actionTypes.CREATE_TAG,
+  name,
 });

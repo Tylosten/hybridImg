@@ -56,6 +56,26 @@ export const StoreMiddleware = dispatch => {
           dispatch(action);
         });
       }
+      case actionTypes.CREATE_TEMPLATE: {
+        return axios
+          .post('/template/new', {
+            name: action.name,
+            colThemes: action.colThemes,
+            lineThemes: action.lineThemes,
+          })
+          .then(res => {
+            dispatch({ ...action, template: res.data });
+          });
+      }
+      case actionTypes.CREATE_TAG: {
+        return axios
+          .post('/tag/new', {
+            name: action.name,
+          })
+          .then(res => {
+            dispatch({ ...action, tag: res.data });
+          });
+      }
       default: {
         return dispatch(action);
       }
@@ -81,10 +101,18 @@ export const StoreReducer = (state, action) => {
     case actionTypes.UPDATE_HYBRID: {
       const newHybrids = { ...state.hybrids };
 
-      if (action.name) {newHybrids[action.id].name = action.name;}
-      if (action.url) {newHybrids[action.id].url = action.url;}
-      if (action.tags) {newHybrids[action.id].tags = action.tags;}
-      if (action.grid) {newHybrids[action.id].grid = action.grid;}
+      if (action.name) {
+        newHybrids[action.id].name = action.name;
+      }
+      if (action.url) {
+        newHybrids[action.id].url = action.url;
+      }
+      if (action.tags) {
+        newHybrids[action.id].tags = action.tags;
+      }
+      if (action.grid) {
+        newHybrids[action.id].grid = action.grid;
+      }
 
       return { ...state, hybrids: newHybrids };
     }
@@ -92,6 +120,16 @@ export const StoreReducer = (state, action) => {
       const newHybrids = { ...state.hybrids };
       delete newHybrids[action.id];
       return { ...state, hybrids: newHybrids };
+    }
+    case actionTypes.CREATE_TEMPLATE: {
+      const newTemplates = { ...state.templates };
+      newTemplates[action.template.id] = action.template;
+      return { ...state, templates: newTemplates };
+    }
+    case actionTypes.CREATE_TAG: {
+      const newTags = { ...state.tags };
+      newTags[action.tag.id] = action.tag;
+      return { ...state, tags: newTags };
     }
     default:
       return state;

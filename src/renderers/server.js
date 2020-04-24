@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import StateApi from 'store';
+import initStore from 'store';
 import { App } from 'components/App';
 
 export async function serverRenderer(url, data) {
-  const store = new StateApi({
+  const store = initStore({
     ...data,
   });
 

@@ -6,6 +6,9 @@ import { v4 as uuid } from 'uuid';
 import { genPassword } from 'server/lib/passwordUtils';
 import { connectDB } from 'server/config/database';
 import { serverRenderer } from 'renderers/server';
+import { tags } from './tags';
+import { templates } from './templates';
+import { grids } from './grids';
 import { hybrids } from './hybrids';
 import isAuth from './isAuth';
 
@@ -13,7 +16,7 @@ import isAuth from './isAuth';
  * -------------- Session ROUTES ----------------
  */
 router.post('/login', (req, res, next) => {
-  return passport.authenticate('local', (err, user, info) => {
+  return passport.authenticate('local', (err, user) => {
     if (err) {
       return next(err);
     }
@@ -69,6 +72,7 @@ const mainRendering = async (req, res) => {
     const tags = await getCollectionArray('tags');
     const users = await getCollectionArray('users');
     const grids = await getCollectionArray('grids');
+    const templates = await getCollectionArray('templates');
     const session = req.isAuthenticated()
       ? {
         authenticated: true,
@@ -81,6 +85,7 @@ const mainRendering = async (req, res) => {
       users,
       grids,
       session,
+      templates,
     });
     res.render('index', vars);
   } catch (err) {
@@ -91,12 +96,11 @@ const mainRendering = async (req, res) => {
 
 router.get('/login', mainRendering);
 
-router.get(
-  ['/', '/login', '/home', '/hybrids', '/grids', '/hybrid/*', '/grid/*'],
-  isAuth,
-  mainRendering
-);
+router.get('/*', isAuth, mainRendering);
 
+tags(router);
+templates(router);
+grids(router);
 hybrids(router);
 
 export default router;

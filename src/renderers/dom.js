@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from 'components/App';
-import StateApi from 'store';
+import initStore from 'store';
 
 import '../styles/index.scss';
 
-const store = new StateApi(window.__R_DATA.initialData);
+const store = initStore(window.__R_DATA.initialData);
 
 ReactDOM.hydrate(
   <BrowserRouter>

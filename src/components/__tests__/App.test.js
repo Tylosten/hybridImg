@@ -9,7 +9,7 @@ describe('App', () => {
   it('renders correctly', () => {
     const wrapper = shallow(
       <StaticRouter>
-        <App initialData={{ appName: 'TEST' }} />
+        <App initialData={{ rawData: {} }} />
       </StaticRouter>
     );
 

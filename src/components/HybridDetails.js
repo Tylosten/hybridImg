@@ -14,6 +14,7 @@ const { Field, Control, Input, Label, Select } = Form;
 import StoreProvider from '../store/StoreProvider';
 import { updateHybrid, deleteHybrid } from '../store/StoreActions';
 import SelectMultiple from './SelectMultiple';
+import AlertMessage from './AlertMessage';
 
 export const HybridDetails = props => {
   const { tags, grids, edit, dispatchToStore } = props;
@@ -37,51 +38,25 @@ export const HybridDetails = props => {
   return (
     <>
       {alertDelete ? (
-        <div
-          style={{
-            position: 'fixed',
-            top: '0',
-            right: '0',
-            width: '100%',
-            height: '100%',
-            zIndex: 5,
-            backgroundColor: '#0008',
-          }}
-        >
-          <div
-            style={{
-              position: 'fixed',
-              top: '50%',
-              right: '50%',
-            }}
-          >
-            <Notification
-              color="danger"
-              className="alert is-light"
-              style={{
-                position: 'relative',
-                top: '-50%',
-                right: '-50%',
-              }}
-            >
-              <Heading size={5}>
-                Voulez vous vraiment supprimer cette image ?
-              </Heading>
-              <Field className="is-grouped">
-                <Control>
-                  <Link to="/hybrids">
-                    <Button color="danger" onClick={onDelete}>
-                      Supprimer
-                    </Button>
-                  </Link>
-                </Control>
-                <Control>
-                  <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
-                </Control>
-              </Field>
-            </Notification>
-          </div>
-        </div>
+        <AlertMessage>
+          <Notification color="danger" className="is-light">
+            <Heading size={5}>
+              Voulez vous vraiment supprimer cette image ?
+            </Heading>
+            <Field className="is-grouped">
+              <Control>
+                <Link to="/hybrids">
+                  <Button color="danger" onClick={onDelete}>
+                    Supprimer
+                  </Button>
+                </Link>
+              </Control>
+              <Control>
+                <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
+              </Control>
+            </Field>
+          </Notification>
+        </AlertMessage>
       ) : (
         <></>
       )}

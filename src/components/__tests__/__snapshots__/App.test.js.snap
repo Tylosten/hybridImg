@@ -26,7 +26,7 @@ exports[`App renders correctly 1`] = `
   <App
     initialData={
       Object {
-        "appName": "TEST",
+        "rawData": Object {},
       }
     }
   />

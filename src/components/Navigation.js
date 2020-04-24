@@ -31,6 +31,9 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
             <Link to="/home" className="navbar-item">
               Home
             </Link>
+            <Link to="/templates" className="navbar-item">
+              Les Modèles
+            </Link>
             <Link to="/grids" className="navbar-item">
               Les Grilles
             </Link>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Icon, Form, Button, Message, Level } from 'react-bulma-components';
-const File = Form.InputFile;
+import { Button, Message, Level } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
 import { createHybrid, updateHybrid } from '../store/StoreActions';
+import AlertMessage from './AlertMessage';
 
 export const SelectHybrid = ({
   hybrids,
@@ -42,90 +42,60 @@ export const SelectHybrid = ({
   const imgSize = 96;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: '0',
-        right: '0',
-        width: '100%',
-        height: '100%',
-        zIndex: 5,
-        backgroundColor: '#0008',
-      }}
-    >
-      <div
-        style={{
-          position: 'fixed',
-          top: '50%',
-          right: '50%',
-          height: `${imgSize * 2}px`,
-          maxWidth: '90%',
-        }}
-      >
-        <Message
-          color="danger"
-          className="alert is-light"
-          style={{
-            position: 'relative',
-            top: '-50%',
-            right: '-50%',
-          }}
+    <AlertMessage height={`${imgSize * 2}px`}>
+      <Message color="danger" className="is-light">
+        <Message.Header>
+          <p style={{ marginRight: '10px' }}>Choisissez ou ajoutez une image</p>
+          <button className="delete" onClick={() => setShow(false)} />
+        </Message.Header>
+        <Message.Body
+          style={{ height: `${imgSize + 40}px`, overflowY: 'auto' }}
         >
-          <Message.Header>
-            <p style={{ marginRight: '10px' }}>
-              Choisissez ou ajoutez une image
-            </p>
-            <button className="delete" onClick={() => setShow(false)} />
-          </Message.Header>
-          <Message.Body
-            style={{ height: `${imgSize + 40}px`, overflowY: 'auto' }}
-          >
-            <Level>
-              <Level.Side>
-                <Level.Item>
-                  <div className="file is-boxed">
-                    <label className="file-label">
-                      <input
-                        className="file-input"
-                        type="file"
-                        accept="image/*"
-                        onChange={onUpload}
-                      />
-                      <button
-                        className="file-cta"
-                        style={{
-                          height: `${imgSize}px`,
-                          width: `${imgSize}px`,
-                        }}
-                      >
-                        <i className="fas fa-upload" />
-                      </button>
-                    </label>
-                  </div>
-                </Level.Item>
-                {hybrids.map(hybrid => (
-                  <Level.Item key={hybrid.id}>
-                    <Button
+          <Level>
+            <Level.Side>
+              <Level.Item>
+                <div className="file is-boxed">
+                  <label className="file-label">
+                    <input
+                      className="file-input"
+                      type="file"
+                      accept="image/*"
+                      onChange={onUpload}
+                    />
+                    <button
+                      className="file-cta"
                       style={{
-                        width: `${imgSize}px`,
                         height: `${imgSize}px`,
+                        width: `${imgSize}px`,
                       }}
-                      onClick={() => onSelect(hybrid)}
                     >
-                      <figure
-                        className={`image is-square is-${imgSize}x${imgSize}`}
-                      >
-                        <img src={hybrid.url} />
-                      </figure>
-                    </Button>
-                  </Level.Item>
-                ))}
-              </Level.Side>
-            </Level>
-          </Message.Body>
-        </Message>
-      </div>
-    </div>
+                      <i className="fas fa-upload" />
+                    </button>
+                  </label>
+                </div>
+              </Level.Item>
+              {hybrids.map(hybrid => (
+                <Level.Item key={hybrid.id}>
+                  <Button
+                    style={{
+                      width: `${imgSize}px`,
+                      height: `${imgSize}px`,
+                    }}
+                    onClick={() => onSelect(hybrid)}
+                  >
+                    <figure
+                      className={`image is-square is-${imgSize}x${imgSize}`}
+                    >
+                      <img src={hybrid.url} />
+                    </figure>
+                  </Button>
+                </Level.Item>
+              ))}
+            </Level.Side>
+          </Level>
+        </Message.Body>
+      </Message>
+    </AlertMessage>
   );
 };
 
