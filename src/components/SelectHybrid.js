@@ -10,6 +10,7 @@ export const SelectHybrid = ({
   line,
   col,
   grid,
+  show,
   setShow,
   dispatchToStore,
 }) => {
@@ -42,11 +43,14 @@ export const SelectHybrid = ({
   const imgSize = 96;
 
   return (
-    <AlertMessage height={`${imgSize * 2}px`}>
+    <AlertMessage
+      height={`${imgSize * 2}px`}
+      show={show}
+      closeFn={() => setShow(false)}
+    >
       <Message color="danger" className="is-light">
         <Message.Header>
           <p style={{ marginRight: '10px' }}>Choisissez ou ajoutez une image</p>
-          <button className="delete" onClick={() => setShow(false)} />
         </Message.Header>
         <Message.Body
           style={{ height: `${imgSize + 40}px`, overflowY: 'auto' }}

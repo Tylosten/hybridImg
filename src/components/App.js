@@ -17,6 +17,7 @@ import Navigation from './Navigation';
 import HybridDetails from './HybridDetails';
 import Home from './Home';
 import About from './About';
+import GridForm from './GridForm';
 
 export const App = props => {
   const [store, dispatchToStore] = useReducer(StoreReducer, props.store);
@@ -37,17 +38,22 @@ export const App = props => {
       <Route
         exact
         path="/templates"
-        component={RouteGuard(TemplatesDisplay)}
+        component={RouteGuard(TemplatesDisplay, { byLine: 2 })}
       ></Route>
       <Route
         exact
-        path="/template/new"
+        path="/templates/new"
         component={RouteGuard(TemplateForm)}
       ></Route>
       <Route
         exact
         path="/grids"
         component={RouteGuard(GridsDiplay, { byLine: 2 })}
+      ></Route>
+      <Route
+        exact
+        path="/grids/new/:templateId"
+        component={RouteGuard(GridForm)}
       ></Route>
       <Route exact path="/grid/:id" component={RouteGuard(GridDisplay)}></Route>
       <Route

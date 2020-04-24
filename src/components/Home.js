@@ -3,7 +3,6 @@ import { Tile, Heading, Card, Notification } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
 import GridsDisplay from './GridsDisplay';
-import HybridsDisplay from './HybridsDisplay';
 
 const Home = ({ user }) => {
   return (

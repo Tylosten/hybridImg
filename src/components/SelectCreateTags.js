@@ -11,7 +11,6 @@ export const SelectCreateTags = props => {
   const [help, setHelp] = useState('');
   const [search, setSearch] = useState('');
   const [candidates, setCandidates] = useState([]);
-  const [toCreate, setToCreate] = useState([]);
   const [selected, setSelected] = useState(props.value || []);
   const [options, setOptions] = useState(
     props.tags.filter(tag => selected.every(select => select.id !== tag.id))
@@ -23,7 +22,7 @@ export const SelectCreateTags = props => {
   }, []);
 
   useEffect(() => {
-    onChange(selected, toCreate);
+    onChange(selected);
   }, [selected]);
 
   useEffect(() => {
@@ -71,7 +70,6 @@ export const SelectCreateTags = props => {
       onSelect(existing);
     }
     setSelected([...selected, { name: search.toLowerCase() }]);
-    setToCreate([...toCreate, { name: search.toLowerCase() }]);
   };
 
   return (

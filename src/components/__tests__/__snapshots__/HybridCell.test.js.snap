@@ -1,161 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HybridCell renders correctly 1`] = `
-Array [
-  <td>
-    <button
-      className="button"
-      disabled={false}
-      onClick={[Function]}
-      style={
-        Object {
-          "height": "128px",
-          "width": "128px",
-        }
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+  staticContext={Object {}}
+>
+  <HybridCell
+    col={
+      Object {
+        "id": "T2",
+        "name": "T2",
       }
-      tabIndex={0}
-    >
-      <span
-        className="icon fa fa-image"
-      >
-        <i
-          className="rbc"
-        />
-      </span>
-    </button>
-  </td>,
-  <td>
-    <button
-      className="button"
-      disabled={false}
-      onClick={[Function]}
-      style={
-        Object {
-          "height": "128px",
-          "width": "128px",
-        }
+    }
+    edit={false}
+    grid="G1"
+    line={
+      Object {
+        "id": "T1",
+        "name": "T1",
       }
-      tabIndex={0}
-    >
-      <span
-        className="icon fa fa-image"
-      >
-        <i
-          className="rbc"
-        />
-      </span>
-    </button>
-  </td>,
-  <td>
-    <div
-      style={
-        Object {
-          "minWidth": "128px",
-          "position": "relative",
-        }
+    }
+  />
+  <HybridCell
+    col={
+      Object {
+        "id": "T2",
+        "name": "T2",
       }
-    >
-      <div
-        className="box"
-      >
-        <a
-          href="/hybrid/H1"
-          onClick={[Function]}
-        >
-          <figure
-            className="image"
-          >
-            <img
-              alt=""
-              className=""
-              onError={[Function]}
-              src="./Images/20200409_174234.jpg"
-            />
-          </figure>
-        </a>
-        <div
-          className="level"
-          style={
-            Object {
-              "display": "none",
-              "flexWrap": "wrap",
-            }
-          }
-        >
-          <span
-            className="tag is-info"
-          >
-            T1
-          </span>
-          <span
-            className="tag is-info"
-          >
-            T2
-          </span>
-        </div>
-      </div>
-    </div>
-  </td>,
-  <td>
-    <div
-      style={
-        Object {
-          "minWidth": "128px",
-          "position": "relative",
-        }
+    }
+    edit={true}
+    grid="G1"
+    line={
+      Object {
+        "id": "T1",
+        "name": "T1",
       }
-    >
-      <div
-        className="box"
-      >
-        <a
-          href="/hybrid/H1"
-          onClick={[Function]}
-        >
-          <figure
-            className="image"
-          >
-            <img
-              alt=""
-              className=""
-              onError={[Function]}
-              src="./Images/20200409_174234.jpg"
-            />
-          </figure>
-        </a>
-        <div
-          className="level"
-          style={
-            Object {
-              "display": "none",
-              "flexWrap": "wrap",
-            }
-          }
-        >
-          <span
-            className="tag is-info"
-          >
-            T1
-          </span>
-          <span
-            className="tag is-info"
-          >
-            T2
-          </span>
-        </div>
-      </div>
-      <span
-        className="delete is-small"
-        onClick={[Function]}
-        style={
+    }
+  />
+  <HybridCell
+    col={
+      Object {
+        "id": "T2",
+        "name": "T2",
+      }
+    }
+    edit={false}
+    grid="G1"
+    hybrid={
+      Object {
+        "grid": "G1",
+        "id": "H1",
+        "name": "Spaghetti/Cataclysme",
+        "tags": Array [
           Object {
-            "position": "absolute",
-            "right": "4px",
-            "top": "4px",
-          }
-        }
-      />
-    </div>
-  </td>,
-]
+            "id": "T1",
+            "name": "T1",
+          },
+          Object {
+            "id": "T2",
+            "name": "T2",
+          },
+        ],
+        "url": "./Images/20200409_174234.jpg",
+        "user": "U1",
+      }
+    }
+    line={
+      Object {
+        "id": "T1",
+        "name": "T1",
+      }
+    }
+  />
+  <HybridCell
+    col={
+      Object {
+        "id": "T2",
+        "name": "T2",
+      }
+    }
+    edit={true}
+    grid="G1"
+    hybrid={
+      Object {
+        "grid": "G1",
+        "id": "H1",
+        "name": "Spaghetti/Cataclysme",
+        "tags": Array [
+          Object {
+            "id": "T1",
+            "name": "T1",
+          },
+          Object {
+            "id": "T2",
+            "name": "T2",
+          },
+        ],
+        "url": "./Images/20200409_174234.jpg",
+        "user": "U1",
+      }
+    }
+    line={
+      Object {
+        "id": "T1",
+        "name": "T1",
+      }
+    }
+  />
+</Router>
 `;

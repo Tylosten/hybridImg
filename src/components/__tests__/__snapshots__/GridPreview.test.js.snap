@@ -1,104 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridPreview renders correctly 1`] = `
-<a
-  href="/grid/G1"
-  onClick={[Function]}
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
-  <div
-    className="box"
+  <a
+    href="/grid/G1"
+    onClick={[Function]}
   >
-    <h1
-      className="title is-4"
+    <div
+      className="box"
     >
-      La grille de Mag
-    </h1>
-    <article
-      className="media"
-    >
-      <div
-        className="content"
+      <h1
+        className="title is-4"
       >
-        <figure
-          className="image is-square is-96x96"
-        >
-          <img
-            src="./Images/20200411_112906.jpg"
-          />
-        </figure>
-      </div>
-      <div
-        className="content"
+        La grille de Mag
+      </h1>
+      <article
+        className="media"
       >
         <div
-          className="field"
+          className="content"
         >
-          <label
-            className="label"
+          <figure
+            className="image is-square is-96x96"
           >
-            Auteurice
-          </label>
-          <div
-            className="control"
-          >
-            Mag
-          </div>
+            <img
+              alt="Image de la grille La grille de Mag"
+              src="./Images/20200411_112906.jpg"
+            />
+          </figure>
         </div>
         <div
-          className="field"
+          className="content"
         >
-          <label
-            className="label"
-          >
-            Thèmes
-          </label>
           <div
-            className="control"
+            className="field"
           >
-            <div>
-              <span
-                className="tag is-info"
-              />
-              <span
-                className="tag is-info"
-              />
-              <span
-                className="tag is-info"
-              />
-              <span
-                className="tag is-info"
-              />
-              <span
-                className="tag is-info"
-              />
-              <span
-                className="tag is-info"
-              />
+            <label
+              className="label"
+            >
+              Auteurice
+            </label>
+            <div
+              className="control"
+            >
+              Mag
             </div>
-            <div>
-              <span
-                className="tag is-light is-info"
-              />
-              <span
-                className="tag is-light is-info"
-              />
-              <span
-                className="tag is-light is-info"
-              />
-              <span
-                className="tag is-light is-info"
-              />
-              <span
-                className="tag is-light is-info"
-              />
-              <span
-                className="tag is-light is-info"
-              />
+          </div>
+          <div
+            className="field"
+          >
+            <label
+              className="label"
+            >
+              Thèmes
+            </label>
+            <div
+              className="control"
+            >
+              <div>
+                <span
+                  className="tag is-info"
+                />
+                <span
+                  className="tag is-info"
+                />
+                <span
+                  className="tag is-info"
+                />
+                <span
+                  className="tag is-info"
+                />
+                <span
+                  className="tag is-info"
+                />
+                <span
+                  className="tag is-info"
+                />
+              </div>
+              <div>
+                <span
+                  className="tag is-light is-info"
+                />
+                <span
+                  className="tag is-light is-info"
+                />
+                <span
+                  className="tag is-light is-info"
+                />
+                <span
+                  className="tag is-light is-info"
+                />
+                <span
+                  className="tag is-light is-info"
+                />
+                <span
+                  className="tag is-light is-info"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </article>
-  </div>
-</a>
+      </article>
+    </div>
+  </a>
+</div>
 `;

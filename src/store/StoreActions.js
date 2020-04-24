@@ -5,6 +5,7 @@ export const actionTypes = {
   UPDATE_HYBRID: 'UPDATE_HYBRID',
   DELETE_HYBRID: 'DELETE_HYBRID',
   CREATE_TEMPLATE: 'CREATE_TEMPLATE',
+  DELETE_TEMPLATE: 'DELETE_TEMPLATE',
   CREATE_TAG: 'CREATE_TAG',
   CREATE_GRID: 'CREATE_GRID',
   DELETE_GRID: 'DELETE_GRID',
@@ -47,6 +48,23 @@ export const createTemplate = ({ name, lineThemes, colThemes }) => ({
   name,
   lineThemes,
   colThemes,
+});
+
+export const deleteTemplate = ({ id }) => ({
+  type: actionTypes.DELETE_TEMPLATE,
+  id,
+});
+
+export const createGrid = ({ name, isOpen, template }) => ({
+  type: actionTypes.CREATE_GRID,
+  name,
+  isOpen,
+  template,
+});
+
+export const deleteGrid = ({ id }) => ({
+  type: actionTypes.DELETE_GRID,
+  id,
 });
 
 export const createTag = ({ name }) => ({

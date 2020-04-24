@@ -4,31 +4,28 @@ const { Field, Input, Label, Control, Help } = Form;
 import { Link } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
-import { createTemplate, createTag } from '../store/StoreActions';
+import { createTemplate } from '../store/StoreActions';
 import SelectCreateTags from './SelectCreateTags';
 
 export const TemplateForm = ({ dispatchToStore }) => {
   const [name, setName] = useState();
   const [lineThemes, setLineThemes] = useState([]);
   const [colThemes, setColThemes] = useState([]);
-  const [missingLineThemes, setMissingLineThemes] = useState([]);
-  const [missingColThemes, setMissingColThemes] = useState([]);
 
-  const onCreate = () => {
+  const onCreate = async () => {
     if (!name) {
       return;
     }
-    missingLineThemes.map(tag => {
-      dispatchToStore(createTag(tag));
-    });
-    missingColThemes.map(tag => {
-      dispatchToStore(createTag(tag));
-    });
+
+    if (lineThemes.length == 0 || colThemes.length === 0) {
+      return;
+    }
+
     dispatchToStore(
-      createTemplate({
+      await createTemplate({
         name,
-        lineThemes: lineThemes.map(tag => tag.id),
-        colThemes: colThemes.map(tag => tag.id),
+        lineThemes,
+        colThemes,
       })
     );
   };
@@ -52,11 +49,15 @@ export const TemplateForm = ({ dispatchToStore }) => {
         <Control>
           <SelectCreateTags
             color="info"
-            onChange={(selected, toCreate) => {
+            onChange={selected => {
               setColThemes(selected);
-              setMissingColThemes(toCreate);
             }}
           />
+          {colThemes.length === 0 ? (
+            <Help color="danger">Il faut au moins un thème</Help>
+          ) : (
+            <></>
+          )}
         </Control>
       </Field>
       <Field>
@@ -64,11 +65,15 @@ export const TemplateForm = ({ dispatchToStore }) => {
         <Control>
           <SelectCreateTags
             color="info"
-            onChange={(selected, toCreate) => {
+            onChange={selected => {
               setLineThemes(selected);
-              setMissingLineThemes(toCreate);
             }}
           />
+          {lineThemes.length === 0 ? (
+            <Help color="danger">Il faut au moins un thème</Help>
+          ) : (
+            <></>
+          )}
         </Control>
       </Field>
       <Field className="is-grouped">

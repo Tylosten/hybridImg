@@ -5,6 +5,24 @@ import { actionTypes } from './StoreActions';
 
 export const StoreContext = React.createContext();
 
+const addTags = (tagsArr, dispatch) => {
+  return Promise.all(
+    tagsArr.map(tag => {
+      if (!tag.id) {
+        return axios
+          .post('/tag/new', {
+            name: tag.name,
+          })
+          .then(res => {
+            dispatch({ type: actionTypes.CREATE_TAG, tag: res.data });
+            return res.data.id;
+          });
+      }
+      return tag.id;
+    })
+  );
+};
+
 export const StoreMiddleware = dispatch => {
   return action => {
     switch (action.type) {
@@ -23,7 +41,7 @@ export const StoreMiddleware = dispatch => {
             session = { authenticated: false };
           })
           .finally(() => {
-            dispatch({ ...action, session });
+            return dispatch({ ...action, session });
           });
       }
       case actionTypes.LOGOUT: {
@@ -33,7 +51,7 @@ export const StoreMiddleware = dispatch => {
             console.info(err);
           })
           .finally(() => {
-            dispatch(action);
+            return dispatch(action);
           });
       }
       case actionTypes.CREATE_HYBRID: {
@@ -43,29 +61,55 @@ export const StoreMiddleware = dispatch => {
         formData.append('tags', action.tags);
         formData.append('grid', action.grid);
         return axios.post('/hybrid/new', formData).then(res => {
-          dispatch({ ...action, hybrid: res.data });
+          return dispatch({ ...action, hybrid: res.data });
         });
       }
       case actionTypes.UPDATE_HYBRID: {
         return axios.post('/hybrid/update', action).then(() => {
-          dispatch(action);
+          return dispatch(action);
         });
       }
       case actionTypes.DELETE_HYBRID: {
         return axios.post('/hybrid/delete', { id: action.id }).then(() => {
-          dispatch(action);
+          return dispatch(action);
         });
       }
       case actionTypes.CREATE_TEMPLATE: {
+        return Promise.all([
+          addTags(action.lineThemes, dispatch),
+          addTags(action.colThemes, dispatch),
+        ]).then(tags => {
+          return axios
+            .post('/template/new', {
+              name: action.name,
+              lineThemes: tags[0],
+              colThemes: tags[1],
+            })
+            .then(res => {
+              return dispatch({ ...action, template: res.data });
+            });
+        });
+      }
+      case actionTypes.DELETE_TEMPLATE: {
+        return axios.post('/template/delete', { id: action.id }).then(() => {
+          return dispatch(action);
+        });
+      }
+      case actionTypes.CREATE_GRID: {
         return axios
-          .post('/template/new', {
+          .post('/grid/new', {
             name: action.name,
-            colThemes: action.colThemes,
-            lineThemes: action.lineThemes,
+            isOpen: action.isOpen,
+            template: action.template,
           })
           .then(res => {
-            dispatch({ ...action, template: res.data });
+            return dispatch({ ...action, grid: res.data });
           });
+      }
+      case actionTypes.DELETE_GRID: {
+        return axios.post('/grid/delete', { id: action.id }).then(() => {
+          return dispatch(action);
+        });
       }
       case actionTypes.CREATE_TAG: {
         return axios
@@ -73,7 +117,7 @@ export const StoreMiddleware = dispatch => {
             name: action.name,
           })
           .then(res => {
-            dispatch({ ...action, tag: res.data });
+            return dispatch({ ...action, tag: res.data });
           });
       }
       default: {
@@ -125,6 +169,21 @@ export const StoreReducer = (state, action) => {
       const newTemplates = { ...state.templates };
       newTemplates[action.template.id] = action.template;
       return { ...state, templates: newTemplates };
+    }
+    case actionTypes.DELETE_TEMPLATE: {
+      const newTemplates = { ...state.templates };
+      delete newTemplates[action.id];
+      return { ...state, templates: newTemplates };
+    }
+    case actionTypes.CREATE_GRID: {
+      const newGrids = { ...state.grids };
+      newGrids[action.grid.id] = action.grid;
+      return { ...state, grids: newGrids };
+    }
+    case actionTypes.DELETE_GRID: {
+      const newGrids = { ...state.grids };
+      delete newGrids[action.id];
+      return { ...state, grids: newGrids };
     }
     case actionTypes.CREATE_TAG: {
       const newTags = { ...state.tags };

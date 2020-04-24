@@ -37,29 +37,26 @@ export const HybridDetails = props => {
 
   return (
     <>
-      {alertDelete ? (
-        <AlertMessage>
-          <Notification color="danger" className="is-light">
-            <Heading size={5}>
-              Voulez vous vraiment supprimer cette image ?
-            </Heading>
-            <Field className="is-grouped">
-              <Control>
-                <Link to="/hybrids">
-                  <Button color="danger" onClick={onDelete}>
-                    Supprimer
-                  </Button>
-                </Link>
-              </Control>
-              <Control>
-                <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
-              </Control>
-            </Field>
-          </Notification>
-        </AlertMessage>
-      ) : (
-        <></>
-      )}
+      <AlertMessage show={alertDelete} closeFn={() => setAlertDelete(false)}>
+        <Notification color="danger" className="is-light">
+          <Heading size={5}>
+            Voulez vous vraiment supprimer cette image ?
+          </Heading>
+          <Field className="is-grouped">
+            <Control>
+              <Link to="/hybrids">
+                <Button color="danger" onClick={onDelete}>
+                  Supprimer
+                </Button>
+              </Link>
+            </Control>
+            <Control>
+              <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
+            </Control>
+          </Field>
+        </Notification>
+      </AlertMessage>
+
       <Tile className="is-ancestor">
         <Tile className="is-parent">
           <Tile className="is-parent is-4">

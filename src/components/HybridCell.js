@@ -47,16 +47,13 @@ export const HybridCell = ({
         </div>
       ) : (
         <>
-          {showSelect ? (
-            <SelectHybrid
-              line={line}
-              col={col}
-              setShow={setShowSelect}
-              grid={grid}
-            />
-          ) : (
-            <></>
-          )}
+          <SelectHybrid
+            line={line}
+            col={col}
+            show={showSelect}
+            setShow={setShowSelect}
+            grid={grid}
+          />
           <Button
             style={{ width: `${imgSize}px`, height: `${imgSize}px` }}
             onClick={() => {

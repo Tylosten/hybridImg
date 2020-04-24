@@ -25,6 +25,18 @@ const checkTemplateOwner = async (req, res, next) => {
   }
 };
 
+const checkNoGrid = async (req, res, next) => {
+  const templateId = req.body.id;
+  const db = await connectDB();
+  const collection = db.collection('grids');
+  const gridNb = await collection.countDocuments({ template: templateId });
+  if (gridNb === 0) {
+    next();
+  } else {
+    return res.status(401).send('Unauthorized');
+  }
+};
+
 export const templates = app => {
   app.post('/template/new', isAuth, async (req, res) => {
     const newTemplate = await templateUtils.add({
@@ -36,11 +48,17 @@ export const templates = app => {
     deleteUnusedTags();
   });
 
-  app.post('/template/delete', isAuth, checkTemplateOwner, async (req, res) => {
-    await templateUtils.remove(req.body.id);
-    res.status(200).send();
-    deleteUnusedTags();
-  });
+  app.post(
+    '/template/delete',
+    isAuth,
+    checkTemplateOwner,
+    checkNoGrid,
+    async (req, res) => {
+      await templateUtils.remove(req.body.id);
+      res.status(200).send();
+      deleteUnusedTags();
+    }
+  );
 
   app.post('/template/update', isAuth, checkTemplateOwner, async (req, res) => {
     await templateUtils.update({ ...req.body });

@@ -2,7 +2,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { HybridCell } from '../HybridCell';
 
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 describe('HybridCell', () => {
   it('renders correctly', () => {
@@ -26,17 +26,15 @@ describe('HybridCell', () => {
       },
     };
     const props4 = { ...props3, edit: true };
-    const tree = renderer
-      .create(
-        <StaticRouter>
-          <HybridCell {...props} />
-          <HybridCell {...props2} />
-          <HybridCell {...props3} />
-          <HybridCell {...props4} />
-        </StaticRouter>
-      )
-      .toJSON();
+    const wrapper = shallow(
+      <StaticRouter>
+        <HybridCell {...props} />
+        <HybridCell {...props2} />
+        <HybridCell {...props3} />
+        <HybridCell {...props4} />
+      </StaticRouter>
+    );
 
-    expect(tree).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

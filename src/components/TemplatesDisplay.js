@@ -6,11 +6,11 @@ import StoreProvider from '../store/StoreProvider';
 import ElementsDisplay from './ElementsDisplay';
 import TemplateDisplay from './TemplateDisplay';
 
-export const TemplatesDisplay = ({ templates }) => {
+export const TemplatesDisplay = ({ templates, byLine }) => {
   return (
     <>
       <Box>
-        <Link to="/template/new">
+        <Link to="/templates/new">
           <Button color="primary">Proposez un modèle de grille</Button>
         </Link>
       </Box>
@@ -18,6 +18,7 @@ export const TemplatesDisplay = ({ templates }) => {
         ChildComponent={TemplateDisplay}
         getChildProps={template => ({ id: template.id })}
         elements={templates}
+        byLine={byLine}
       />
     </>
   );

@@ -10,7 +10,10 @@ const checkTagUse = async tag => {
   const db = await connectDB();
 
   const template = await db.collection('templates').findOne({
-    $or: [{ lineThemes: { $in: tag.id } }, { colThemes: { $in: tag.id } }],
+    $or: [
+      { lineThemes: { $elemMatch: { $eq: tag.id } } },
+      { colThemes: { $elemMatch: { $eq: tag.id } } },
+    ],
   });
   if (template) {
     return true;
@@ -18,7 +21,7 @@ const checkTagUse = async tag => {
 
   const hybrid = await db
     .collection('hybrids')
-    .findOne({ tags: { $in: tag.id } });
+    .findOne({ tags: { $elemMatch: { $eq: tag.id } } });
   if (hybrid) {
     return true;
   }
@@ -26,14 +29,15 @@ const checkTagUse = async tag => {
   return false;
 };
 
-export const deleteUnuseTags = async () => {
+export const deleteUnusedTags = async () => {
   const db = await connectDB();
-  const tags = db
+  const tags = await db
     .collection('tags')
     .find()
     .toArray();
-  tags.forEach(tag => {
-    if (!checkTagUse(tag)) {
+  tags.forEach(async tag => {
+    if (!(await checkTagUse(tag))) {
+      console.info('Removing unused tag', tag.name);
       tagUtils.remove(tag.id);
     }
   });

@@ -25,8 +25,6 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
       const grid = store.grids[gridId];
       return {
         ...grid,
-        lineThemes: grid.lineThemes.map(id => store.tags[id]),
-        colThemes: grid.colThemes.map(id => store.tags[id]),
       };
     };
 
@@ -42,6 +40,23 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
       return Object.values(store.hybrids).filter(h => h.grid === grid);
     };
 
+    const getTemplate = id => {
+      const template = { ...store.templates[id] };
+      return {
+        ...template,
+        colThemes: Object.values(store.tags).filter(t =>
+          template.colThemes.includes(t.id)
+        ),
+        lineThemes: Object.values(store.tags).filter(t =>
+          template.lineThemes.includes(t.id)
+        ),
+      };
+    };
+
+    const getGridTemplate = gridId => {
+      return getTemplate(store.grids[gridId].template);
+    };
+
     const expandedStore = {
       ...store,
       getHybrid,
@@ -49,6 +64,8 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
       getGrid,
       getGridHybrid,
       getGridHybrids,
+      getTemplate,
+      getGridTemplate,
     };
 
     return (
