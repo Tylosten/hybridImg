@@ -18,7 +18,7 @@ const About = () => (
       </Tile>
       <Tile className="is-child is-4">
         <Link to="/home" style={{ color: 'inherit' }}>
-          <Image src="./Images/mamouth-abeille.png" />
+          <Image src="/Images/mamouth-abeille.png" />
         </Link>
       </Tile>
     </Tile>
