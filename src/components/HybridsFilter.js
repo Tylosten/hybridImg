@@ -1,67 +1,101 @@
-import React from 'react';
-import { Form, Notification } from 'react-bulma-components';
+import React, { useState } from 'react';
+import { Form, Icon, Level, Button } from 'react-bulma-components';
 const { Input, Field, Control, Label, Select } = Form;
 
 import StoreProvider from '../store/StoreProvider';
 import SelectMultiple from './SelectMultiple';
 
 const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
+  const [show, setShow] = useState(false);
   return (
-    <Notification color="primary" weight="light">
-      <Field>
-        <Label>Nom</Label>
-        <Control>
-          <Input
-            size="small"
-            value={filter.name}
-            onChange={e => setFilter({ ...filter, name: e.target.value })}
-          />
-        </Control>
-      </Field>
-      <Field>
-        <Label>Auteurice</Label>
-        <Control>
-          <Select
-            size="small"
-            className="is-rounded"
-            onChange={e => setFilter({ ...filter, user: e.target.value })}
-            value={filter.user}
-          >
-            <option></option>
-            {users.map(u => (
-              <option key={u.id} value={u.id}>
-                {u.name}
-              </option>
-            ))}
-          </Select>
-        </Control>
-      </Field>
-      <Field>
-        <Label>Tags</Label>
-        <SelectMultiple
-          size="small"
-          options={tags}
-          selected={filter.tags}
-          onChange={selected => setFilter({ ...filter, tags: selected })}
-        />
-      </Field>
-      <Field>
-        <Label>Grille</Label>
-        <Select
-          size="small"
-          className="is-rounded"
-          value={filter.grid}
-          onChange={e => setFilter({ ...filter, grid: e.target.value })}
-        >
-          <option></option>
-          {grids.map(g => (
-            <option key={g.id} value={g.id}>
-              {g.name}
-            </option>
-          ))}
-        </Select>
-      </Field>
-    </Notification>
+    <div style={{ display: 'relative' }}>
+      {show ? (
+        <>
+          <Level color="primary" weight="light">
+            <Field>
+              <Label>Nom</Label>
+              <Control>
+                <Input
+                  size="small"
+                  value={filter.name}
+                  onChange={e => setFilter({ ...filter, name: e.target.value })}
+                />
+              </Control>
+            </Field>
+            <Field>
+              <Label>Auteurice</Label>
+              <Control>
+                <Select
+                  size="small"
+                  className="is-rounded"
+                  onChange={e => setFilter({ ...filter, user: e.target.value })}
+                  value={filter.user}
+                >
+                  <option></option>
+                  {users.map(u => (
+                    <option key={u.id} value={u.id}>
+                      {u.name}
+                    </option>
+                  ))}
+                </Select>
+              </Control>
+            </Field>
+            <Field>
+              <Label>Tags</Label>
+              <SelectMultiple
+                size="small"
+                options={tags}
+                selected={filter.tags}
+                onChange={selected => setFilter({ ...filter, tags: selected })}
+              />
+            </Field>
+            <Field>
+              <Label>Grille</Label>
+              <Select
+                size="small"
+                className="is-rounded"
+                value={filter.grid}
+                onChange={e => setFilter({ ...filter, grid: e.target.value })}
+              >
+                <option></option>
+                {grids.map(g => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                  </option>
+                ))}
+              </Select>
+            </Field>
+          </Level>
+          <div style={{ position: 'absolute', right: '50%' }}>
+            <div style={{ position: 'relative', right: '-50%' }}>
+              <Button
+                size="small"
+                color="primary"
+                className="is-rounded has-icon"
+                onClick={() => setShow(!show)}
+              >
+                <span>Filtrer</span>
+                <Icon className="fa fa-chevron-up" />
+              </Button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div style={{ position: 'absolute', right: '50%' }}>
+          <div style={{ position: 'relative', right: '-50%' }}>
+            <Button
+              size="small"
+              color="primary"
+              className="is-rounded"
+              onClick={() => setShow(!show)}
+            >
+              <span>Filtrer</span>
+              <Icon className="fa fa-chevron-down" />
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

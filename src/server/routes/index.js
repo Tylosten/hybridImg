@@ -3,7 +3,7 @@ const router = express.Router();
 import passport from 'passport';
 import { v4 as uuid } from 'uuid';
 
-import { genPassword } from 'server/lib/passwordUtils';
+import { genPassword, verifyPassword } from 'server/lib/passwordUtils';
 import { connectDB } from 'server/config/database';
 import { serverRenderer } from 'renderers/server';
 import { tags } from './tags';
@@ -48,6 +48,30 @@ router.post('/register', async (req, res) => {
   });
 
   res.status(200).send();
+});
+
+router.post('/user/updatepwd', isAuth, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const collection = db.collection('users');
+    const user = await collection.findOne({ id: req.session.passport.user });
+    if (!user) {
+      res.status(404).json('User not found');
+      return;
+    }
+    if (!verifyPassword(req.body.oldPwd, user.hash, user.salt)) {
+      res.status(403).json('Invalid password');
+      return;
+    }
+
+    await collection.updateOne(
+      { id: req.session.passport.user },
+      { $set: { ...genPassword(req.body.newPwd) } }
+    );
+    res.status(200).send();
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
 
 /**

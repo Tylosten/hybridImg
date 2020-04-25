@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import { Button, Form, Box, Heading } from 'react-bulma-components';
 const { Field, Input, Label, Control, Help, Checkbox, Select } = Form;
-import { Link } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
 import { createGrid } from '../store/StoreActions';
 
 export const GridForm = props => {
-  const { dispatchToStore, templates } = props;
-  const [name, setName] = useState(`${props.template.name} - ${props.user}`);
+  const { dispatchToStore, templates, history } = props;
+  const [name, setName] = useState('');
   const [isOpen, setIsOpen] = useState(true);
-  const [template, setTemplate] = useState(props.template);
+  const [templateId, setTemplateId] = useState(props.templateId);
 
   const onCreate = async () => {
-    if (!name || !template) {
+    if (!templateId) {
       return;
     }
 
-    dispatchToStore(
-      await createGrid({
+    await dispatchToStore(
+      createGrid({
         name,
         isOpen,
-        template: template.id,
+        template: templateId,
       })
     );
   };
@@ -37,7 +36,6 @@ export const GridForm = props => {
             value={name}
             onChange={e => setName(e.target.value)}
           />
-          {name ? <></> : <Help color="danger">Ce champ est requis</Help>}
         </Control>
       </Field>
       <Field>
@@ -45,7 +43,7 @@ export const GridForm = props => {
         <Control>
           <Checkbox
             checked={isOpen}
-            onChange={e => setIsOpen(e.target.value)}
+            onChange={e => setIsOpen(e.target.checked)}
           />
         </Control>
       </Field>
@@ -53,31 +51,27 @@ export const GridForm = props => {
         <Label>Modèle</Label>
         <Control>
           <Select
-            value={template.id}
-            onChange={e =>
-              setTemplate(templates.find(t => t.id === e.target.value))
-            }
+            value={templateId}
+            onChange={e => setTemplateId(e.target.value)}
           >
+            <option></option>
             {templates.map(t => (
               <option key={t.id} value={t.id}>
                 {t.name}
               </option>
             ))}
           </Select>
+          {templateId ? <></> : <Help color="danger">Ce champ est requis</Help>}
         </Control>
       </Field>
       <Field className="is-grouped">
         <Control>
-          <Link to="/grids">
-            <Button color="primary" onClick={onCreate}>
-              Créer
-            </Button>
-          </Link>
+          <Button color="primary" onClick={onCreate}>
+            Créer
+          </Button>
         </Control>
         <Control>
-          <Link to="/grids">
-            <Button>Annuler</Button>
-          </Link>
+          <Button onClick={() => history.goBack()}>Annuler</Button>
         </Control>
       </Field>
     </Box>
@@ -85,9 +79,11 @@ export const GridForm = props => {
 };
 
 const extraprops = (store, props) => {
+  let templateId = props.match.params.templateId;
+  templateId = store.templates[templateId] ? templateId : undefined;
   return {
     templates: Object.values(store.templates),
-    template: store.templates[props.match.params.templateId],
+    templateId,
     user: store.session.user.name,
   };
 };

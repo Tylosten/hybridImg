@@ -28,7 +28,7 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
 
         <Navbar.Menu id="mainnav">
           <Navbar.Container>
-            <Link to="/home" className="navbar-item">
+            <Link to="/home/info" className="navbar-item">
               Home
             </Link>
             <Link to="/templates" className="navbar-item">

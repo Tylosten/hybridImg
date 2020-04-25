@@ -95,8 +95,8 @@ export const SelectCreateTags = props => {
                     onCreate();
                   }
                 }}
-                onFocus={e => setIsFocus(true)}
-                onBlur={e => setIsFocus(false)}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
                 disabled={disabled}
               />
               <Help color="danger">{help}</Help>

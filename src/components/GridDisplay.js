@@ -41,7 +41,9 @@ function extraProps(store, props) {
   const grid = store.getGrid(props.match.params.id);
   return {
     grid,
-    edit: store.session.authenticated && store.session.user.id === grid.user,
+    edit:
+      store.session.authenticated &&
+      (store.session.user.id === grid.user || grid.isOpen),
     template: store.getGridTemplate(grid.id),
   };
 }

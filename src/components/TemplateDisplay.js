@@ -19,7 +19,6 @@ export const TemplateDisplay = ({
   edit,
   canDelete,
   grids,
-  userId,
   dispatchToStore,
 }) => {
   const [showDelete, setShowDelete] = useState(false);
@@ -28,7 +27,6 @@ export const TemplateDisplay = ({
     dispatchToStore(deleteTemplate({ id: template.id }));
     setShowDelete(false);
   };
-
   return (
     <>
       <AlertMessage show={showDelete} closeFn={() => setShowDelete(false)}>
@@ -44,20 +42,36 @@ export const TemplateDisplay = ({
           </Notification>
         ) : (
           <Notification color="danger" className="is-light">
-            <Heading>
-              Suppression impossible. Des grilles sont associées à ce modèle.
-            </Heading>
+            <Heading>Suppression impossible.</Heading>
+            Des grilles sont associées à ce modèle.
           </Notification>
         )}
       </AlertMessage>
       <Card>
         <Card.Header>
           <Card.Header.Title>{template.name}</Card.Header.Title>
-          {edit ? (
-            <div className="delete" onClick={() => setShowDelete(true)} />
-          ) : (
-            <></>
-          )}
+          <Level className="has-text-right">
+            <Level.Side>
+              <Level.Item>
+                <Link to={`/grids/new/${template.id}`}>
+                  <Button>Nouvelle Grille</Button>
+                </Link>
+              </Level.Item>
+              <Level.Item>
+                {edit ? (
+                  <Button
+                    color="white"
+                    size="small"
+                    onClick={() => setShowDelete(true)}
+                  >
+                    <Icon className="fa fa-trash" />
+                  </Button>
+                ) : (
+                  <></>
+                )}
+              </Level.Item>
+            </Level.Side>
+          </Level>
         </Card.Header>
         <Card.Content>
           <div>
@@ -86,13 +100,6 @@ export const TemplateDisplay = ({
             </div>
           </div>
         </Card.Content>
-        <Card.Footer className="has-text-right">
-          <Link to={`/grids/new/${template.id}`}>
-            <Button color="white">
-              <Icon className="fa fa-plus" />
-            </Button>
-          </Link>
-        </Card.Footer>
       </Card>
     </>
   );
@@ -108,7 +115,6 @@ const extraprops = (store, props) => {
     template,
     edit,
     grids,
-    userId: store.session.user.id,
     canDelete: edit && grids.length === 0,
   };
 };

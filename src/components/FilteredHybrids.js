@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
-import { Tile } from 'react-bulma-components';
+import { Notification, Button, Form } from 'react-bulma-components';
+const { Field, Control } = Form;
+import { Link } from 'react-router-dom';
 
 import HybridsFilter from './HybridsFilter';
 import HybridsDisplay from './HybridsDisplay';
 
-const FilteredHybrids = () => {
-  const [filter, setFilter] = useState({});
-
+const FilteredHybrids = props => {
+  const [filter, setFilter] = useState(props.filter || {});
+  console.log('hide', props.hideFilter);
   return (
-    <Tile className="is-ancestor">
-      <Tile className={'is-parent is-9'}>
-        <Tile className="is-child">
-          <HybridsDisplay filter={filter} />
-        </Tile>
-      </Tile>
-      <Tile className={'is-parent is-3'}>
-        <Tile className="is-child">
+    <>
+      <Notification color="primary" className="is-light">
+        <Field className="is-grouped">
+          <Control>
+            <Link to="/hybrids/new">
+              <Button color="primary">Nouvelle Image</Button>
+            </Link>
+          </Control>
+        </Field>
+        {props.hideFilter ? (
+          <></>
+        ) : (
           <HybridsFilter filter={filter} setFilter={setFilter} />
-        </Tile>
-      </Tile>
-    </Tile>
+        )}
+      </Notification>
+      <HybridsDisplay filter={filter} />
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box } from 'react-bulma-components';
+import { Button, Notification } from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
@@ -9,11 +9,11 @@ import TemplateDisplay from './TemplateDisplay';
 export const TemplatesDisplay = ({ templates, byLine }) => {
   return (
     <>
-      <Box>
+      <Notification color="primary" className="is-light">
         <Link to="/templates/new">
           <Button color="primary">Proposez un modèle de grille</Button>
         </Link>
-      </Box>
+      </Notification>
       <ElementsDisplay
         ChildComponent={TemplateDisplay}
         getChildProps={template => ({ id: template.id })}
