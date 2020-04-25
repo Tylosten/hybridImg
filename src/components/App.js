@@ -34,7 +34,11 @@ export const App = props => {
       <Route path="*" component={Navigation} />
       <Route exact path="/login" component={Login}></Route>
       <Route exact path="/" component={About}></Route>
-      <Route path="/home/(:subpath)?" component={RouteGuard(Home)}></Route>
+      <Route
+        exact
+        path={['/home/', '/home/:subpath']}
+        component={RouteGuard(Home)}
+      ></Route>
       <Route
         exact
         path="/templates"
@@ -51,7 +55,8 @@ export const App = props => {
         component={RouteGuard(GridsDiplay, { byLine: 2 })}
       ></Route>
       <Route
-        path="/grids/new/(:templateId)?"
+        exact
+        path={['/grids/new/', '/grids/new/:templateId']}
         component={RouteGuard(GridForm)}
       ></Route>
       <Route exact path="/grid/:id" component={RouteGuard(GridDisplay)}></Route>

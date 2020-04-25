@@ -4,22 +4,25 @@ const AlertMessage = props => {
   return (
     <>
       {props.show ? (
-        <div
-          style={{
-            position: 'fixed',
-            top: '0',
-            right: '0',
-            width: '100%',
-            height: '100%',
-            zIndex: 5,
-            backgroundColor: '#0008',
-          }}
-        >
+        <>
+          <div
+            onClick={props.closeFn}
+            style={{
+              position: 'fixed',
+              top: '0',
+              right: '0',
+              width: '100%',
+              height: '100%',
+              zIndex: 5,
+              backgroundColor: '#0008',
+            }}
+          ></div>
           <div
             style={{
               position: 'fixed',
               top: '50%',
               right: '50%',
+              zIndex: 6,
               height: props.height || '100px',
             }}
           >
@@ -38,7 +41,7 @@ const AlertMessage = props => {
               {props.children}
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <></>
       )}

@@ -28,7 +28,7 @@ const Home = ({ user }) => {
         style={{ paddingBottom: '0' }}
       >
         <Tabs className=" is-boxed">
-          <Tab path="/home/info">Vos informations</Tab>
+          <Tab path="/home">Vos informations</Tab>
           <Tab path="/home/template">Vos modèles</Tab>
           <Tab path="/home/grid">Vos grilles</Tab>
           <Tab path="/home/hybrid">Vos images</Tab>
@@ -36,9 +36,6 @@ const Home = ({ user }) => {
       </Notification>
       <Notification color="white">
         <Route exact path="/home">
-          <Redirect to="/home/info" />
-        </Route>
-        <Route exact path="/home/info">
           <UserDetails user={user} />
         </Route>
         <Route exact path="/home/template">
