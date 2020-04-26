@@ -22,7 +22,7 @@ const UserDetails = ({ user }) => {
         setShowPwd(false);
       })
       .catch(err => {
-        setHelp('Error', err);
+        setHelp('Error', err.response.data.message);
       });
   };
 

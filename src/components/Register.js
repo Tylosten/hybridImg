@@ -14,13 +14,12 @@ const Register = ({ dispatchToStore, authenticated }) => {
       .then(() => {
         dispatchToStore(login(username, password)).catch(err => {
           setHelp(
-            `Erreur : Vous êtes inscrit mais nous n'avons pas pu vous connecter (${err
-              .response.data || err.message})`
+            `Erreur : Vous êtes inscrit mais nous n'avons pas pu vous connecter (${err.response.data.message})`
           );
         });
       })
       .catch(err => {
-        setHelp(`Erreur : ${err.response.data || err.message}`);
+        setHelp(`Erreur : ${err.response.data.message}`);
       });
   };
 

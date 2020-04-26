@@ -12,7 +12,7 @@ const Login = ({ authenticated, dispatchToStore }) => {
 
   const onSubmit = async (username, password) => {
     dispatchToStore(login(username, password)).catch(err => {
-      setHelp(`Erreur : ${err.response.data || err.message}`);
+      setHelp(`Erreur : ${err.response.data.message}`);
     });
   };
 

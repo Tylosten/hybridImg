@@ -1,7 +1,6 @@
 import express from 'express';
-const router = express.Router();
+import errorWrapper from './errorWrapper';
 import passport from 'passport';
-import { v4 as uuid } from 'uuid';
 
 import { genPassword, verifyPassword } from 'server/lib/passwordUtils';
 import dbUtils from 'server/lib/dbUtils';
@@ -13,19 +12,17 @@ import { grids } from './grids';
 import { hybrids } from './hybrids';
 import isAuth from './isAuth';
 
+const router = express.Router();
+const wrapper = errorWrapper(router);
+
 /**
  * -------------- Session ROUTES ----------------
  */
-router.post('/login', (req, res, next) => {
+wrapper.post('/login', (req, res, next) => {
   return passport.authenticate('local', (err, user, info) => {
     if (err || !user) {
       console.info('LOGIN failed', info);
-    }
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(500).send('Nom ou mot de passe incorrect');
+      return next(err || 'Nom ou mot de passe incorrect');
     }
     return req.logIn(user, err => {
       if (err) {
@@ -38,99 +35,74 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/register', async (req, res) => {
+wrapper.post('/register', async (req, res) => {
   const { username, password } = req.body;
   const user = await dbUtils.addUser(username, password, 'user');
   return res.status(200).json(user);
 });
 
-router.post('/user/delete', isAuth, async (req, res) => {
-  try {
-    const db = await connectDB();
-    const collection = db.collection('users');
-    await collection.deleteOne({ id: req.body.id });
-    res.status(200).send();
-  } catch (err) {
-    console.info(err);
-    res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
-  }
+wrapper.post('/user/delete', isAuth, async (req, res) => {
+  const db = await connectDB();
+  const collection = db.collection('users');
+  await collection.deleteOne({ id: req.body.id });
+  return res.status(200).send();
 });
 
-router.post('/user/updatepwd', isAuth, async (req, res) => {
-  try {
-    const db = await connectDB();
-    const collection = db.collection('users');
-    const user = await collection.findOne({ id: req.session.passport.user });
-    if (!user) {
-      res.status(404).send('User not found');
-      return;
-    }
-    if (!verifyPassword(req.body.oldPwd, user.hash, user.salt)) {
-      res.status(403).send('Invalid password');
-      return;
-    }
-
-    await collection.updateOne(
-      { id: req.session.passport.user },
-      { $set: { ...genPassword(req.body.newPwd) } }
-    );
-    res.status(200).send();
-  } catch (err) {
-    return res.status(500).send(err);
+wrapper.post('/user/updatepwd', isAuth, async (req, res) => {
+  const db = await connectDB();
+  const collection = db.collection('users');
+  const user = await collection.findOne({ id: req.session.passport.user });
+  if (!user) {
+    return res.status(404).send('User not found');
   }
+  if (!verifyPassword(req.body.oldPwd, user.hash, user.salt)) {
+    return res.status(403).send('Invalid password');
+  }
+  await collection.updateOne(
+    { id: req.session.passport.user },
+    { $set: { ...genPassword(req.body.newPwd) } }
+  );
+  return res.status(200).send();
 });
 
 /**
  * -------------- Other ROUTES ----------------
  */
-router.get('/logout', (req, res) => {
+wrapper.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  return res.redirect('/login');
 });
 
-const getCollectionArray = async name => {
-  const db = await connectDB();
-  return db
-    .collection(name)
-    .find()
-    .toArray();
-};
-
 const mainRendering = async (req, res) => {
-  try {
-    const session = req.isAuthenticated()
-      ? {
-        authenticated: true,
-        user: users.find(u => u.id === req.session.passport.user),
-      }
-      : { authenticated: false };
-    const vars = await serverRenderer(req.url, {
-      hybrids,
-      tags,
-      users,
-      grids,
-      session,
-      templates,
-    });
-    res.render('index', vars);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
   const hybrids = await dbUtils.getCollectionArray('hybrids');
   const tags = await dbUtils.getCollectionArray('tags');
   const users = await dbUtils.getCollectionArray('users');
   const grids = await dbUtils.getCollectionArray('grids');
   const templates = await dbUtils.getCollectionArray('templates');
+  const session = req.isAuthenticated()
+    ? {
+      authenticated: true,
+      user: users.find(u => u.id === req.session.passport.user),
+    }
+    : { authenticated: false };
+  const vars = await serverRenderer(req.url, {
+    hybrids,
+    tags,
+    users,
+    grids,
+    session,
+    templates,
+  });
+  res.render('index', vars);
 };
 
-router.get(['/login', '/', '/register'], mainRendering);
+wrapper.get(['/login', '/', '/register'], mainRendering);
 
-router.get('/*', isAuth, mainRendering);
+wrapper.get('/*', isAuth, mainRendering);
 
-tags(router);
-templates(router);
-grids(router);
-hybrids(router);
+tags(wrapper);
+templates(wrapper);
+grids(wrapper);
+hybrids(wrapper);
 
 export default router;

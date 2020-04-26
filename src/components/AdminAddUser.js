@@ -14,7 +14,7 @@ const AdminAddUser = ({ dispatchToStore }) => {
         setHelpColor('success');
       })
       .catch(err => {
-        setHelp(`Erreur : ${err.response.data || err.message}`);
+        setHelp(`Erreur : ${err.response.data.message}`);
         setHelpColor('danger');
       });
   };

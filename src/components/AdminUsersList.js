@@ -19,7 +19,7 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
 
   function onDeleteUser() {
     dispatchToStore(deleteUser({ id: userToDelete.id })).catch(err => {
-      setHelpDelete(err);
+      setHelpDelete(err.response.data.message);
     });
   }
 

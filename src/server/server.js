@@ -78,6 +78,17 @@ app.use(passport.session());
 app.use(routes);
 
 /**
+ * --------------GLOBAL ERROR HAndler ----------------
+ */
+function errorHandler(err, req, res) {
+  if (typeof err === 'string') {
+    return res.status(400).json({ message: err });
+  }
+  return res.status(500).json({ message: err.message });
+}
+app.use(errorHandler);
+
+/**
  * -------------- SERVER ----------------
  */
 
