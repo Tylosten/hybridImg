@@ -1,23 +1,13 @@
 import React from 'react';
 import { Tabs, Notification } from 'react-bulma-components';
-import { useLocation, Link, Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
 import GridsDisplay from './GridsDisplay';
 import FilteredHybrids from './FilteredHybrids';
 import TemplatesDisplay from './TemplatesDisplay';
 import UserDetails from './UserDetails';
-
-const Tab = ({ path, children }) => {
-  const location = useLocation();
-  return (
-    <Tabs.Tab renderAs="span" active={location.pathname === path}>
-      <Link to={path}>
-        <span>{children}</span>
-      </Link>
-    </Tabs.Tab>
-  );
-};
+import Tab from './Tab';
 
 const Home = ({ user }) => {
   return (
