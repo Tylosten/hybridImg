@@ -127,6 +127,22 @@ export const StoreMiddleware = dispatch => {
   };
 };
 
+const addElementReducer = (state, collection, element) => {
+  const newCollection = { ...state[collection] };
+  newCollection[element.id] = element;
+  const newState = { ...state };
+  newState[collection] = newCollection;
+  return newState;
+};
+
+const removeElementReduccer = (state, collection, id) => {
+  const newCollection = { ...state[collection] };
+  delete newCollection[id];
+  const newState = { ...state };
+  newState[collection] = newCollection;
+  return newState;
+};
+
 export const StoreReducer = (state, action) => {
   Object.freeze(state);
 
@@ -138,9 +154,7 @@ export const StoreReducer = (state, action) => {
       return { ...state, session: { authenticated: false } };
     }
     case actionTypes.CREATE_HYBRID: {
-      const newHybrids = { ...state.hybrids };
-      newHybrids[action.hybrid.id] = action.hybrid;
-      return { ...state, hybrids: newHybrids };
+      return addElementReducer(state, 'hybrids', action.hybrid);
     }
     case actionTypes.UPDATE_HYBRID: {
       const newHybrids = { ...state.hybrids };
@@ -161,34 +175,22 @@ export const StoreReducer = (state, action) => {
       return { ...state, hybrids: newHybrids };
     }
     case actionTypes.DELETE_HYBRID: {
-      const newHybrids = { ...state.hybrids };
-      delete newHybrids[action.id];
-      return { ...state, hybrids: newHybrids };
+      return removeElementReduccer(state, 'hybrids', action.id);
     }
     case actionTypes.CREATE_TEMPLATE: {
-      const newTemplates = { ...state.templates };
-      newTemplates[action.template.id] = action.template;
-      return { ...state, templates: newTemplates };
+      return addElementReducer(state, 'templates', action.template);
     }
     case actionTypes.DELETE_TEMPLATE: {
-      const newTemplates = { ...state.templates };
-      delete newTemplates[action.id];
-      return { ...state, templates: newTemplates };
+      return removeElementReduccer(state, 'templates', action.id);
     }
     case actionTypes.CREATE_GRID: {
-      const newGrids = { ...state.grids };
-      newGrids[action.grid.id] = action.grid;
-      return { ...state, grids: newGrids };
+      return addElementReducer(state, 'grids', action.grid);
     }
     case actionTypes.DELETE_GRID: {
-      const newGrids = { ...state.grids };
-      delete newGrids[action.id];
-      return { ...state, grids: newGrids };
+      return removeElementReduccer(state, 'grids', action.id);
     }
     case actionTypes.CREATE_TAG: {
-      const newTags = { ...state.tags };
-      newTags[action.tag.id] = action.tag;
-      return { ...state, tags: newTags };
+      return addElementReducer(state, 'tags', action.tag);
     }
     default:
       return state;
