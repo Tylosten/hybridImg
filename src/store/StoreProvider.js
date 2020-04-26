@@ -72,7 +72,6 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
       <Component
         {...props}
         {...extraprops(expandedStore, props)}
-        store={expandedStore}
         dispatchToStore={dispatchToStore}
       />
     );

@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Icon, Image } from 'react-bulma-components';
+import { Navbar, Icon, Image, Level } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
 import { logout } from '../store/StoreActions';
 
-export const Navigation = ({ match, store, dispatchToStore }) => {
+export const Navigation = ({
+  match,
+  authenticated,
+  username,
+  dispatchToStore,
+}) => {
   const onLogOut = () => {
     dispatchToStore(logout());
   };
@@ -42,24 +47,36 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
             </Link>
           </Navbar.Container>
           <Navbar.Container position="end">
-            {!store.session.authenticated ? (
-              <Link to="/login" className="navbar-item">
-                <div>
-                  <Icon className="fa fa-sign-in-alt" />
-                </div>
-              </Link>
+            {!authenticated ? (
+              <>
                 <Link to="/register" className="navbar-item">
                   Inscription
                 </Link>
+                <Link to="/login" className="navbar-item">
+                  <Level>
+                    <Level.Side>
+                      <Level.Item>Connexion</Level.Item>
+                      <Level.Item>
+                        <Icon className="fa fa-sign-in-alt" />
+                      </Level.Item>
+                    </Level.Side>
+                  </Level>
+                </Link>
+              </>
             ) : (
               <>
                 <Link to="/home" className="navbar-item">
-                  {store.session.user.name}
+                  {username}
                 </Link>
                 <Link to="/login" onClick={onLogOut} className="navbar-item">
-                  <div>
-                    <Icon className="fa fa-sign-out-alt" />
-                  </div>
+                  <Level>
+                    <Level.Side>
+                      <Level.Item>Déconnexion</Level.Item>
+                      <Level.Item>
+                        <Icon className="fa fa-sign-out-alt" />
+                      </Level.Item>
+                    </Level.Side>
+                  </Level>
                 </Link>
               </>
             )}
@@ -70,4 +87,11 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
   );
 };
 
-export default StoreProvider()(Navigation);
+const extraProps = store => {
+  return {
+    authenticated: store.session.authenticated,
+    username: store.session.user ? store.session.user.name : '',
+  };
+};
+
+export default StoreProvider(extraProps)(Navigation);
