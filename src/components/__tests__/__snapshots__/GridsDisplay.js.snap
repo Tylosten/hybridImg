@@ -1,25 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridsDisplay renders correctly 1`] = `
-<ElementsDisplay
-  ChildComponent={
-    Object {
-      "$$typeof": Symbol(react.memo),
-      "compare": null,
-      "type": [Function],
+<Fragment>
+  <Notification
+    className="is-light"
+    color="primary"
+    renderAs="div"
+  >
+    <Link
+      to="/grids/new"
+    >
+      <Button
+        color="primary"
+        disabled={false}
+        fullwidth={false}
+        inverted={false}
+        isSelected={false}
+        isStatic={false}
+        loading={false}
+        onClick={[Function]}
+        outlined={false}
+        remove={false}
+        renderAs="button"
+        reset={false}
+        rounded={false}
+        submit={false}
+        text={false}
+      >
+        Nouvelle grille
+      </Button>
+    </Link>
+  </Notification>
+  <ElementsDisplay
+    ChildComponent={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "compare": null,
+        "type": [Function],
+      }
     }
-  }
-  elements={
-    Array [
-      Object {
-        "id": "G1",
-      },
-      Object {
-        "id": "G2",
-      },
-    ]
-  }
-  getChildProps={[Function]}
-  hideSlider={true}
-/>
+    elements={
+      Array [
+        Object {
+          "id": "G1",
+        },
+        Object {
+          "id": "G2",
+        },
+      ]
+    }
+    getChildProps={[Function]}
+  />
+</Fragment>
 `;

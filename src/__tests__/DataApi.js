@@ -1,18 +1,18 @@
-import StateApi from '../store';
+import initStore from '../store';
 import defaultState from '../server/dev/defaultState';
 
-const store = new StateApi(defaultState);
+const store = initStore(defaultState);
 
 describe('StateApi', () => {
-  it('exposes hybrid images as an object', () => {
-    const hybrids = store.hybrids;
-    const hybrid0 = defaultState.hybrids[0];
+  it('exposes user images as an object', () => {
+    const users = store.users;
+    const user0 = defaultState.users[0];
 
-    expect(hybrids).toHaveProperty(hybrid0.id);
-    const hybrid1 = hybrids[hybrid0.id];
-    expect(hybrid1.name).toBe(hybrid0.name);
-    expect(hybrid1.url).toBe(hybrid0.url);
-    expect(hybrid1.user).toBe(hybrid0.user);
-    expect(hybrid1.grid).toBe(hybrid0.grid);
+    expect(users).toHaveProperty(user0.id);
+    const user1 = users[user0.id];
+    expect(user1.name).toBe(user0.name);
+    expect(user1.url).toBe(user0.url);
+    expect(user1.user).toBe(user0.user);
+    expect(user1.grid).toBe(user0.grid);
   });
 });
