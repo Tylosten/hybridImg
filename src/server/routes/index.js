@@ -4,6 +4,7 @@ import passport from 'passport';
 import { v4 as uuid } from 'uuid';
 
 import { genPassword, verifyPassword } from 'server/lib/passwordUtils';
+import dbUtils from 'server/lib/dbUtils';
 import { connectDB } from 'server/config/database';
 import { serverRenderer } from 'renderers/server';
 import { tags } from './tags';
@@ -37,39 +38,10 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-const checkNameUnicity = async (req, res, next) => {
-  try {
-    const db = await connectDB();
-    const collection = db.collection('users');
-    const user = await collection.findOne({ name: req.body.username });
-    if (!user) {
-      next();
-    } else {
-      res.status(500).send('Cet utilisateur existe déjà');
-    }
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
-
-router.post('/register', checkNameUnicity, async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const { hash, salt } = genPassword(password);
-
-    const db = await connectDB();
-    const collection = db.collection('users');
-    const user = {
-      id: uuid(),
-      name: username,
-      hash,
-      salt,
-    };
-    await collection.insertOne(user);
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).send('Erreur lors de l\'ajout d\'un utilisateur');
-  }
+router.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  const user = await dbUtils.addUser(username, password, 'user');
+  return res.status(200).json(user);
 });
 
 router.post('/user/delete', isAuth, async (req, res) => {
@@ -126,11 +98,6 @@ const getCollectionArray = async name => {
 
 const mainRendering = async (req, res) => {
   try {
-    const hybrids = await getCollectionArray('hybrids');
-    const tags = await getCollectionArray('tags');
-    const users = await getCollectionArray('users');
-    const grids = await getCollectionArray('grids');
-    const templates = await getCollectionArray('templates');
     const session = req.isAuthenticated()
       ? {
         authenticated: true,
@@ -150,6 +117,11 @@ const mainRendering = async (req, res) => {
     console.error(err);
     res.status(500).send('Server error');
   }
+  const hybrids = await dbUtils.getCollectionArray('hybrids');
+  const tags = await dbUtils.getCollectionArray('tags');
+  const users = await dbUtils.getCollectionArray('users');
+  const grids = await dbUtils.getCollectionArray('grids');
+  const templates = await dbUtils.getCollectionArray('templates');
 };
 
 router.get(['/login', '/', '/register'], mainRendering);
