@@ -23,14 +23,14 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, { id: user.id, role: user.role });
 });
 
-passport.deserializeUser(async (userId, done) => {
+passport.deserializeUser(async (passportUser, done) => {
   try {
     const db = await connectDB();
     const collection = db.collection('users');
-    const user = await collection.findOne({ id: userId });
+    const user = await collection.findOne({ id: passportUser.id });
     if (!user) {
       return done(new Error('user not found'));
     }

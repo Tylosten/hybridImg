@@ -30,7 +30,10 @@ wrapper.post('/login', (req, res, next) => {
       }
       return res
         .status(200)
-        .json({ authenticated: true, user: { id: user.id, name: user.name } });
+        .json({
+          authenticated: true,
+          user: { id: user.id, name: user.name, role: user.role },
+        });
     });
   })(req, res, next);
 });
@@ -41,17 +44,17 @@ wrapper.post('/register', async (req, res) => {
   return res.status(200).json(user);
 });
 
-wrapper.post('/user/delete', isAuth, async (req, res) => {
+wrapper.post('/user/delete', isAuth('admin'), async (req, res) => {
   const db = await connectDB();
   const collection = db.collection('users');
   await collection.deleteOne({ id: req.body.id });
   return res.status(200).send();
 });
 
-wrapper.post('/user/updatepwd', isAuth, async (req, res) => {
+wrapper.post('/user/updatepwd', isAuth(), async (req, res) => {
   const db = await connectDB();
   const collection = db.collection('users');
-  const user = await collection.findOne({ id: req.session.passport.user });
+  const user = await collection.findOne({ id: req.session.passport.user.id });
   if (!user) {
     return res.status(404).send('User not found');
   }
@@ -59,7 +62,7 @@ wrapper.post('/user/updatepwd', isAuth, async (req, res) => {
     return res.status(403).send('Invalid password');
   }
   await collection.updateOne(
-    { id: req.session.passport.user },
+    { id: req.session.passport.user.id },
     { $set: { ...genPassword(req.body.newPwd) } }
   );
   return res.status(200).send();
@@ -82,7 +85,7 @@ const mainRendering = async (req, res) => {
   const session = req.isAuthenticated()
     ? {
       authenticated: true,
-      user: users.find(u => u.id === req.session.passport.user),
+      user: users.find(u => u.id === req.session.passport.user.id),
     }
     : { authenticated: false };
   const vars = await serverRenderer(req.url, {
@@ -96,9 +99,24 @@ const mainRendering = async (req, res) => {
   res.render('index', vars);
 };
 
+wrapper.get(['/admin', 'admin/*'], isAuth('admin'), mainRendering);
+wrapper.get(
+  [
+    '/home',
+    '/home/*',
+    '/templates',
+    '/templates/*',
+    '/grids',
+    '/grids/*',
+    '/grid/*',
+    '/hybrids',
+    '/hybrids/*',
+    '/hybrid/*',
+  ],
+  isAuth(),
+  mainRendering
+);
 wrapper.get(['/login', '/', '/register'], mainRendering);
-
-wrapper.get('/*', isAuth, mainRendering);
 
 tags(wrapper);
 templates(wrapper);

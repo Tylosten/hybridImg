@@ -26,7 +26,7 @@ const checkGridOwner = async (req, res, next) => {
 };
 
 export const grids = app => {
-  app.post('/grid/new', isAuth, async (req, res) => {
+  app.post('/grid/new', isAuth(), async (req, res) => {
     const newGrid = await gridUtils.add({
       ...req.body,
       id: uuid(),
@@ -36,13 +36,13 @@ export const grids = app => {
     deleteUnusedTags();
   });
 
-  app.post('/grid/delete', isAuth, checkGridOwner, async (req, res) => {
+  app.post('/grid/delete', isAuth(), checkGridOwner, async (req, res) => {
     await gridUtils.remove(req.body.id);
     res.status(200).send();
     deleteUnusedTags();
   });
 
-  app.post('/grid/update', isAuth, checkGridOwner, async (req, res) => {
+  app.post('/grid/update', isAuth(), checkGridOwner, async (req, res) => {
     await gridUtils.update({ ...req.body });
     res.status(200).send();
     deleteUnusedTags();

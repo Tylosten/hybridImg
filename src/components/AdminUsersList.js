@@ -58,7 +58,6 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
                       >
                         Supprimer
                       </Button>
-                      <Help>{helpDelete}</Help>
                     </Control>
                   </Field>
                 </td>
@@ -86,6 +85,7 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
                 <Control>
                   <Button onClick={() => setUserToDelete(false)}>Non</Button>
                 </Control>
+                <Help color="danger">{helpDelete}</Help>
               </Field>
             </Notification>
           </Modal.Content>

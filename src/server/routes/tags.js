@@ -44,7 +44,7 @@ export const deleteUnusedTags = async () => {
 };
 
 export const tags = app => {
-  app.post('/tag/new', isAuth, async (req, res) => {
+  app.post('/tag/new', isAuth(), async (req, res) => {
     const newTag = await tagUtils.add({
       ...req.body,
       id: uuid(),
@@ -52,7 +52,7 @@ export const tags = app => {
     res.status(200).json(newTag);
   });
 
-  app.post('/tag/delete', isAuth, async (req, res) => {
+  app.post('/tag/delete', isAuth(), async (req, res) => {
     await tagUtils.remove(req.body.id);
     res.status(200).send();
   });

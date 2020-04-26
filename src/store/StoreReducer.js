@@ -27,21 +27,14 @@ export const StoreMiddleware = dispatch => {
   return action => {
     switch (action.type) {
       case actionTypes.LOGIN: {
-        let session;
         return axios
           .post('/login', {
             username: action.username,
             password: action.password,
           })
           .then(res => {
-            session = res.data;
-          })
-          .catch(err => {
-            session = { authenticated: false };
-            throw err;
-          })
-          .finally(() => {
-            return dispatch({ ...action, session });
+            console.log(res.data);
+            return dispatch({ ...action, session: res.data });
           });
       }
       case actionTypes.LOGOUT: {

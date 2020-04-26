@@ -30,6 +30,14 @@ export const App = props => {
     }
     return <Component match={match} {...props} />;
   };
+  const RouteGuardAdmin = (Component, props) => ({ match }) => {
+    if (!store.session.authenticated) {
+      return <Redirect to="/login" />;
+    } else if (store.session.user.role !== 'admin') {
+      return <Redirect to="/home" />;
+    }
+    return <Component match={match} {...props} />;
+  };
 
   return (
     <StoreContext.Provider value={[store, StoreMiddleware(dispatchToStore)]}>
@@ -76,7 +84,7 @@ export const App = props => {
       <Route
         exact
         path={['/admin/', '/admin/:subpath']}
-        component={RouteGuard(Admin)}
+        component={RouteGuardAdmin(Admin)}
       ></Route>
     </StoreContext.Provider>
   );

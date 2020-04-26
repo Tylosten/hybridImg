@@ -38,7 +38,7 @@ const checkNoGrid = async (req, res, next) => {
 };
 
 export const templates = app => {
-  app.post('/template/new', isAuth, async (req, res) => {
+  app.post('/template/new', isAuth(), async (req, res) => {
     const newTemplate = await templateUtils.add({
       ...req.body,
       id: uuid(),
@@ -50,7 +50,7 @@ export const templates = app => {
 
   app.post(
     '/template/delete',
-    isAuth,
+    isAuth(),
     checkTemplateOwner,
     checkNoGrid,
     async (req, res) => {
@@ -60,7 +60,7 @@ export const templates = app => {
     }
   );
 
-  app.post('/template/update', isAuth, checkTemplateOwner, async (req, res) => {
+  app.post('/template/update', isAuth(), checkTemplateOwner, async (req, res) => {
     await templateUtils.update({ ...req.body });
     res.status(200).send();
     deleteUnusedTags();

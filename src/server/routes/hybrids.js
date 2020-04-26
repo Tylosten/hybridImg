@@ -40,7 +40,7 @@ const checkHybridOwner = async (req, res, next) => {
 export const hybrids = app => {
   app.post(
     '/hybrid/new',
-    isAuth,
+    isAuth(),
     uploadImage,
     resizeImage,
     async (req, res) => {
@@ -60,7 +60,7 @@ export const hybrids = app => {
     }
   );
 
-  app.post('/hybrid/delete', isAuth, checkHybridOwner, async (req, res) => {
+  app.post('/hybrid/delete', isAuth(), checkHybridOwner, async (req, res) => {
     await hybridUtils.remove(req.body.id);
     res.status(200).send();
     deleteUnusedTags();
@@ -68,7 +68,7 @@ export const hybrids = app => {
 
   app.post(
     '/hybrid/update',
-    isAuth,
+    isAuth(),
     checkHybridOwner,
     uploadImage,
     resizeImage,

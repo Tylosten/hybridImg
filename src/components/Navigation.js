@@ -8,6 +8,7 @@ export const Navigation = ({
   match,
   authenticated,
   username,
+  isAdmin,
   dispatchToStore,
 }) => {
   const onLogOut = () => {
@@ -65,9 +66,13 @@ export const Navigation = ({
               </>
             ) : (
               <>
-                <Link to="/admin" className="navbar-item">
-                  Admin
-                </Link>
+                {isAdmin ? (
+                  <Link to="/admin" className="navbar-item">
+                    Admin
+                  </Link>
+                ) : (
+                  <></>
+                )}
                 <Link to="/home" className="navbar-item">
                   {username}
                 </Link>
@@ -93,6 +98,7 @@ export const Navigation = ({
 const extraProps = store => {
   return {
     authenticated: store.session.authenticated,
+    isAdmin: store.session.user && store.session.user.role === 'admin',
     username: store.session.user ? store.session.user.name : '',
   };
 };
