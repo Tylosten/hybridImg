@@ -33,7 +33,7 @@ export const Navigation = ({
 
         <Navbar.Menu id="mainnav">
           <Navbar.Container>
-            <Link to="/home/info" className="navbar-item">
+            <Link to="/home" className="navbar-item">
               Home
             </Link>
             <Link to="/templates" className="navbar-item">
