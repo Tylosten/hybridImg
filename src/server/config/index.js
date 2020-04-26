@@ -10,4 +10,6 @@ export default {
   isBrowser: typeof window !== 'undefined',
   secret: env.SECRET || 'J was a woman',
   dbString: env.DB_STRING,
+  adminUser: env.ADMIN_USER,
+  adminPwd: env.ADMIN_PASSWORD,
 };

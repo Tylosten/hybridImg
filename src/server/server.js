@@ -12,7 +12,7 @@ const MongoStore = connectMongo(session);
 
 import routes from 'server/routes';
 import config from 'server/config';
-import 'server/dev/initialize-db';
+import 'server/config/init-admin';
 import 'server/config/passport';
 
 /**
