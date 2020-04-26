@@ -9,10 +9,10 @@ import {
   Notification,
   Button,
   Level,
+  Modal,
 } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
-import AlertMessage from './AlertMessage';
 import { deleteGrid } from '../store/StoreActions';
 
 export const GridPreview = ({
@@ -32,17 +32,23 @@ export const GridPreview = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      <AlertMessage show={showDelete} closeFn={() => setShowDelete(false)}>
-        <Notification color="danger" className="is-light">
-          <Heading>Voulez vous supprimer cette grille ?</Heading>
-          <Level>
-            <Button color="danger" onClick={onDelete}>
-              Confirmer
-            </Button>
-            <Button onClick={() => setShowDelete(false)}>Annuler</Button>
-          </Level>
-        </Notification>
-      </AlertMessage>
+      <Modal
+        show={showDelete}
+        onClose={() => setShowDelete(false)}
+        closeOnBlur={true}
+      >
+        <Modal.Content>
+          <Notification color="danger" className="is-light">
+            <Heading>Voulez vous supprimer cette grille ?</Heading>
+            <Level>
+              <Button color="danger" onClick={onDelete}>
+                Confirmer
+              </Button>
+              <Button onClick={() => setShowDelete(false)}>Annuler</Button>
+            </Level>
+          </Notification>
+        </Modal.Content>
+      </Modal>
       {edit ? (
         <div
           className="delete"

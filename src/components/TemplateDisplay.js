@@ -7,12 +7,12 @@ import {
   Notification,
   Heading,
   Level,
+  Modal,
 } from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
 import { deleteTemplate } from '../store/StoreActions';
-import AlertMessage from './AlertMessage';
 
 export const TemplateDisplay = ({
   template,
@@ -29,24 +29,30 @@ export const TemplateDisplay = ({
   };
   return (
     <>
-      <AlertMessage show={showDelete} closeFn={() => setShowDelete(false)}>
-        {canDelete ? (
-          <Notification color="danger" className="is-light">
-            <Heading>Voulez vous supprimer ce modèle ?</Heading>
-            <Level>
-              <Button color="danger" onClick={onDelete}>
-                Confirmer
-              </Button>
-              <Button onClick={() => setShowDelete(false)}>Annuler</Button>
-            </Level>
-          </Notification>
-        ) : (
-          <Notification color="danger" className="is-light">
-            <Heading>Suppression impossible.</Heading>
-            Des grilles sont associées à ce modèle.
-          </Notification>
-        )}
-      </AlertMessage>
+      <Modal
+        show={showDelete}
+        onClose={() => setShowDelete(false)}
+        closeOnBlur={true}
+      >
+        <Modal.Content>
+          {canDelete ? (
+            <Notification color="danger" className="is-light">
+              <Heading>Voulez vous supprimer ce modèle ?</Heading>
+              <Level>
+                <Button color="danger" onClick={onDelete}>
+                  Confirmer
+                </Button>
+                <Button onClick={() => setShowDelete(false)}>Annuler</Button>
+              </Level>
+            </Notification>
+          ) : (
+            <Notification color="danger" className="is-light">
+              <Heading>Suppression impossible.</Heading>
+              Des grilles sont associées à ce modèle.
+            </Notification>
+          )}
+        </Modal.Content>
+      </Modal>
       <Card>
         <Card.Header>
           <Card.Header.Title>{template.name}</Card.Header.Title>

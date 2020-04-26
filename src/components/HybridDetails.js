@@ -8,13 +8,13 @@ import {
   Icon,
   Notification,
   Heading,
+  Modal,
 } from 'react-bulma-components';
 const { Field, Control, Input, Label, Select } = Form;
 
 import StoreProvider from '../store/StoreProvider';
 import { updateHybrid, deleteHybrid } from '../store/StoreActions';
 import SelectMultiple from './SelectMultiple';
-import AlertMessage from './AlertMessage';
 
 export const HybridDetails = props => {
   const { tags, grids, edit, dispatchToStore } = props;
@@ -37,25 +37,31 @@ export const HybridDetails = props => {
 
   return (
     <>
-      <AlertMessage show={alertDelete} closeFn={() => setAlertDelete(false)}>
-        <Notification color="danger" className="is-light">
-          <Heading size={5}>
-            Voulez vous vraiment supprimer cette image ?
-          </Heading>
-          <Field className="is-grouped">
-            <Control>
-              <Link to="/hybrids">
-                <Button color="danger" onClick={onDelete}>
-                  Supprimer
-                </Button>
-              </Link>
-            </Control>
-            <Control>
-              <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
-            </Control>
-          </Field>
-        </Notification>
-      </AlertMessage>
+      <Modal
+        show={alertDelete}
+        onClose={() => setAlertDelete(false)}
+        closeOnBlur={true}
+      >
+        <Modal.Content>
+          <Notification color="danger" className="is-light">
+            <Heading size={5}>
+              Voulez vous vraiment supprimer cette image ?
+            </Heading>
+            <Field className="is-grouped">
+              <Control>
+                <Link to="/hybrids">
+                  <Button color="danger" onClick={onDelete}>
+                    Supprimer
+                  </Button>
+                </Link>
+              </Control>
+              <Control>
+                <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
+              </Control>
+            </Field>
+          </Notification>
+        </Modal.Content>
+      </Modal>
 
       <Tile className="is-ancestor">
         <Tile className="is-parent">
