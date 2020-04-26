@@ -18,6 +18,7 @@ import HybridDetails from './HybridDetails';
 import Home from './Home';
 import About from './About';
 import GridForm from './GridForm';
+import Register from './Register';
 
 export const App = props => {
   const [store, dispatchToStore] = useReducer(StoreReducer, props.store);
@@ -33,6 +34,7 @@ export const App = props => {
     <StoreContext.Provider value={[store, StoreMiddleware(dispatchToStore)]}>
       <Route path="*" component={Navigation} />
       <Route exact path="/login" component={Login}></Route>
+      <Route exact path="/register" component={Register}></Route>
       <Route exact path="/" component={About}></Route>
       <Route
         exact

@@ -48,6 +48,9 @@ export const Navigation = ({ match, store, dispatchToStore }) => {
                   <Icon className="fa fa-sign-in-alt" />
                 </div>
               </Link>
+                <Link to="/register" className="navbar-item">
+                  Inscription
+                </Link>
             ) : (
               <>
                 <Link to="/home" className="navbar-item">

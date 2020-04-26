@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, Button, Columns, Box } from 'react-bulma-components';
-const { Field, Label, Input, Control, Help } = Form;
+import { Columns, Message } from 'react-bulma-components';
 const { Column } = Columns;
 
 import StoreProvider from '../store/StoreProvider';
 import { login } from '../store/StoreActions';
+import UserForm from './UserForm';
 
 const Login = ({ authenticated, dispatchToStore }) => {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
   const [help, setHelp] = useState('');
 
-  const onSubmit = async e => {
-    e.preventDefault();
-    await dispatchToStore(login(username, password));
-    setHelp('Nom ou mot de passe incorrect');
+  const onSubmit = async (username, password) => {
+    dispatchToStore(login(username, password)).catch(err => {
+      setHelp(`Erreur : ${err.response.data || err.message}`);
+    });
   };
 
   return (
@@ -25,57 +23,16 @@ const Login = ({ authenticated, dispatchToStore }) => {
       ) : (
         <Columns className="is-centered">
           <Column className="is-narrow">
-            <Box style={{ marginTop: '1.5rem' }}>
-              <form>
-                <Field>
-                  <Label>Nom</Label>
-                  <Control>
-                    <Input
-                      placeholder="Votre nom"
-                      value={username}
-                      onChange={e => setUserName(e.target.value)}
-                      required
-                    />{' '}
-                    <Help
-                      color="danger"
-                      style={{ display: username ? 'none' : 'default' }}
-                    >
-                      Ce champ est requis
-                    </Help>
-                  </Control>
-                </Field>
-                <Field>
-                  <Label>Mot de passe</Label>
-                  <Control>
-                    <Input
-                      type="password"
-                      placeholder="Votre mot de passe"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
-                      required
-                    />
-                    <Help
-                      color="danger"
-                      style={{ display: password ? 'none' : 'default' }}
-                    >
-                      Ce champ est requis
-                    </Help>
-                  </Control>
-                </Field>
-                <Field>
-                  <Control>
-                    <Help color="danger">{help}</Help>
-                    <Button
-                      color="primary"
-                      onClick={onSubmit}
-                      disabled={!username || !password}
-                    >
-                      Se connecter
-                    </Button>
-                  </Control>
-                </Field>
-              </form>
-            </Box>
+            <Message style={{ marginTop: '1.5rem' }}>
+              <Message.Header>Connexion</Message.Header>
+              <Message.Body>
+                <UserForm
+                  submitLabel="Se connecter"
+                  onSubmit={onSubmit}
+                  help={help}
+                />
+              </Message.Body>
+            </Message>
           </Column>
         </Columns>
       )}
@@ -85,7 +42,6 @@ const Login = ({ authenticated, dispatchToStore }) => {
 
 function extraProps(store) {
   return {
-    login: store.login,
     authenticated: store.session.authenticated,
   };
 }
