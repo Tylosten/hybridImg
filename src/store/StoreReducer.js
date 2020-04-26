@@ -37,20 +37,34 @@ export const StoreMiddleware = dispatch => {
             session = res.data;
           })
           .catch(err => {
-            console.info(err);
             session = { authenticated: false };
+            throw err;
           })
           .finally(() => {
             return dispatch({ ...action, session });
           });
       }
       case actionTypes.LOGOUT: {
+        return axios.get('/logout').finally(() => {
+          return dispatch(action);
+        });
+      }
+      case actionTypes.CREATE_USER: {
         return axios
-          .get('/logout')
-          .catch(err => {
-            console.info(err);
+          .post('/register', {
+            username: action.username,
+            password: action.password,
           })
-          .finally(() => {
+          .then(res => {
+            return dispatch({ ...action, user: res.data });
+          });
+      }
+      case actionTypes.DELETE_USER: {
+        return axios
+          .post('/user/delete', {
+            id: action.id,
+          })
+          .then(() => {
             return dispatch(action);
           });
       }
@@ -152,6 +166,12 @@ export const StoreReducer = (state, action) => {
     }
     case actionTypes.LOGOUT: {
       return { ...state, session: { authenticated: false } };
+    }
+    case actionTypes.CREATE_USER: {
+      return addElementReducer(state, 'users', action.user);
+    }
+    case actionTypes.DELETE_USER: {
+      return removeElementReduccer(state, 'users', action.id);
     }
     case actionTypes.CREATE_HYBRID: {
       return addElementReducer(state, 'hybrids', action.hybrid);

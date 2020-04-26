@@ -75,7 +75,6 @@ export const hybrids = app => {
     async (req, res) => {
       const data = { ...req.body };
       if (req.filepath) {
-        console.log('FILEPATH', req.filepath);
         await deleteHybridImage(req.body.id);
         data.url = req.filepath;
       }

@@ -24,7 +24,6 @@ const collectionUtils = (collectionName, attributes) => {
 
     const tmp = {};
     attributes.map(attribute => {
-      console.log('ATTRIBUTE', attribute, element[attribute]);
       if (attribute !== 'id' && element[attribute]) {
         tmp[attribute] = element[attribute];
       }

@@ -16,12 +16,15 @@ import isAuth from './isAuth';
  * -------------- Session ROUTES ----------------
  */
 router.post('/login', (req, res, next) => {
-  return passport.authenticate('local', (err, user) => {
+  return passport.authenticate('local', (err, user, info) => {
+    if (err || !user) {
+      console.info('LOGIN failed', info);
+    }
     if (err) {
       return next(err);
     }
     if (!user) {
-      return res.status(500).send('User or password incorrect');
+      return res.status(500).send('Nom ou mot de passe incorrect');
     }
     return req.logIn(user, err => {
       if (err) {
@@ -34,20 +37,51 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  const { hash, salt } = genPassword(password);
+const checkNameUnicity = async (req, res, next) => {
+  try {
+    const db = await connectDB();
+    const collection = db.collection('users');
+    const user = await collection.findOne({ name: req.body.username });
+    if (!user) {
+      next();
+    } else {
+      res.status(500).send('Cet utilisateur existe déjà');
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
 
-  const db = await connectDB();
-  const collection = db.collection('users');
-  await collection.insertOne({
-    id: uuid(),
-    name: username,
-    hash,
-    salt,
-  });
+router.post('/register', checkNameUnicity, async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const { hash, salt } = genPassword(password);
 
-  res.status(200).send();
+    const db = await connectDB();
+    const collection = db.collection('users');
+    const user = {
+      id: uuid(),
+      name: username,
+      hash,
+      salt,
+    };
+    await collection.insertOne(user);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).send('Erreur lors de l\'ajout d\'un utilisateur');
+  }
+});
+
+router.post('/user/delete', isAuth, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const collection = db.collection('users');
+    await collection.deleteOne({ id: req.body.id });
+    res.status(200).send();
+  } catch (err) {
+    console.info(err);
+    res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
+  }
 });
 
 router.post('/user/updatepwd', isAuth, async (req, res) => {
@@ -56,11 +90,11 @@ router.post('/user/updatepwd', isAuth, async (req, res) => {
     const collection = db.collection('users');
     const user = await collection.findOne({ id: req.session.passport.user });
     if (!user) {
-      res.status(404).json('User not found');
+      res.status(404).send('User not found');
       return;
     }
     if (!verifyPassword(req.body.oldPwd, user.hash, user.salt)) {
-      res.status(403).json('Invalid password');
+      res.status(403).send('Invalid password');
       return;
     }
 
@@ -118,7 +152,7 @@ const mainRendering = async (req, res) => {
   }
 };
 
-router.get('/login', mainRendering);
+router.get(['/login', '/', '/register'], mainRendering);
 
 router.get('/*', isAuth, mainRendering);
 

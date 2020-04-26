@@ -10,10 +10,10 @@ passport.use(
       const collection = db.collection('users');
       const user = await collection.findOne({ name: username });
       if (!user) {
-        return done(null, false);
+        return done(null, false, `Couldn't find user ${username}`);
       }
       if (!verifyPassword(password, user.hash, user.salt)) {
-        return done(null, false);
+        return done(null, false, `incorrect password for ${username}`);
       }
       return done(null, user);
     } catch (err) {

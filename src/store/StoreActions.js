@@ -1,6 +1,8 @@
 export const actionTypes = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
+  CREATE_USER: 'CREATE_USER',
+  DELETE_USER: 'DELETE_USER',
   CREATE_HYBRID: 'CREATE_HYBRID',
   UPDATE_HYBRID: 'UPDATE_HYBRID',
   DELETE_HYBRID: 'DELETE_HYBRID',
@@ -70,4 +72,15 @@ export const deleteGrid = ({ id }) => ({
 export const createTag = ({ name }) => ({
   type: actionTypes.CREATE_TAG,
   name,
+});
+
+export const createUser = ({ username, password }) => ({
+  type: actionTypes.CREATE_USER,
+  username,
+  password,
+});
+
+export const deleteUser = ({ id }) => ({
+  type: actionTypes.DELETE_USER,
+  id,
 });
