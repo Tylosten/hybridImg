@@ -18,6 +18,7 @@ import HybridDetails from './HybridDetails';
 import Home from './Home';
 import About from './About';
 import GridForm from './GridForm';
+import Admin from './Admin';
 import Register from './Register';
 
 export const App = props => {
@@ -71,6 +72,11 @@ export const App = props => {
         exact
         path="/hybrid/:id"
         component={RouteGuard(HybridDetails)}
+      ></Route>
+      <Route
+        exact
+        path={['/admin/', '/admin/:subpath']}
+        component={RouteGuard(Admin)}
       ></Route>
     </StoreContext.Provider>
   );

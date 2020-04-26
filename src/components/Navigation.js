@@ -65,6 +65,9 @@ export const Navigation = ({
               </>
             ) : (
               <>
+                <Link to="/admin" className="navbar-item">
+                  Admin
+                </Link>
                 <Link to="/home" className="navbar-item">
                   {username}
                 </Link>
