@@ -66,6 +66,11 @@ export const App = props => {
       ></Route>
       <Route
         exact
+        path="/hybrids/new"
+        component={RouteGuard(HybridDetails)}
+      ></Route>
+      <Route
+        exact
         path="/hybrid/:id"
         component={RouteGuard(HybridDetails)}
       ></Route>

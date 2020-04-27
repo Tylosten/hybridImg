@@ -14,7 +14,11 @@ const { Field, Control, Input, Label } = Form;
 import SelectCreateTags from './SelectCreateTags';
 
 import StoreProvider from '../store/StoreProvider';
-import { updateHybrid, deleteHybrid } from '../store/StoreActions';
+import {
+  updateHybrid,
+  deleteHybrid,
+  createHybrid,
+} from '../store/StoreActions';
 
 export const HybridDetails = props => {
   const { edit, dispatchToStore } = props;
@@ -24,7 +28,11 @@ export const HybridDetails = props => {
   const [previewUrl, setPreviewUrl] = useState();
 
   const onSave = () => {
-    dispatchToStore(updateHybrid({ ...hybrid, file: file }));
+    if (hybrid.id) {
+      dispatchToStore(updateHybrid({ ...hybrid, file: file }));
+    } else {
+      dispatchToStore(createHybrid({ ...hybrid, file: file }));
+    }
   };
 
   const onCancel = () => {
@@ -141,7 +149,11 @@ export const HybridDetails = props => {
                 <Field className="is-grouped has-addons">
                   <Control>
                     <Link to="/hybrids">
-                      <Button color="primary" onClick={onSave} disabled={!edit}>
+                      <Button
+                        color="primary"
+                        onClick={onSave}
+                        disabled={!edit || (!hybrid.id && !file)}
+                      >
                         <Icon className="fa fa-save" />
                         <span>Sauvegarder</span>
                       </Button>
@@ -178,12 +190,10 @@ export const HybridDetails = props => {
 
 function extraProps(store, props) {
   const id = props.match.params.id;
-  const hybrid = store.getHybrid(id);
+  const hybrid = id ? store.getHybrid(id) : { user: store.session.user };
   return {
     hybrid,
-    saveHybrid: store.saveHybrid,
-    edit:
-      hybrid && store.session.user && hybrid.user.id === store.session.user.id,
+    edit: hybrid.user.id === store.session.user.id,
   };
 }
 

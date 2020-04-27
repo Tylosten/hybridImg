@@ -35,7 +35,7 @@ export const hybrids = app => {
         ...req.body,
         user: req.session.passport.user.id,
         url: req.filepath,
-        tags: req.body.tags.split(','),
+        tags: req.body.tags ? req.body.tags.split(',') : [],
       });
       res.status(200).json(newHybrid);
       deleteUnusedTags();
@@ -72,7 +72,7 @@ export const hybrids = app => {
       }
       const hybrid = await hybridUtils.update({
         ...data,
-        tags: data.tags.split(','),
+        tags: data.tags ? data.tags.split(',') : [],
       });
       res.status(200).json(hybrid);
       deleteUnusedTags();
