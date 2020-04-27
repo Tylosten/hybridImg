@@ -59,9 +59,13 @@ export const storeProvider = (extraprops = () => ({})) => Component => {
     };
 
     const getGridUsers = gridId => {
-      return getGridHybridIds(gridId).map(
-        hybridId => store.users[store.hybrids[hybridId].user]
-      );
+      return [
+        ...new Set(
+          getGridHybridIds(gridId).map(
+            hybridId => store.users[store.hybrids[hybridId].user]
+          )
+        ),
+      ];
     };
 
     const expandedStore = {
