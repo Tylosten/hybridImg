@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const useStateWithLocalStorage = (localStorageKey, defaultValue) => {
-  const location = useLocation();
+  let location;
+  try {
+    location = useLocation();
+  } catch {
+    location = '';
+  }
   const key = location.pathname + localStorageKey;
   defaultValue = defaultValue || '';
   const onServer = typeof window === 'undefined';
@@ -12,11 +17,11 @@ const useStateWithLocalStorage = (localStorageKey, defaultValue) => {
 
   const [value, setValue] = useState(initValue);
 
-  if (onServer) {
-    useEffect(() => {
+  useEffect(() => {
+    if (onServer) {
       localStorage.setItem(key, value);
-    }, [value]);
-  }
+    }
+  }, [value]);
 
   return [value, setValue];
 };

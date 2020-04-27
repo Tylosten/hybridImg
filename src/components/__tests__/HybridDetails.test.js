@@ -2,7 +2,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { HybridDetails } from '../HybridDetails';
 
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 describe('HybridDetails', () => {
   it('renders correctly', () => {
@@ -47,13 +47,11 @@ describe('HybridDetails', () => {
       tags,
       grids,
     };
-    const tree = renderer
-      .create(
-        <StaticRouter>
-          <HybridDetails {...props} />
-        </StaticRouter>
-      )
-      .toJSON();
+    const tree = shallow(
+      <StaticRouter>
+        <HybridDetails {...props} />
+      </StaticRouter>
+    );
 
     expect(tree).toMatchSnapshot();
   });

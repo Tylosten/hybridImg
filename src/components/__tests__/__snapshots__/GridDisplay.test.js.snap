@@ -2,6 +2,83 @@
 
 exports[`GridDisplay renders correctly 1`] = `
 <Fragment>
+  <Notification
+    className="is-light"
+    color="primary"
+    renderAs="div"
+  >
+    <Level
+      mobile={false}
+      renderAs="div"
+    >
+      <LevelSide
+        align="left"
+        renderAs="div"
+      >
+        <LevelItem
+          renderAs="div"
+        >
+          <Label>
+            Filter par auteurice :
+          </Label>
+        </LevelItem>
+        <LevelItem
+          renderAs="div"
+        >
+          <Select
+            disabled={false}
+            loading={false}
+            multiple={false}
+            onChange={[Function]}
+            readOnly={false}
+            value=""
+          >
+            <option />
+            <option
+              key="u1"
+              value="u1"
+            >
+              Mag
+            </option>
+            <option
+              key="u2"
+              value="u2"
+            >
+              Matt
+            </option>
+          </Select>
+        </LevelItem>
+      </LevelSide>
+      <LevelSide
+        align="left"
+        renderAs="div"
+      >
+        <LevelItem
+          renderAs="div"
+        >
+          <Button
+            color="primary"
+            disabled={false}
+            fullwidth={false}
+            inverted={false}
+            isSelected={false}
+            isStatic={false}
+            loading={false}
+            onClick={[Function]}
+            outlined={false}
+            remove={false}
+            renderAs="button"
+            reset={false}
+            rounded={false}
+            submit={false}
+            text={false}
+          >
+            Remplir automatiquement
+          </Button>
+        </LevelItem>
+      </LevelSide>
+    </Level>
+  </Notification>
   <Table
     bordered={false}
     size="fullwidth"
@@ -21,234 +98,234 @@ exports[`GridDisplay renders correctly 1`] = `
     <tbody>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T1"
         />
       </tr>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T2"
         />
       </tr>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T3"
         />
       </tr>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T4"
         />
       </tr>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T5"
         />
       </tr>
       <tr>
         <th />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T7"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T8"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T9"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T10"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T11"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />
-        <Memo(HybridCellContainer)
+        <Memo(GridCellContainer)
           col="T12"
-          edit={true}
+          filter={Object {}}
           grid="G1"
           line="T6"
         />

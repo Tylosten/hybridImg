@@ -1,150 +1,138 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HybridDetails renders correctly 1`] = `
-<div
-  className="tile is-ancestor"
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+  staticContext={Object {}}
 >
-  <div
-    className="tile is-parent"
-  >
-    <div
-      className="tile is-parent is-4"
-    >
-      <div
-        className="tile is-child"
-      >
-        <figure
-          className="image"
-        >
-          <img
-            alt="Image Spaghetti/Cataclysme"
-            className=""
-            onError={[Function]}
-            src="./Images/20200409_174234.jpg"
-          />
-        </figure>
-      </div>
-    </div>
-    <div
-      className="tile is-child"
-      style={
+  <HybridDetails
+    grids={
+      Array [
         Object {
-          "padding": "10px",
-        }
+          "colThemes": Array [
+            "T7",
+            "T8",
+            "T9",
+            "T10",
+            "T11",
+            "T12",
+          ],
+          "id": "G1",
+          "lineThemes": Array [
+            "T1",
+            "T2",
+            "T3",
+            "T4",
+            "T5",
+            "T6",
+          ],
+          "name": "La grille de Mag",
+          "user": "U1",
+        },
+        Object {
+          "colThemes": Array [
+            "T7",
+            "T8",
+            "T9",
+            "T10",
+            "T11",
+            "T12",
+          ],
+          "id": "G2",
+          "lineThemes": Array [
+            "T1",
+            "T2",
+            "T3",
+            "T4",
+            "T5",
+            "T6",
+          ],
+          "name": "La grille de Matt",
+          "user": "U2",
+        },
+      ]
+    }
+    hybrid={
+      Object {
+        "grid": "G1",
+        "id": "H1",
+        "name": "Spaghetti/Cataclysme",
+        "tags": Array [
+          Object {
+            "id": "T1",
+            "name": "Sucette",
+          },
+          Object {
+            "id": "T2",
+            "name": "Arc-en-ciel",
+          },
+        ],
+        "url": "./Images/20200409_174234.jpg",
+        "user": "U1",
       }
-    >
-      <div
-        className="field"
-      >
-        <div
-          className="control"
-        >
-          <input
-            className="input"
-            disabled={true}
-            onChange={[Function]}
-            placeholder="Nom de l'image"
-            readOnly={false}
-            type="text"
-            value="Spaghetti/Cataclysme"
-          />
-        </div>
-      </div>
-      <div
-        className="field"
-      >
-        <label
-          className="label"
-        >
-          Auteurice
-        </label>
-        <div
-          className="control"
-        >
-          <input
-            className="input"
-            disabled={true}
-            placeholder=""
-            readOnly={false}
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-      <div
-        className="field"
-      >
-        <label
-          className="label"
-        >
-          Grille
-        </label>
-        <div
-          className="control"
-        >
-          <div
-            className="select is-rounded"
-          >
-            <select
-              disabled={true}
-              multiple={false}
-              onChange={[Function]}
-              readOnly={false}
-              value="G1"
-            >
-              <option>
-                ...
-              </option>
-              <option
-                value="G1"
-              >
-                La grille de Mag
-              </option>
-              <option
-                value="G2"
-              >
-                La grille de Matt
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div
-        className="field"
-      >
-        <div
-          className="control"
-        >
-          <label
-            className="label"
-          >
-            Tags
-          </label>
-          <span>
-            <span
-              className="tag is-info"
-              style={
-                Object {
-                  "margin": "5px",
-                }
-              }
-            >
-              Sucette
-            </span>
-            <span
-              className="tag is-info"
-              style={
-                Object {
-                  "margin": "5px",
-                }
-              }
-            >
-              Arc-en-ciel
-            </span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    }
+    tags={
+      Array [
+        Object {
+          "id": "T3",
+          "name": "Pingouin",
+        },
+        Object {
+          "id": "T4",
+          "name": "Mammouth",
+        },
+        Object {
+          "id": "T5",
+          "name": "Espace",
+        },
+        Object {
+          "id": "T6",
+          "name": "Spaghetti",
+        },
+        Object {
+          "id": "T7",
+          "name": "Papier toilette",
+        },
+        Object {
+          "id": "T8",
+          "name": "Cataclysme",
+        },
+        Object {
+          "id": "T9",
+          "name": "Cookie",
+        },
+        Object {
+          "id": "T10",
+          "name": "Chaussette",
+        },
+        Object {
+          "id": "T11",
+          "name": "Abeille",
+        },
+        Object {
+          "id": "T12",
+          "name": "Rococo",
+        },
+      ]
+    }
+  />
+</Router>
 `;

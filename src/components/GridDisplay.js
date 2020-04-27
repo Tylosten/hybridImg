@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   Notification,
@@ -10,9 +10,27 @@ import {
 import GridCell from './GridCell';
 import StoreProvider from '../store/StoreProvider';
 import useStateWithLocalStorage from './useStateWithLocalStorage';
+import { updateCell } from '../store/StoreActions';
 
-export const GridDisplay = ({ grid, users }) => {
+export const GridDisplay = ({
+  grid,
+  users,
+  cells,
+  getCellCandidates,
+  dispatchToStore,
+}) => {
   const [filter, setFilter] = useStateWithLocalStorage('filter', {});
+
+  const autoFill = async () => {
+    await cells.map(async cell => {
+      const candidates = getCellCandidates(cell);
+      if (candidates.length > 0) {
+        await dispatchToStore(
+          updateCell({ id: cell.id, hybrids: [...cell.hybrids, ...candidates] })
+        );
+      }
+    });
+  };
 
   return (
     <>
@@ -38,7 +56,9 @@ export const GridDisplay = ({ grid, users }) => {
           </Level.Side>
           <Level.Side>
             <Level.Item>
-              <Button color="primary">Remplir automatiquement</Button>
+              <Button color="primary" onClick={autoFill}>
+                Remplir automatiquement
+              </Button>
             </Level.Item>
           </Level.Side>
         </Level>
@@ -77,6 +97,18 @@ function extraProps(store, props) {
   const grid = store.getGrid(props.match.params.id);
   return {
     grid,
+    cells: Object.values(store.cells).filter(c => c.grid === grid.id),
+    getCellCandidates: cell => {
+      return Object.values(store.hybrids)
+        .filter(
+          h =>
+            h.user === store.session.user.id &&
+            h.tags.includes(cell.position.col) &&
+            h.tags.includes(cell.position.line) &&
+            !cell.hybrids.includes(h.id)
+        )
+        .map(h => h.id);
+    },
     users: store.getGridUsers(grid.id),
   };
 }

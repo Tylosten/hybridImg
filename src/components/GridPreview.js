@@ -82,9 +82,9 @@ export const GridPreview = ({ grid, dispatchToStore, edit, users }) => {
           <div>
             <span style={{ fontWeight: 'bold' }}>Participants : </span>
             {users.map(user => (
-              <Link key={user.id}>
-                <Tag color="warning">{user.name}</Tag>
-              </Link>
+              <Tag key={user.id} color="warning">
+                {user.name}
+              </Tag>
             ))}
           </div>
           <div>
