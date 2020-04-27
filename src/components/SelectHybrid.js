@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Message, Level, Modal } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
-import { createHybrid, updateHybrid } from '../store/StoreActions';
+import { createHybrid, updateCell } from '../store/StoreActions';
 
 export const SelectHybrid = ({
   hybrids,
   line,
   col,
-  grid,
+  cell,
   show,
   setShow,
   dispatchToStore,
@@ -21,7 +21,7 @@ export const SelectHybrid = ({
         file,
         name: `${line.name}/${col.name}`,
         tags: [line.id, col.id],
-        grid: grid,
+        cell: cell,
       })
     );
 
@@ -30,9 +30,9 @@ export const SelectHybrid = ({
 
   const onSelect = async hybrid => {
     await dispatchToStore(
-      updateHybrid({
-        id: hybrid.id,
-        grid: grid,
+      updateCell({
+        id: cell.id,
+        hybrids: [...cell.hybrids, hybrid.id],
       })
     );
 
@@ -72,7 +72,7 @@ export const SelectHybrid = ({
                           width: `${imgSize}px`,
                         }}
                       >
-                        <i className="file-icon fas fa-upload" />
+                        <i className="file-icon fas fa-upload" alt="Upload" />
                       </div>
                     </label>
                   </div>
@@ -109,7 +109,8 @@ const extrasprops = (store, props) => {
       h =>
         h.tags.includes(props.line.id) &&
         h.tags.includes(props.col.id) &&
-        h.user === store.session.user.id
+        h.user === store.session.user.id &&
+        !props.cell.hybrids.includes(h.id)
     ),
   };
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Tile,
@@ -10,29 +10,44 @@ import {
   Heading,
   Modal,
 } from 'react-bulma-components';
-const { Field, Control, Input, Label, Select } = Form;
+const { Field, Control, Input, Label } = Form;
+import SelectCreateTags from './SelectCreateTags';
 
 import StoreProvider from '../store/StoreProvider';
 import { updateHybrid, deleteHybrid } from '../store/StoreActions';
-import SelectMultiple from './SelectMultiple';
 
 export const HybridDetails = props => {
-  const { tags, grids, edit, dispatchToStore } = props;
+  const { edit, dispatchToStore } = props;
   const [hybrid, setHybrid] = useState(props.hybrid);
   const [alertDelete, setAlertDelete] = useState(false);
+  const [file, setFile] = useState();
+  const [previewUrl, setPreviewUrl] = useState();
 
   const onSave = () => {
-    dispatchToStore(
-      updateHybrid({ ...hybrid, tags: hybrid.tags.map(t => t.id) })
-    );
+    dispatchToStore(updateHybrid({ ...hybrid, file: file }));
   };
 
   const onCancel = () => {
     setHybrid(props.hybrid);
+    setFile(undefined);
   };
 
   const onDelete = async () => {
     dispatchToStore(deleteHybrid(hybrid.id));
+  };
+
+  useEffect(() => {
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      return () => {
+        URL.revokeObjectURL(file);
+        setPreviewUrl(undefined);
+      };
+    }
+  }, [file]);
+
+  const onUpload = e => {
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -67,7 +82,10 @@ export const HybridDetails = props => {
         <Tile className="is-parent">
           <Tile className="is-parent is-4">
             <Tile className="is-child">
-              <Image src={hybrid.url} alt={`Image ${hybrid.name}`} />
+              <Image
+                src={previewUrl || hybrid.url}
+                alt={`Image ${hybrid.name}`}
+              />
             </Tile>
           </Tile>
           <Tile className="is-child" style={{ padding: '10px' }}>
@@ -89,29 +107,11 @@ export const HybridDetails = props => {
               </Control>
             </Field>
             <Field>
-              <Label>Grille</Label>
+              <Label>Tags</Label>
               <Control>
-                <Select
-                  className="is-rounded"
-                  onChange={e => setHybrid({ ...hybrid, grid: e.target.value })}
-                  value={hybrid.grid}
-                  disabled={!edit}
-                >
-                  <option>...</option>
-                  {Object.values(grids).map(grid => (
-                    <option key={grid.id} value={grid.id}>
-                      {grid.name}
-                    </option>
-                  ))}
-                </Select>
-              </Control>
-            </Field>
-            <Field>
-              <Control>
-                <Label>Tags</Label>
-                <SelectMultiple
-                  options={tags}
-                  selected={hybrid.tags}
+                <SelectCreateTags
+                  color="info"
+                  value={hybrid.tags}
                   onChange={selected =>
                     setHybrid({ ...hybrid, tags: selected })
                   }
@@ -121,20 +121,39 @@ export const HybridDetails = props => {
             </Field>
             {edit ? (
               <>
+                <Field>
+                  <div className="file">
+                    <label className="file-label">
+                      <input
+                        className="file-input"
+                        type="file"
+                        accept="image/*"
+                        name="resume"
+                        onChange={onUpload}
+                      />
+                      <div className="file-cta">
+                        <i className="file-icon fas fa-upload" alt="Upload" />
+                        Upload
+                      </div>
+                    </label>
+                  </div>
+                </Field>
                 <Field className="is-grouped has-addons">
                   <Control>
                     <Link to="/hybrids">
                       <Button color="primary" onClick={onSave} disabled={!edit}>
                         <Icon className="fa fa-save" />
-                        <span>Editer</span>
+                        <span>Sauvegarder</span>
                       </Button>
                     </Link>
                   </Control>
                   <Control>
                     <Button onClick={onCancel} disabled={!edit}>
-                      <span>Annuler</span>
+                      <span>Reset</span>
                     </Button>
                   </Control>
+                </Field>
+                <Field>
                   <Control>
                     <Button
                       color="danger"
@@ -162,10 +181,6 @@ function extraProps(store, props) {
   const hybrid = store.getHybrid(id);
   return {
     hybrid,
-    tags: Object.values(store.tags).filter(
-      t => !hybrid.tags.map(hybridTag => hybridTag.id).includes(t.id)
-    ),
-    grids: Object.values(store.grids).filter(g => g.user === hybrid.user.id),
     saveHybrid: store.saveHybrid,
     edit:
       hybrid && store.session.user && hybrid.user.id === store.session.user.id,

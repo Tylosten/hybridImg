@@ -11,8 +11,6 @@ describe('GridPreview', () => {
         id: 'G1',
         user: 'U1',
         name: 'La grille de Mag',
-      },
-      template: {
         lineThemes: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6'],
         colThemes: ['T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
       },

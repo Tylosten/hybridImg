@@ -8,8 +8,6 @@ import {
 } from '../store/StoreReducer';
 
 import Login from './Login';
-import TemplatesDisplay from './TemplatesDisplay';
-import TemplateForm from './TemplateForm';
 import GridDisplay from './GridDisplay';
 import GridsDiplay from './GridsDisplay';
 import FilteredHybrids from './FilteredHybrids';
@@ -52,22 +50,12 @@ export const App = props => {
       ></Route>
       <Route
         exact
-        path="/templates"
-        component={RouteGuard(TemplatesDisplay, { byLine: 2 })}
-      ></Route>
-      <Route
-        exact
-        path="/templates/new"
-        component={RouteGuard(TemplateForm)}
-      ></Route>
-      <Route
-        exact
         path="/grids"
         component={RouteGuard(GridsDiplay, { byLine: 2 })}
       ></Route>
       <Route
         exact
-        path={['/grids/new/', '/grids/new/:templateId']}
+        path={['/grids/new/']}
         component={RouteGuard(GridForm)}
       ></Route>
       <Route exact path="/grid/:id" component={RouteGuard(GridDisplay)}></Route>

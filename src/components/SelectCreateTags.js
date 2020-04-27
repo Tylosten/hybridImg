@@ -81,51 +81,58 @@ export const SelectCreateTags = props => {
 
   return (
     <>
-      <div className={`dropdown ${candidates.length > 0 ? 'is-active' : ''}`}>
-        <div className="dropdown-trigger">
-          <Field className="has-addons">
-            <Control className="is-expanded has-icons-right">
-              <Input
-                size={size}
-                type="text"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                onKeyPress={e => {
-                  if (e.key === 'Enter') {
-                    onCreate();
-                  }
-                }}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                disabled={disabled}
-              />
-              <Help color="danger">{help}</Help>
-            </Control>
-            <Button
-              size={size}
-              color={color}
-              onClick={onCreate}
-              disabled={disabled || !search}
-            >
-              <Icon className="fa fa-greater-than" />
-            </Button>
-          </Field>
-        </div>
-        <div className="dropdown-menu" role="menu">
-          <div className="dropdown-content">
-            {candidates.map(candidate => (
+      {disabled ? (
+        <></>
+      ) : (
+        <div className={`dropdown ${candidates.length > 0 ? 'is-active' : ''}`}>
+          <div className="dropdown-trigger">
+            <Field className="has-addons">
+              <Control className="is-expanded has-icons-right">
+                <Input
+                  size={size}
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  onKeyPress={e => {
+                    if (e.key === 'Enter') {
+                      onCreate();
+                    }
+                  }}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  disabled={disabled}
+                />
+                <Help color="danger">{help}</Help>
+              </Control>
               <Button
-                color="white"
-                className="dropdown-item"
-                key={candidate.id}
-                onClick={() => onSelect(candidate)}
+                size={size}
+                color={color}
+                onClick={onCreate}
+                disabled={disabled || !search}
               >
-                {candidate.name}
+                <Icon
+                  className="fa fa-greater-than"
+                  alt="Créer ou selectionner"
+                />
               </Button>
-            ))}
+            </Field>
+          </div>
+          <div className="dropdown-menu" role="menu">
+            <div className="dropdown-content">
+              {candidates.map(candidate => (
+                <Button
+                  color="white"
+                  className="dropdown-item"
+                  key={candidate.id}
+                  onClick={() => onSelect(candidate)}
+                >
+                  {candidate.name}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <span>
         {selected.map(option => (
           <Tag

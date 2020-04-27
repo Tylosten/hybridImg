@@ -1,27 +1,27 @@
 import React from 'react';
 import { Table } from 'react-bulma-components';
 
-import HybridCell from './HybridCell';
+import GridCell from './GridCell';
 import StoreProvider from '../store/StoreProvider';
 
-export const GridDisplay = ({ grid, edit, template }) => {
+export const GridDisplay = ({ grid, edit }) => {
   return (
     <>
       <Table>
         <thead>
           <tr>
             <th></th>
-            {template.colThemes.map(col => (
+            {grid.colThemes.map(col => (
               <th key={col.id}>{col.name}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {template.lineThemes.map(line => (
+          {grid.lineThemes.map(line => (
             <tr key={line.id}>
               <th>{line.name}</th>
-              {template.colThemes.map(col => (
-                <HybridCell
+              {grid.colThemes.map(col => (
+                <GridCell
                   key={col.id}
                   edit={edit}
                   grid={grid.id}
@@ -44,7 +44,6 @@ function extraProps(store, props) {
     edit:
       store.session.authenticated &&
       (store.session.user.id === grid.user || grid.isOpen),
-    template: store.getGridTemplate(grid.id),
   };
 }
 

@@ -11,7 +11,7 @@ const initStore = rawData => ({
   grids: mapIntoObject(rawData.grids || []),
   users: mapIntoObject(rawData.users || []),
   tags: mapIntoObject(rawData.tags || []),
-  templates: mapIntoObject(rawData.templates || []),
+  cells: mapIntoObject(rawData.cells || []),
 });
 
 export default initStore;

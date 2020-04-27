@@ -1,15 +1,8 @@
-import { connectDB } from '../config/database';
-import { v4 as uuid } from 'uuid';
-import isAuth from './isAuth';
-
-import collectionUtils from '../lib/collectionUtils';
-
-const tagUtils = collectionUtils('tags', ['id', 'name']);
+import isAuth from 'server/routes/isAuth';
+import { tagUtils, gridUtils, hybridUtils } from 'server/lib/collectionUtils';
 
 const checkTagUse = async tag => {
-  const db = await connectDB();
-
-  const template = await db.collection('templates').findOne({
+  const template = await gridUtils.findOne({
     $or: [
       { lineThemes: { $elemMatch: { $eq: tag.id } } },
       { colThemes: { $elemMatch: { $eq: tag.id } } },
@@ -19,9 +12,9 @@ const checkTagUse = async tag => {
     return true;
   }
 
-  const hybrid = await db
-    .collection('hybrids')
-    .findOne({ tags: { $elemMatch: { $eq: tag.id } } });
+  const hybrid = await hybridUtils.findOne({
+    tags: { $elemMatch: { $eq: tag.id } },
+  });
   if (hybrid) {
     return true;
   }
@@ -30,11 +23,7 @@ const checkTagUse = async tag => {
 };
 
 export const deleteUnusedTags = async () => {
-  const db = await connectDB();
-  const tags = await db
-    .collection('tags')
-    .find()
-    .toArray();
+  const tags = await tagUtils.all();
   tags.forEach(async tag => {
     if (!(await checkTagUse(tag))) {
       console.info('Removing unused tag', tag.name);
@@ -47,13 +36,12 @@ export const tags = app => {
   app.post('/tag/new', isAuth(), async (req, res) => {
     const newTag = await tagUtils.add({
       ...req.body,
-      id: uuid(),
     });
-    res.status(200).json(newTag);
+    return res.status(200).json(newTag);
   });
 
   app.post('/tag/delete', isAuth(), async (req, res) => {
     await tagUtils.remove(req.body.id);
-    res.status(200).send();
+    return res.status(200).send();
   });
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
-import { HybridCell } from '../HybridCell';
+import { GridCell } from '../GridCell';
 
 import { shallow } from 'enzyme';
 
-describe('HybridCell', () => {
+describe('GridCell', () => {
   it('renders correctly', () => {
     const tags = [{ id: 'T1', name: 'T1' }, { id: 'T2', name: 'T2' }];
     const props = {
@@ -28,10 +28,10 @@ describe('HybridCell', () => {
     const props4 = { ...props3, edit: true };
     const wrapper = shallow(
       <StaticRouter>
-        <HybridCell {...props} />
-        <HybridCell {...props2} />
-        <HybridCell {...props3} />
-        <HybridCell {...props4} />
+        <GridCell {...props} />
+        <GridCell {...props2} />
+        <GridCell {...props3} />
+        <GridCell {...props4} />
       </StaticRouter>
     );
 

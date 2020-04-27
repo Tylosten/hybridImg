@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HybridCell renders correctly 1`] = `
+exports[`GridCell renders correctly 1`] = `
 <Router
   history={
     Object {
@@ -23,7 +23,7 @@ exports[`HybridCell renders correctly 1`] = `
   }
   staticContext={Object {}}
 >
-  <HybridCell
+  <GridCell
     col={
       Object {
         "id": "T2",
@@ -39,7 +39,7 @@ exports[`HybridCell renders correctly 1`] = `
       }
     }
   />
-  <HybridCell
+  <GridCell
     col={
       Object {
         "id": "T2",
@@ -55,7 +55,7 @@ exports[`HybridCell renders correctly 1`] = `
       }
     }
   />
-  <HybridCell
+  <GridCell
     col={
       Object {
         "id": "T2",
@@ -90,7 +90,7 @@ exports[`HybridCell renders correctly 1`] = `
       }
     }
   />
-  <HybridCell
+  <GridCell
     col={
       Object {
         "id": "T2",

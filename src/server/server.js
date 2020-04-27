@@ -81,6 +81,11 @@ app.use(routes);
  * --------------GLOBAL ERROR HAndler ----------------
  */
 function errorHandler(err, req, res) {
+  if (!res.status) {
+    res = req;
+    req = err;
+    err = `No response from ${req.url}`;
+  }
   if (typeof err === 'string') {
     return res.status(400).json({ message: err });
   }

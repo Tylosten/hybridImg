@@ -1,36 +1,19 @@
-import { connectDB } from '../config/database';
-import { v4 as uuid } from 'uuid';
-import isAuth from './isAuth';
-import { uploadImage, resizeImage } from './imgUpload';
+import isAuth from 'server/routes/isAuth';
+import { uploadImage, resizeImage } from 'server/routes/imgUpload';
+import { deleteUnusedTags } from 'server/routes/collections/tags';
+import { hybridUtils, cellUtils } from 'server/lib/collectionUtils';
 import fs from 'fs';
 import util from 'util';
 const unlink = util.promisify(fs.unlink);
-import { deleteUnusedTags } from './tags';
-import collectionUtils from '../lib/collectionUtils';
-
-const hybridUtils = collectionUtils('hybrids', [
-  'id',
-  'name',
-  'user',
-  'tags',
-  'grid',
-  'url',
-]);
 
 const deleteHybridImage = async id => {
-  const db = await connectDB();
-  const collection = db.collection('hybrids');
-  const hybrid = await collection.findOne({ id: id });
+  const hybrid = await hybridUtils.get(id);
   await unlink('public' + hybrid.url);
 };
 
 const checkHybridOwner = async (req, res, next) => {
-  const hybridId = req.body.id;
-  const userId = req.session.passport.user;
-  const db = await connectDB();
-  const collection = db.collection('hybrids');
-  const hybrid = await collection.findOne({ id: hybridId });
-  if (hybrid.user === userId) {
+  console.log(req.body);
+  if ((hybridUtils.checkOwner(req.body.id), req.user.id)) {
     next();
   } else {
     return res.status(401).send('Unauthorized');
@@ -50,8 +33,7 @@ export const hybrids = app => {
 
       const newHybrid = await hybridUtils.add({
         ...req.body,
-        id: uuid(),
-        user: req.session.passport.user,
+        user: req.session.passport.user.id,
         url: req.filepath,
         tags: req.body.tags.split(','),
       });
@@ -61,7 +43,18 @@ export const hybrids = app => {
   );
 
   app.post('/hybrid/delete', isAuth(), checkHybridOwner, async (req, res) => {
-    await hybridUtils.remove(req.body.id);
+    const hybridId = req.body.id;
+    const cells = await cellUtils.find({
+      hybrids: { $elemMatch: { $eq: hybridId } },
+    });
+    await cells.forEach(async c => {
+      await cellUtils.update({
+        id: c.id,
+        hybrids: c.hybrids.filter(h => h !== hybridId),
+      });
+    });
+    await deleteHybridImage(req.body.id);
+    await hybridUtils.remove(hybridId);
     res.status(200).send();
     deleteUnusedTags();
   });
@@ -69,7 +62,6 @@ export const hybrids = app => {
   app.post(
     '/hybrid/update',
     isAuth(),
-    checkHybridOwner,
     uploadImage,
     resizeImage,
     async (req, res) => {
@@ -78,8 +70,11 @@ export const hybrids = app => {
         await deleteHybridImage(req.body.id);
         data.url = req.filepath;
       }
-      await hybridUtils.update(data);
-      res.status(200).send();
+      const hybrid = await hybridUtils.update({
+        ...data,
+        tags: data.tags.split(','),
+      });
+      res.status(200).json(hybrid);
       deleteUnusedTags();
     }
   );

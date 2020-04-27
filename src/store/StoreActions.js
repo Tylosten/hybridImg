@@ -6,11 +6,10 @@ export const actionTypes = {
   CREATE_HYBRID: 'CREATE_HYBRID',
   UPDATE_HYBRID: 'UPDATE_HYBRID',
   DELETE_HYBRID: 'DELETE_HYBRID',
-  CREATE_TEMPLATE: 'CREATE_TEMPLATE',
-  DELETE_TEMPLATE: 'DELETE_TEMPLATE',
   CREATE_TAG: 'CREATE_TAG',
   CREATE_GRID: 'CREATE_GRID',
   DELETE_GRID: 'DELETE_GRID',
+  UPDATE_CELL: 'UPDATE_CELL',
 };
 
 export const login = (username, password) => ({
@@ -23,21 +22,20 @@ export const logout = () => ({
   type: actionTypes.LOGOUT,
 });
 
-export const createHybrid = ({ name, file, tags, grid }) => ({
+export const createHybrid = ({ name, file, tags, cell }) => ({
   type: actionTypes.CREATE_HYBRID,
   name,
   file,
   tags,
-  grid,
+  cell,
 });
 
-export const updateHybrid = ({ id, name, url, tags, grid }) => ({
+export const updateHybrid = ({ id, name, tags, file }) => ({
   type: actionTypes.UPDATE_HYBRID,
   id,
   name,
-  url,
   tags,
-  grid,
+  file,
 });
 
 export const deleteHybrid = id => ({
@@ -45,28 +43,22 @@ export const deleteHybrid = id => ({
   id,
 });
 
-export const createTemplate = ({ name, lineThemes, colThemes }) => ({
-  type: actionTypes.CREATE_TEMPLATE,
+export const createGrid = ({ name, lineThemes, colThemes }) => ({
+  type: actionTypes.CREATE_GRID,
   name,
   lineThemes,
   colThemes,
 });
 
-export const deleteTemplate = ({ id }) => ({
-  type: actionTypes.DELETE_TEMPLATE,
-  id,
-});
-
-export const createGrid = ({ name, isOpen, template }) => ({
-  type: actionTypes.CREATE_GRID,
-  name,
-  isOpen,
-  template,
-});
-
 export const deleteGrid = ({ id }) => ({
   type: actionTypes.DELETE_GRID,
   id,
+});
+
+export const updateCell = ({ id, hybrids }) => ({
+  type: actionTypes.UPDATE_CELL,
+  id,
+  hybrids,
 });
 
 export const createTag = ({ name }) => ({

@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Box,
   Heading,
-  Media,
   Tag,
-  Form,
   Notification,
   Button,
   Level,
   Modal,
+  Card,
+  Icon,
 } from 'react-bulma-components';
 
 import StoreProvider from '../store/StoreProvider';
 import { deleteGrid } from '../store/StoreActions';
 
-export const GridPreview = ({
-  grid,
-  hybrids,
-  template,
-  user,
-  dispatchToStore,
-  edit,
-}) => {
-  const hybrid = hybrids[Math.floor(Math.random() * hybrids.length)];
+export const GridPreview = ({ grid, dispatchToStore, edit, users }) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const onDelete = () => {
@@ -58,47 +49,63 @@ export const GridPreview = ({
       ) : (
         <></>
       )}
-      <Link to={`/grid/${grid.id}`}>
-        <Box>
-          <Heading size={4}>{grid.name}</Heading>
-          <Media>
-            <Media.Content>
-              <figure className="image is-square is-96x96">
-                <img
-                  src={hybrid ? hybrid.url : ''}
-                  alt={`Image de la grille ${grid.name}`}
-                />
-              </figure>
-            </Media.Content>
-            <Media.Content>
-              <Form.Field>
-                <Form.Label>Auteurice</Form.Label>
-                <Form.Control>{user.name}</Form.Control>
-              </Form.Field>
-
-              <Form.Field>
-                <Form.Label>Thèmes</Form.Label>
-                <Form.Control>
-                  <div>
-                    {template.colThemes.map(tag => (
-                      <Tag key={tag.id} color="info">
-                        {tag.name}
-                      </Tag>
-                    ))}
-                  </div>
-                  <div>
-                    {template.lineThemes.map(tag => (
-                      <Tag key={tag.id} color="info" className="is-light">
-                        {tag.name}
-                      </Tag>
-                    ))}
-                  </div>
-                </Form.Control>
-              </Form.Field>
-            </Media.Content>
-          </Media>
-        </Box>
-      </Link>
+      <Card>
+        <Card.Header>
+          <Card.Header.Title>{grid.name}</Card.Header.Title>
+          <Level className="has-text-right">
+            <Level.Side>
+              <Level.Item>
+                <Link to={`/grid/${grid.id}`}>
+                  <Button color="white" data-tooltip="Voir la grille">
+                    <Icon className="fa fa-eye" alt="Voir la grille" />
+                  </Button>
+                </Link>
+              </Level.Item>
+              <Level.Item>
+                {edit ? (
+                  <Button
+                    color="white"
+                    size="small"
+                    onClick={() => setShowDelete(true)}
+                    data-tooltip="Supprimer"
+                  >
+                    <Icon className="fa fa-trash" alt="Supprimer" />
+                  </Button>
+                ) : (
+                  <></>
+                )}
+              </Level.Item>
+            </Level.Side>
+          </Level>
+        </Card.Header>
+        <Card.Content>
+          <div>
+            <span style={{ fontWeight: 'bold' }}>Participants : </span>
+            {users.map(user => (
+              <Link key={user.id}>
+                <Tag color="warning">{user.name}</Tag>
+              </Link>
+            ))}
+          </div>
+          <div>
+            <span style={{ fontWeight: 'bold' }}>Thèmes : </span>
+            <div>
+              {grid.colThemes.map(tag => (
+                <Tag key={tag.id} color="info">
+                  {tag.name}
+                </Tag>
+              ))}
+            </div>
+            <div>
+              {grid.lineThemes.map(tag => (
+                <Tag key={tag.id} color="info" className="is-light">
+                  {tag.name}
+                </Tag>
+              ))}
+            </div>
+          </div>
+        </Card.Content>
+      </Card>
     </div>
   );
 };
@@ -107,9 +114,8 @@ function extraProps(store, props) {
   const grid = store.getGrid(props.id);
   return {
     grid,
-    hybrids: store.getGridHybrids(props.id),
-    template: store.getGridTemplate(props.id),
     user: store.users[grid.user],
+    users: store.getGridUsers(props.id),
     edit: store.session.user.id === grid.user,
   };
 }

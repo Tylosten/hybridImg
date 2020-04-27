@@ -25,6 +25,7 @@ const addTags = (tagsArr, dispatch) => {
 
 export const StoreMiddleware = dispatch => {
   return action => {
+    console.log('MIDDLE', action);
     switch (action.type) {
       case actionTypes.LOGIN: {
         return axios
@@ -33,7 +34,6 @@ export const StoreMiddleware = dispatch => {
             password: action.password,
           })
           .then(res => {
-            console.log(res.data);
             return dispatch({ ...action, session: res.data });
           });
       }
@@ -62,18 +62,39 @@ export const StoreMiddleware = dispatch => {
           });
       }
       case actionTypes.CREATE_HYBRID: {
-        const formData = new FormData();
-        formData.append('name', action.name);
-        formData.append('file', action.file);
-        formData.append('tags', action.tags);
-        formData.append('grid', action.grid);
-        return axios.post('/hybrid/new', formData).then(res => {
-          return dispatch({ ...action, hybrid: res.data });
+        return addTags(action.tags, dispatch).then(tags => {
+          const formData = new FormData();
+          formData.append('name', action.name);
+          formData.append('file', action.file);
+          formData.append('tags', tags);
+          return axios
+            .post('/hybrid/new', formData)
+            .then(res => {
+              if (action.cell) {
+                return axios
+                  .post('/cell/update/', {
+                    id: action.cell.id,
+                    hybrids: [...action.cell.hybrids, res.data.id],
+                  })
+                  .then(() => res);
+              }
+              return res;
+            })
+            .then(res => {
+              return dispatch({ ...action, hybrid: res.data });
+            });
         });
       }
       case actionTypes.UPDATE_HYBRID: {
-        return axios.post('/hybrid/update', action).then(() => {
-          return dispatch(action);
+        return addTags(action.tags, dispatch).then(tags => {
+          const formData = new FormData();
+          formData.append('id', action.id);
+          formData.append('name', action.name);
+          formData.append('file', action.file);
+          formData.append('tags', tags);
+          return axios.post('/hybrid/update', formData).then(res => {
+            return dispatch({ ...action, tags, hybrid: res.data });
+          });
         });
       }
       case actionTypes.DELETE_HYBRID: {
@@ -81,42 +102,40 @@ export const StoreMiddleware = dispatch => {
           return dispatch(action);
         });
       }
-      case actionTypes.CREATE_TEMPLATE: {
+      case actionTypes.CREATE_GRID: {
         return Promise.all([
           addTags(action.lineThemes, dispatch),
           addTags(action.colThemes, dispatch),
         ]).then(tags => {
           return axios
-            .post('/template/new', {
+            .post('/grid/new', {
               name: action.name,
               lineThemes: tags[0],
               colThemes: tags[1],
             })
             .then(res => {
-              return dispatch({ ...action, template: res.data });
+              return dispatch({
+                ...action,
+                grid: res.data.grid,
+                cells: res.data.cells,
+              });
             });
         });
-      }
-      case actionTypes.DELETE_TEMPLATE: {
-        return axios.post('/template/delete', { id: action.id }).then(() => {
-          return dispatch(action);
-        });
-      }
-      case actionTypes.CREATE_GRID: {
-        return axios
-          .post('/grid/new', {
-            name: action.name,
-            isOpen: action.isOpen,
-            template: action.template,
-          })
-          .then(res => {
-            return dispatch({ ...action, grid: res.data });
-          });
       }
       case actionTypes.DELETE_GRID: {
         return axios.post('/grid/delete', { id: action.id }).then(() => {
           return dispatch(action);
         });
+      }
+      case actionTypes.UPDATE_CELL: {
+        return axios
+          .post('/cell/update/', {
+            id: action.id,
+            hybrids: action.hybrids,
+          })
+          .then(() => {
+            return dispatch(action);
+          });
       }
       case actionTypes.CREATE_TAG: {
         return axios
@@ -152,7 +171,7 @@ const removeElementReduccer = (state, collection, id) => {
 
 export const StoreReducer = (state, action) => {
   Object.freeze(state);
-
+  console.log('ACTION', action);
   switch (action.type) {
     case actionTypes.LOGIN: {
       return { ...state, session: action.session };
@@ -167,40 +186,45 @@ export const StoreReducer = (state, action) => {
       return removeElementReduccer(state, 'users', action.id);
     }
     case actionTypes.CREATE_HYBRID: {
-      return addElementReducer(state, 'hybrids', action.hybrid);
+      const newState = addElementReducer(state, 'hybrids', action.hybrid);
+      if (action.cell) {
+        const newCells = { ...newState.cells };
+        newCells[action.cell.id].hybrids = [
+          ...newCells[action.cell.id].hybrids,
+          action.hybrid.id,
+        ];
+        newState.cells = newCells;
+      }
+      return newState;
     }
     case actionTypes.UPDATE_HYBRID: {
       const newHybrids = { ...state.hybrids };
-
-      if (action.name) {
-        newHybrids[action.id].name = action.name;
-      }
-      if (action.url) {
-        newHybrids[action.id].url = action.url;
-      }
-      if (action.tags) {
-        newHybrids[action.id].tags = action.tags;
-      }
-      if (action.grid) {
-        newHybrids[action.id].grid = action.grid;
-      }
-
+      newHybrids[action.id] = action.hybrid;
       return { ...state, hybrids: newHybrids };
     }
     case actionTypes.DELETE_HYBRID: {
       return removeElementReduccer(state, 'hybrids', action.id);
     }
-    case actionTypes.CREATE_TEMPLATE: {
-      return addElementReducer(state, 'templates', action.template);
-    }
-    case actionTypes.DELETE_TEMPLATE: {
-      return removeElementReduccer(state, 'templates', action.id);
-    }
     case actionTypes.CREATE_GRID: {
-      return addElementReducer(state, 'grids', action.grid);
+      let newState = addElementReducer(state, 'grids', action.grid);
+      action.cells.forEach(cell => {
+        newState = addElementReducer(newState, 'cells', cell);
+      });
+      return newState;
     }
     case actionTypes.DELETE_GRID: {
-      return removeElementReduccer(state, 'grids', action.id);
+      let newState = removeElementReduccer(state, 'grids', action.id);
+      Object.values(state.cells)
+        .filter(c => c.grid === action.id)
+        .forEach(c => {
+          newState = removeElementReduccer(newState, 'cells', c.id);
+        });
+      return newState;
+    }
+    case actionTypes.UPDATE_CELL: {
+      const newCells = { ...state.cells };
+      newCells[action.id].hybrids = action.hybrids;
+      return { ...state, cells: newCells };
     }
     case actionTypes.CREATE_TAG: {
       return addElementReducer(state, 'tags', action.tag);
