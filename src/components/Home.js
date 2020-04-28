@@ -3,7 +3,6 @@ import { Tabs, Notification } from 'react-bulma-components';
 import { Route } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
-import GridsDisplay from './GridsDisplay';
 import FilteredHybrids from './FilteredHybrids';
 import UserDetails from './UserDetails';
 import Tab from './Tab';

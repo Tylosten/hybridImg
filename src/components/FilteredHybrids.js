@@ -19,7 +19,7 @@ const FilteredHybrids = props => {
         </Field>
         {props.hideFilter ? <></> : <HybridsFilter />}
       </Notification>
-      <HybridsDisplay />
+      <HybridsDisplay filter={props.filter} />
     </>
   );
 };
