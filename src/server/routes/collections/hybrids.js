@@ -12,8 +12,10 @@ const deleteHybridImage = async id => {
 };
 
 const checkHybridOwner = async (req, res, next) => {
-  console.log(req.body);
-  if ((hybridUtils.checkOwner(req.body.id), req.user.id)) {
+  if (
+    (hybridUtils.checkOwner(req.body.id), req.user.id) ||
+    req.session.passport.user.role === 'admin'
+  ) {
     next();
   } else {
     return res.status(401).send('Unauthorized');

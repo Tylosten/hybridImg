@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Box, Heading } from 'react-bulma-components';
 const { Field, Input, Label, Control, Help } = Form;
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
 import { createGrid } from '../store/StoreActions';
@@ -11,23 +11,22 @@ export const GridForm = ({ dispatchToStore }) => {
   const [name, setName] = useState();
   const [lineThemes, setLineThemes] = useState([]);
   const [colThemes, setColThemes] = useState([]);
+  const history = useHistory();
 
   const onCreate = async () => {
-    if (!name) {
-      return;
-    }
-
-    if (lineThemes.length == 0 || colThemes.length === 0) {
+    if (!name || lineThemes.length == 0 || colThemes.length === 0) {
       return;
     }
 
     dispatchToStore(
-      await createGrid({
+      createGrid({
         name,
         lineThemes,
         colThemes,
       })
-    );
+    ).then(() => {
+      history.goBack();
+    });
   };
 
   return (
@@ -78,16 +77,16 @@ export const GridForm = ({ dispatchToStore }) => {
       </Field>
       <Field className="is-grouped">
         <Control>
-          <Link to="/grids">
-            <Button color="primary" onClick={onCreate}>
-              Créer
-            </Button>
-          </Link>
+          <Button
+            color="primary"
+            onClick={onCreate}
+            disabled={!name || lineThemes.length == 0 || colThemes.length === 0}
+          >
+            Créer
+          </Button>
         </Control>
         <Control>
-          <Link to="/grids">
-            <Button>Annuler</Button>
-          </Link>
+          <Button onClick={() => history.goBack()}>Annuler</Button>
         </Control>
       </Field>
     </Box>

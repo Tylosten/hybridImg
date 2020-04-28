@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Tile,
   Image,
@@ -29,9 +28,13 @@ export const HybridDetails = props => {
 
   const onSave = () => {
     if (hybrid.id) {
-      dispatchToStore(updateHybrid({ ...hybrid, file: file }));
+      dispatchToStore(updateHybrid({ ...hybrid, file: file })).then(() => {
+        history.goBack();
+      });
     } else {
-      dispatchToStore(createHybrid({ ...hybrid, file: file }));
+      dispatchToStore(createHybrid({ ...hybrid, file: file })).then(() => {
+        history.goBack();
+      });
     }
   };
 
@@ -41,7 +44,9 @@ export const HybridDetails = props => {
   };
 
   const onDelete = async () => {
-    dispatchToStore(deleteHybrid(hybrid.id));
+    dispatchToStore(deleteHybrid(hybrid.id)).then(() => {
+      history.goBack();
+    });
   };
 
   useEffect(() => {
@@ -72,11 +77,9 @@ export const HybridDetails = props => {
             </Heading>
             <Field className="is-grouped">
               <Control>
-                <Link to="/hybrids">
-                  <Button color="danger" onClick={onDelete}>
-                    Supprimer
-                  </Button>
-                </Link>
+                <Button color="danger" onClick={onDelete}>
+                  Supprimer
+                </Button>
               </Control>
               <Control>
                 <Button onClick={() => setAlertDelete(false)}>Annuler</Button>
@@ -148,16 +151,14 @@ export const HybridDetails = props => {
                 </Field>
                 <Field className="is-grouped has-addons">
                   <Control>
-                    <Link to="/hybrids">
-                      <Button
-                        color="primary"
-                        onClick={onSave}
-                        disabled={!edit || (!hybrid.id && !file)}
-                      >
-                        <Icon className="fa fa-save" />
-                        <span>Sauvegarder</span>
-                      </Button>
-                    </Link>
+                    <Button
+                      color="primary"
+                      onClick={onSave}
+                      disabled={!edit || (!hybrid.id && !file)}
+                    >
+                      <Icon className="fa fa-save" />
+                      <span>Sauvegarder</span>
+                    </Button>
                   </Control>
                   <Control>
                     <Button onClick={onCancel} disabled={!edit}>

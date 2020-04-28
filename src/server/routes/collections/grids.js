@@ -3,7 +3,10 @@ import { deleteUnusedTags } from './tags';
 import { cellUtils, gridUtils } from 'server/lib/collectionUtils';
 
 const checkGridOwner = async (req, res, next) => {
-  if (gridUtils.checkOwner(req.body.id, req.session.passport.user.id)) {
+  if (
+    gridUtils.checkOwner(req.body.id, req.session.passport.user.id) ||
+    req.session.passport.user.role === 'admin'
+  ) {
     next();
   } else {
     return res.status(401).send('Unauthorized');

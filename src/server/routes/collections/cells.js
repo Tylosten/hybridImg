@@ -4,7 +4,10 @@ import { cellUtils, gridUtils } from 'server/lib/collectionUtils';
 
 const checkCellOwner = async (req, res, next) => {
   const cell = await cellUtils.get(req.body.id);
-  if (gridUtils.checkOwner(cell.grid, req.session.passport.user.id)) {
+  if (
+    gridUtils.checkOwner(cell.grid, req.session.passport.user.id) ||
+    req.session.passport.user.role === 'admin'
+  ) {
     next();
   } else {
     return res.status(401).send('Unauthorized');
