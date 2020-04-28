@@ -8,6 +8,9 @@ export const StoreContext = React.createContext();
 const addTags = (tagsArr, dispatch) => {
   return Promise.all(
     tagsArr.map(tag => {
+      if (typeof tag === 'string') {
+        return tag;
+      }
       if (!tag.id) {
         return axios
           .post('/tag/new', {
