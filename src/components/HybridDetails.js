@@ -10,6 +10,8 @@ import {
   Modal,
 } from 'react-bulma-components';
 const { Field, Control, Input, Label } = Form;
+import { useHistory } from 'react-router-dom';
+
 import SelectCreateTags from './SelectCreateTags';
 
 import StoreProvider from '../store/StoreProvider';
@@ -20,7 +22,14 @@ import {
 } from '../store/StoreActions';
 
 export const HybridDetails = props => {
-  const { edit, dispatchToStore } = props;
+  const { edit, dispatchToStore, redirect } = props;
+  const history = useHistory();
+
+  if (redirect) {
+    history.goBack();
+    return <div></div>;
+  }
+
   const [hybrid, setHybrid] = useState(props.hybrid);
   const [alertDelete, setAlertDelete] = useState(false);
   const [file, setFile] = useState();
@@ -166,18 +175,22 @@ export const HybridDetails = props => {
                     </Button>
                   </Control>
                 </Field>
-                <Field>
-                  <Control>
-                    <Button
-                      color="danger"
-                      onClick={() => setAlertDelete(true)}
-                      disabled={!edit}
-                    >
-                      <Icon className="fa fa-trash" />
-                      <span>Supprimer</span>
-                    </Button>
-                  </Control>
-                </Field>
+                {hybrid.id ? (
+                  <Field>
+                    <Control>
+                      <Button
+                        color="danger"
+                        onClick={() => setAlertDelete(true)}
+                        disabled={!edit}
+                      >
+                        <Icon className="fa fa-trash" />
+                        <span>Supprimer</span>
+                      </Button>
+                    </Control>
+                  </Field>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>
@@ -191,11 +204,15 @@ export const HybridDetails = props => {
 
 function extraProps(store, props) {
   const id = props.match.params.id;
-  const hybrid = id ? store.getHybrid(id) : { user: store.session.user };
-  return {
-    hybrid,
-    edit: hybrid.user.id === store.session.user.id,
-  };
+  try {
+    const hybrid = id ? store.getHybrid(id) : { user: store.session.user };
+    return {
+      hybrid,
+      edit: hybrid.user.id === store.session.user.id,
+    };
+  } catch (err) {
+    return { redirect: true };
+  }
 }
 
 export default StoreProvider(extraProps)(HybridDetails);
