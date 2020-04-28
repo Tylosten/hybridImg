@@ -80,6 +80,7 @@ export const SelectHybrid = ({
                 {hybrids.map(hybrid => (
                   <Level.Item key={hybrid.id}>
                     <Button
+                      className="is-paddingless"
                       style={{
                         width: `${imgSize}px`,
                         height: `${imgSize}px`,
