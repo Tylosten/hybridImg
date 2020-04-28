@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Icon, Image, Level } from 'react-bulma-components';
 import StoreProvider from '../store/StoreProvider';
@@ -14,6 +14,9 @@ export const Navigation = ({
   const onLogOut = () => {
     dispatchToStore(logout());
   };
+
+  const [toggle, setToggle] = useState(false);
+
   return (
     <>
       <Navbar
@@ -26,13 +29,12 @@ export const Navigation = ({
             <Image size={16} src="/mamouth-abeille.ico" />
           </Link>
           <Navbar.Burger
-            data-target="mainnav"
-            aria-label="menu"
-            aria-expanded="false"
+            onClick={() => setToggle(!toggle)}
+            className={toggle ? 'is-active ' : ''}
           />
         </Navbar.Brand>
 
-        <Navbar.Menu id="mainnav">
+        <Navbar.Menu id="mainnav" className={toggle ? 'is-active ' : ''}>
           <Navbar.Container>
             <Link to="/home" className="navbar-item">
               Home
