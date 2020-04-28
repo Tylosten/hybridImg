@@ -3,17 +3,10 @@ import { Notification, Button, Form } from 'react-bulma-components';
 const { Field, Control } = Form;
 import { Link } from 'react-router-dom';
 
-import useStateWithLocalStorage from './useStateWithLocalStorage';
-
 import HybridsFilter from './HybridsFilter';
 import HybridsDisplay from './HybridsDisplay';
 
 const FilteredHybrids = props => {
-  const [filter, setFilter] = useStateWithLocalStorage(
-    'hybridFilter',
-    props.filter || {}
-  );
-
   return (
     <>
       <Notification color="primary" className="is-light">
@@ -24,13 +17,9 @@ const FilteredHybrids = props => {
             </Link>
           </Control>
         </Field>
-        {props.hideFilter ? (
-          <></>
-        ) : (
-          <HybridsFilter filter={filter} setFilter={setFilter} />
-        )}
+        {props.hideFilter ? <></> : <HybridsFilter />}
       </Notification>
-      <HybridsDisplay filter={filter} />
+      <HybridsDisplay />
     </>
   );
 };

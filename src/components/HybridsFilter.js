@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Icon, Level, Button } from 'react-bulma-components';
 const { Input, Field, Control, Label, Select } = Form;
+import { useHistory, useLocation } from 'react-router-dom';
 
 import StoreProvider from '../store/StoreProvider';
 import SelectMultiple from './SelectMultiple';
 
-const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
+const HybridsFilter = ({ grids, tags, users }) => {
+  const location = useLocation();
+  const urlFilter = JSON.parse(
+    new URLSearchParams(location.search).get('filter')
+  );
   const [show, setShow] = useState(false);
+  const [filter, setFilter] = useState(urlFilter || {});
+
+  const history = useHistory();
+  useEffect(() => {
+    history.push(`?filter=${JSON.stringify(filter)}`);
+  }, [filter]);
+
+  const getFilterNb = () => {
+    return (
+      (filter.user ? 1 : 0) +
+      (filter.grid ? 1 : 0) +
+      (filter.name ? 1 : 0) +
+      (filter.tags && filter.tags.length > 0 ? 1 : 0)
+    );
+  };
+
   return (
     <div style={{ display: 'relative' }}>
       {show ? (
@@ -74,7 +95,7 @@ const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
                 className="is-rounded has-icon"
                 onClick={() => setShow(!show)}
               >
-                <span>Filtrer</span>
+                <span>{`Filtrer (${getFilterNb()})`}</span>
                 <Icon className="fa fa-chevron-up" />
               </Button>
             </div>
@@ -89,7 +110,7 @@ const HybridsFilter = ({ filter, setFilter, grids, tags, users }) => {
               className="is-rounded"
               onClick={() => setShow(!show)}
             >
-              <span>Filtrer</span>
+              <span>{`Filtrer (${getFilterNb()})`}</span>
               <Icon className="fa fa-chevron-down" />
             </Button>
           </div>

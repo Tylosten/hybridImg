@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bulma-components';
 const { Field, Label, Control, Input, Help } = Form;
 
-import useStateWithLocalStorage from './useStateWithLocalStorage';
-
 const UserForm = ({ submitLabel, onSubmit, help, helpColor, withCheck }) => {
-  const [username, setUserName] = useStateWithLocalStorage('username');
+  const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [check, setCheck] = useState();
 

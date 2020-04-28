@@ -5,12 +5,10 @@ import {
   Button,
   Form,
   Level,
-  Icon,
 } from 'react-bulma-components';
 
 import GridCell from './GridCell';
 import StoreProvider from '../store/StoreProvider';
-import useStateWithLocalStorage from './useStateWithLocalStorage';
 import { updateCell } from '../store/StoreActions';
 
 export const GridDisplay = ({
@@ -20,7 +18,7 @@ export const GridDisplay = ({
   getCellCandidates,
   dispatchToStore,
 }) => {
-  const [filter, setFilter] = useStateWithLocalStorage('filter', {});
+  const [filter, setFilter] = useState({});
   const [loading, setLoading] = useState(false);
 
   const autoFill = async () => {
