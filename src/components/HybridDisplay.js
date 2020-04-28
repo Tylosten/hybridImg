@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Level, Tag, Image } from 'react-bulma-components';
+import { Notification, Level, Tag, Image } from 'react-bulma-components';
 
 export const HybridDisplay = ({ hybrid, hideTags }) => {
   return (
-    <Box>
+    <Notification className="box" style={{ padding: '0.2rem' }}>
       <Link to={`/hybrid/${hybrid.id}`}>
         <Image src={hybrid.url} />
       </Link>
@@ -17,7 +17,7 @@ export const HybridDisplay = ({ hybrid, hideTags }) => {
           </Tag>
         ))}
       </Level>
-    </Box>
+    </Notification>
   );
 };
 

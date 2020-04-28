@@ -143,6 +143,7 @@ export const ElementsDisplay = ({
           </Tile>
         )}
       </Tile>
+      <br />
       <Columns className="is-mobile">
         {gridElements.map(colElements => (
           <Columns.Column
