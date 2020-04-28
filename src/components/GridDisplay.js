@@ -21,8 +21,8 @@ export const GridDisplay = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const params = URLSearchParams(location.search);
-  const urlFilter = JSON.parse(new params.get('filter'));
+  const params = new URLSearchParams(location.search);
+  const urlFilter = JSON.parse(params.get('filter'));
   const [filter, setFilter] = useState(urlFilter || {});
 
   const history = useHistory();
