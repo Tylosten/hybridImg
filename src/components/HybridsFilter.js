@@ -8,15 +8,15 @@ import SelectMultiple from './SelectMultiple';
 
 const HybridsFilter = ({ grids, tags, users }) => {
   const location = useLocation();
-  const urlFilter = JSON.parse(
-    new URLSearchParams(location.search).get('filter')
-  );
+  const params = new URLSearchParams(location.search);
+  const urlFilter = JSON.parse(params.get('filter'));
   const [show, setShow] = useState(false);
   const [filter, setFilter] = useState(urlFilter || {});
 
   const history = useHistory();
   useEffect(() => {
-    history.push(`?filter=${JSON.stringify(filter)}`);
+    params.set('filter', JSON.stringify(filter));
+    history.push(`?=${params}`);
   }, [filter]);
 
   const getFilterNb = () => {

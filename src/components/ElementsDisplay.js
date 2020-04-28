@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Tile,
   Pagination,
@@ -7,6 +7,7 @@ import {
   Icon,
   Button,
 } from 'react-bulma-components';
+import { useLocation, useHistory } from 'react-router-dom';
 
 export const ElementsDisplay = ({
   ChildComponent,
@@ -18,9 +19,25 @@ export const ElementsDisplay = ({
   getChildProps = getChildProps || (() => ({}));
 
   const sliderValues = [12, 6, 4, 3, 2, 1];
-  const [nbByLine, setnbByLine] = useState(byLine || 4);
-  const [page, setPage] = useState(1);
-  const [nbByPage, setNbByPage] = useState(50);
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const urlPage = JSON.parse(params.get('page'));
+  const urlByLine = JSON.parse(params.get('byLine'));
+  const urlByPage = JSON.parse(params.get('byPage'));
+
+  const [nbByLine, setnbByLine] = useState(byLine || urlByLine || 4);
+  const [page, setPage] = useState(urlPage || 1);
+  const [nbByPage, setNbByPage] = useState(urlByPage || 50);
+
+  const history = useHistory();
+  useEffect(() => {
+    params.set('page', JSON.stringify(page));
+    params.set('byLine', JSON.stringify(nbByLine));
+    params.set('byPage', JSON.stringify(nbByPage));
+    history.push(`?${params.toString()}`);
+  }, [nbByLine, nbByPage, page]);
+
   const totalPage = Math.ceil(elements.length / nbByPage);
   if (page > totalPage) {
     setPage(totalPage);

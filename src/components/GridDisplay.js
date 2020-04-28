@@ -21,14 +21,14 @@ export const GridDisplay = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const urlFilter = JSON.parse(
-    new URLSearchParams(location.search).get('filter')
-  );
+  const params = URLSearchParams(location.search);
+  const urlFilter = JSON.parse(new params.get('filter'));
   const [filter, setFilter] = useState(urlFilter || {});
 
   const history = useHistory();
   useEffect(() => {
-    history.push(`?filter=${JSON.stringify(filter)}`);
+    params.set('filter', JSON.stringify(filter));
+    history.push(`?=${params}`);
   }, [filter]);
 
   const autoFill = async () => {
