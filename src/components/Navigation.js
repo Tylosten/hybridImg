@@ -23,7 +23,7 @@ export const Navigation = ({
       >
         <Navbar.Brand>
           <Link to="/" className="navbar-item">
-            <Image src="/Images/mamouth-abeille.ico" />
+            <Image size={16} src="/mamouth-abeille.ico" />
           </Link>
           <Navbar.Burger
             data-target="mainnav"

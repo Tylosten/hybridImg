@@ -14,7 +14,7 @@ const About = () => (
         <Tile></Tile>
       </Tile>
       <Tile className="is-child is-4">
-        <Image src="/Images/mamouth-abeille.png" />
+        <Image src="/mamouth-abeille.png" />
       </Tile>
     </Tile>
     <Tile></Tile>
