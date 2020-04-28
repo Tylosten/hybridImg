@@ -6,6 +6,7 @@ import {
   Level,
   Icon,
   Button,
+  Columns,
 } from 'react-bulma-components';
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -141,27 +142,22 @@ export const ElementsDisplay = ({
             <Tile></Tile>
           </Tile>
         )}
-        <Tile>
-          {gridElements.map(colElements => (
-            <Tile
-              key={gridElements.indexOf(colElements)}
-              className="is-vertical"
-            >
-              {colElements.map(element => (
-                <Tile
-                  key={colElements.indexOf(element)}
-                  className={'is-parent'}
-                >
-                  <Tile className="is-child">
-                    <ChildComponent {...getChildProps(element)} />
-                  </Tile>
-                </Tile>
-              ))}
-              <Tile></Tile>
-            </Tile>
-          ))}
-        </Tile>
       </Tile>
+      <Columns className="is-mobile">
+        {gridElements.map(colElements => (
+          <Columns.Column
+            className={`is-${12 / nbByLine}`}
+            key={gridElements.indexOf(colElements)}
+          >
+            {colElements.map(element => (
+              <ChildComponent
+                key={colElements.indexOf(element)}
+                {...getChildProps(element)}
+              />
+            ))}
+          </Columns.Column>
+        ))}
+      </Columns>
     </div>
   );
 };
