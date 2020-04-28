@@ -5,6 +5,7 @@ import {
   Button,
   Form,
   Level,
+  Icon,
 } from 'react-bulma-components';
 
 import GridCell from './GridCell';
@@ -20,15 +21,24 @@ export const GridDisplay = ({
   dispatchToStore,
 }) => {
   const [filter, setFilter] = useStateWithLocalStorage('filter', {});
+  const [loading, setLoading] = useState(false);
 
   const autoFill = async () => {
-    await cells.map(async cell => {
-      const candidates = getCellCandidates(cell);
-      if (candidates.length > 0) {
-        await dispatchToStore(
-          updateCell({ id: cell.id, hybrids: [...cell.hybrids, ...candidates] })
-        );
-      }
+    setLoading(true);
+    Promise.all(
+      cells.map(cell => {
+        const candidates = getCellCandidates(cell);
+        if (candidates.length > 0) {
+          return dispatchToStore(
+            updateCell({
+              id: cell.id,
+              hybrids: [...cell.hybrids, ...candidates],
+            })
+          );
+        }
+      })
+    ).then(() => {
+      setLoading(false);
     });
   };
 
@@ -58,6 +68,11 @@ export const GridDisplay = ({
             <Level.Item>
               <Button color="primary" onClick={autoFill}>
                 Remplir automatiquement
+                {loading ? (
+                  <span className="is-primary button is-loading"></span>
+                ) : (
+                  <></>
+                )}
               </Button>
             </Level.Item>
           </Level.Side>
