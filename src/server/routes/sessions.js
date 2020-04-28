@@ -36,6 +36,20 @@ export const sessions = app => {
     return res.status(200).send();
   });
 
+  app.post('/admin/updatepwd', isAuth('admin'), async (req, res) => {
+    const db = await connectDB();
+    const collection = db.collection('users');
+    const user = await collection.findOne({ id: req.body.id });
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    await collection.updateOne(
+      { id: req.body.id },
+      { $set: { ...genPassword(req.body.newPwd) } }
+    );
+    return res.status(200).send();
+  });
+
   app.post('/user/updatepwd', isAuth(), async (req, res) => {
     const db = await connectDB();
     const collection = db.collection('users');

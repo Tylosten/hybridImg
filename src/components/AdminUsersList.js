@@ -7,7 +7,9 @@ import {
   Notification,
   Table,
 } from 'react-bulma-components';
-const { Field, Control, Input, Help } = Form;
+const { Field, Control, Input, Help, Label } = Form;
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 import StoreProvider from '../store/StoreProvider';
 import { deleteUser } from '../store/StoreActions';
@@ -16,6 +18,26 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
   const [search, setSearch] = useState('');
   const [helpDelete, setHelpDelete] = useState('');
   const [userToDelete, setUserToDelete] = useState(false);
+  const [userToUpdate, setUserToUpdate] = useState(false);
+
+  const [helpUpdate, setHelpUpdate] = useState();
+  const [newPwd, setNewPwd] = useState();
+  const [checkPwd, setCheckPwd] = useState();
+
+  const onChangePwd = () => {
+    console.log(newPwd);
+    axios
+      .post('/admin/updatepwd', {
+        id: userToUpdate.id,
+        newPwd,
+      })
+      .then(() => {
+        setUserToUpdate(false);
+      })
+      .catch(err => {
+        setHelpUpdate(err.response.data.message);
+      });
+  };
 
   function onDeleteUser() {
     dispatchToStore(deleteUser({ id: userToDelete.id })).catch(err => {
@@ -48,6 +70,18 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
             .map(user => (
               <tr key={user.id}>
                 <th>{user.name}</th>
+                <td>
+                  <Field>
+                    <Control>
+                      <Button
+                        onClick={() => setUserToUpdate(user)}
+                        disabled={userId === user.id}
+                      >
+                        Changer le mot de passe
+                      </Button>
+                    </Control>
+                  </Field>
+                </td>
                 <td>
                   <Field>
                     <Control>
@@ -86,6 +120,62 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
                   <Button onClick={() => setUserToDelete(false)}>Non</Button>
                 </Control>
                 <Help color="danger">{helpDelete}</Help>
+              </Field>
+            </Notification>
+          </Modal.Content>
+        </Modal>
+      ) : (
+        <></>
+      )}
+      {userToUpdate ? (
+        <Modal
+          show={!!userToUpdate}
+          onClose={() => setUserToUpdate(false)}
+          closeOnBlur={true}
+        >
+          <Modal.Content>
+            <Notification className="is-light">
+              <Heading
+                size={6}
+              >{`Modifier le mot de passe de ${userToUpdate.name}`}</Heading>
+
+              <Field>
+                <Label>nouveau mot de passe</Label>
+                <Control>
+                  <Input
+                    value={newPwd}
+                    onChange={e => setNewPwd(e.target.value)}
+                    type="password"
+                  />
+                  {!newPwd ? <Help color="danger">Requis</Help> : <></>}
+                </Control>
+              </Field>
+              <Field>
+                <Label>Retapez le nouveau mot de passe</Label>
+                <Control>
+                  <Input
+                    value={checkPwd}
+                    onChange={e => setCheckPwd(e.target.value)}
+                    type="password"
+                  />
+                  {newPwd !== checkPwd ? (
+                    <Help color="danger">Les mots de passe diffèrent</Help>
+                  ) : (
+                    <></>
+                  )}
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Help color="danger">{helpUpdate}</Help>
+                  <Button
+                    color="primary"
+                    onClick={onChangePwd}
+                    disabled={!(newPwd && newPwd === checkPwd)}
+                  >
+                    Valider
+                  </Button>
+                </Control>
               </Field>
             </Notification>
           </Modal.Content>
