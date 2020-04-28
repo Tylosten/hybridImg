@@ -3,6 +3,13 @@ import { shallow } from 'enzyme';
 
 import { GridsDisplay } from '../GridsDisplay';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
+  useLocation: () => ({
+    search: '',
+  }),
+}));
+
 describe('GridsDisplay', () => {
   it('renders correctly', () => {
     const props = {
