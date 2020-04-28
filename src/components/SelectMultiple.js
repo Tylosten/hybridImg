@@ -8,8 +8,6 @@ const SelectMultiple = props => {
   const { disabled, onChange, size } = props;
 
   useEffect(() => {
-    console.log('USE EFFECT');
-    console.log('!!', options.map(o => o.name), selected.map(s => s.name));
     options.sort((a, b) => a.name > b.name);
     setOptions(
       options.filter(o => selected.every(select => select.id !== o.id))

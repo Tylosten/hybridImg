@@ -25,7 +25,6 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
   const [checkPwd, setCheckPwd] = useState();
 
   const onChangePwd = () => {
-    console.log(newPwd);
     axios
       .post('/admin/updatepwd', {
         id: userToUpdate.id,
