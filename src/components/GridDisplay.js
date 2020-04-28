@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   Notification,
@@ -6,6 +6,7 @@ import {
   Form,
   Level,
 } from 'react-bulma-components';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import GridCell from './GridCell';
 import StoreProvider from '../store/StoreProvider';
@@ -18,8 +19,17 @@ export const GridDisplay = ({
   getCellCandidates,
   dispatchToStore,
 }) => {
-  const [filter, setFilter] = useState({});
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const urlFilter = JSON.parse(
+    new URLSearchParams(location.search).get('filter')
+  );
+  const [filter, setFilter] = useState(urlFilter || {});
+
+  const history = useHistory();
+  useEffect(() => {
+    history.push(`?filter=${JSON.stringify(filter)}`);
+  }, [filter]);
 
   const autoFill = async () => {
     setLoading(true);
