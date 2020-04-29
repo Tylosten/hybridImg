@@ -1,0 +1,9 @@
+node_modules/
+public/bundles/
+build/
+coverage/
+data/
+.reactful.json
+.vscode/
+src/server/dev/create-default-state.js
+public/Images/*
