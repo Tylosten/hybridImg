@@ -87,247 +87,595 @@ exports[`GridDisplay renders correctly 1`] = `
     <thead>
       <tr>
         <th />
-        <th />
-        <th />
-        <th />
-        <th />
-        <th />
-        <th />
+        <th
+          key="T7"
+        />
+        <th
+          key="T8"
+        />
+        <th
+          key="T9"
+        />
+        <th
+          key="T10"
+        />
+        <th
+          key="T11"
+        />
+        <th
+          key="T12"
+        />
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr
+        key="T1"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T7"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T8"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T9"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T10"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T11"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T1"
+          key="T12"
+          line={
+            Object {
+              "id": "T1",
+            }
+          }
         />
       </tr>
-      <tr>
+      <tr
+        key="T2"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T7"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T8"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T9"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T10"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T11"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T2"
+          key="T12"
+          line={
+            Object {
+              "id": "T2",
+            }
+          }
         />
       </tr>
-      <tr>
+      <tr
+        key="T3"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T7"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T8"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T9"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T10"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T11"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T3"
+          key="T12"
+          line={
+            Object {
+              "id": "T3",
+            }
+          }
         />
       </tr>
-      <tr>
+      <tr
+        key="T4"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T7"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T8"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T9"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T10"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T11"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T4"
+          key="T12"
+          line={
+            Object {
+              "id": "T4",
+            }
+          }
         />
       </tr>
-      <tr>
+      <tr
+        key="T5"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T7"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T8"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T9"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T10"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T11"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T5"
+          key="T12"
+          line={
+            Object {
+              "id": "T5",
+            }
+          }
         />
       </tr>
-      <tr>
+      <tr
+        key="T6"
+      >
         <th />
         <Memo(GridCellContainer)
-          col="T7"
+          col={
+            Object {
+              "id": "T7",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T7"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T8"
+          col={
+            Object {
+              "id": "T8",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T8"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T9"
+          col={
+            Object {
+              "id": "T9",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T9"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T10"
+          col={
+            Object {
+              "id": "T10",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T10"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T11"
+          col={
+            Object {
+              "id": "T11",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T11"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
         <Memo(GridCellContainer)
-          col="T12"
+          col={
+            Object {
+              "id": "T12",
+            }
+          }
           filter={Object {}}
           grid="G1"
-          line="T6"
+          key="T12"
+          line={
+            Object {
+              "id": "T6",
+            }
+          }
         />
       </tr>
     </tbody>

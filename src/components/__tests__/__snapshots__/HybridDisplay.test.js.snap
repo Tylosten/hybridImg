@@ -3,7 +3,12 @@
 exports[`HybridDisplay renders correctly 1`] = `
 Array [
   <div
-    className="box"
+    className="notification box"
+    style={
+      Object {
+        "padding": "0.2rem",
+      }
+    }
   >
     <a
       href="/hybrid/H1"
@@ -42,7 +47,12 @@ Array [
     </div>
   </div>,
   <div
-    className="box"
+    className="notification box"
+    style={
+      Object {
+        "padding": "0.2rem",
+      }
+    }
   >
     <a
       href="/hybrid/H1"
