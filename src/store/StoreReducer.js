@@ -28,7 +28,6 @@ const addTags = (tagsArr, dispatch) => {
 
 export const StoreMiddleware = dispatch => {
   return action => {
-    console.log('MIDDLE', action);
     switch (action.type) {
       case actionTypes.LOGIN: {
         return axios
@@ -174,7 +173,6 @@ const removeElementReduccer = (state, collection, id) => {
 
 export const StoreReducer = (state, action) => {
   Object.freeze(state);
-  console.log('ACTION', action);
   switch (action.type) {
     case actionTypes.LOGIN: {
       return { ...state, session: action.session };

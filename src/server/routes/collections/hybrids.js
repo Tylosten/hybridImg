@@ -30,7 +30,7 @@ export const hybrids = app => {
     resizeImage,
     async (req, res) => {
       if (!req.file) {
-        throw 'File wasn\'t uploaded';
+        throw new Error('Le fichier image n\'a pas été reçu');
       }
 
       const newHybrid = await hybridUtils.add({

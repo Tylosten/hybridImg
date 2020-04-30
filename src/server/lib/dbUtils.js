@@ -7,7 +7,7 @@ async function addUser(username, password, role) {
   const users = db.collection('users');
   const user = await users.findOne({ name: username });
   if (user) {
-    throw 'Cet utilisateur existe déjà';
+    throw new Error('Cet utilisateur existe déjà');
   }
 
   const { hash, salt } = genPassword(password);

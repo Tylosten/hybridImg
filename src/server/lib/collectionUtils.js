@@ -2,7 +2,7 @@ import { connectDB } from '../config/database';
 import { v4 as uuid } from 'uuid';
 
 class collectionUtils {
-  constructor(collectionName, attributes) {
+  constructor(collectionName, attributes, required = [], uniq = []) {
     this.collectionName = collectionName;
     if (attributes.includes('id')) {
       console.warning(
@@ -11,6 +11,8 @@ class collectionUtils {
       attributes = attributes.filter(a => a !== 'id');
     }
     this.attributes = attributes;
+    this.required = required;
+    this.uniq = uniq;
   }
 
   all = async () => {
@@ -40,14 +42,40 @@ class collectionUtils {
   };
 
   add = async element => {
+    const db = await connectDB();
+    const collection = db.collection(this.collectionName);
+    const missing = this.required.filter(requiredAttr => {
+      return !element[requiredAttr];
+    });
+    if (missing.length > 0) {
+      throw new Error(
+        `Attribut(s) requis manquant(s) : ${missing.join()} (collection ${
+          this.collectionName
+        })`
+      );
+    }
+    const notUniq = this.uniq.filter(uniqAttr => {
+      if (element[uniqAttr]) {
+        const search = {};
+        search[uniqAttr] = element[uniqAttr];
+        return !!collection.findOne(search);
+      }
+      return false;
+    });
+    if (notUniq.length > 0) {
+      throw new Error(
+        `Unicité non-respectée : ${notUniq.join()} (collection ${
+          this.collectionName
+        })`
+      );
+    }
+
     const tmp = {
       id: uuid(),
     };
     this.attributes.map(attribute => {
       tmp[attribute] = element[attribute];
     });
-    const db = await connectDB();
-    const collection = db.collection(this.collectionName);
     await collection.insertOne(tmp);
     return tmp;
   };
@@ -61,6 +89,22 @@ class collectionUtils {
   update = async element => {
     const db = await connectDB();
     const collection = db.collection(this.collectionName);
+
+    const notUniq = this.uniq.filter(uniqAttr => {
+      if (element[uniqAttr]) {
+        const search = {};
+        search[uniqAttr] = element[uniqAttr];
+        return !!collection.findOne(search);
+      }
+      return false;
+    });
+    if (notUniq.length > 0) {
+      throw new Error(
+        `Unicité non-respectée : ${notUniq.join()} (collection ${
+          this.collectionName
+        })`
+      );
+    }
 
     const tmp = {};
     this.attributes.map(attribute => {
@@ -81,24 +125,25 @@ class collectionUtils {
   };
 }
 
-export const gridUtils = new collectionUtils('grids', [
-  'name',
-  'user',
-  'lineThemes',
-  'colThemes',
-]);
+export const gridUtils = new collectionUtils(
+  'grids',
+  ['name', 'user', 'lineThemes', 'colThemes'],
+  ['user'],
+  ['name']
+);
 
-export const cellUtils = new collectionUtils('cells', [
-  'grid',
-  'position',
+export const cellUtils = new collectionUtils(
+  'cells',
+  ['grid', 'position', 'hybrids'],
+  ['grid'],
+  []
+);
+
+export const hybridUtils = new collectionUtils(
   'hybrids',
-]);
+  ['name', 'user', 'tags', 'url'],
+  ['user', 'url'],
+  []
+);
 
-export const hybridUtils = new collectionUtils('hybrids', [
-  'name',
-  'user',
-  'tags',
-  'url',
-]);
-
-export const tagUtils = new collectionUtils('tags', ['name']);
+export const tagUtils = new collectionUtils('tags', ['name'], [], ['name']);

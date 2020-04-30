@@ -19,15 +19,20 @@ export const grids = app => {
       ...req.body,
       user: req.session.passport.user.id,
     });
-    let cells = await req.body.lineThemes.map(async line => {
-      return await req.body.colThemes.map(async col => {
-        return await cellUtils.add({
-          position: { line, col },
-          grid: newGrid.id,
-          hybrids: [],
-        });
-      });
-    });
+    let cells = await Promise.all(
+      req.body.lineThemes.map(async line => {
+        return await Promise.all(
+          req.body.colThemes.map(async col => {
+            return await cellUtils.add({
+              position: { line, col },
+              grid: newGrid.id,
+              hybrids: [],
+            });
+          })
+        );
+      })
+    );
+
     cells = cells.flat();
     res.status(200).json({ grid: newGrid, cells: cells });
     deleteUnusedTags();
