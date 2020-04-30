@@ -56,6 +56,7 @@ export const SelectCreateTags = props => {
   };
 
   const onCreate = async () => {
+    console.log('onCreate');
     const searchTmp = search.trim().toLowerCase();
 
     if (!searchTmp) {
@@ -63,17 +64,18 @@ export const SelectCreateTags = props => {
     }
 
     const alreadySelected = selected.some(
-      tag => tag.name.toLowerCase() == searchTmp
+      tag => tag.name.trim().toLowerCase() == searchTmp
     );
     if (alreadySelected) {
       setHelp('Ce tag est déjà selectionné.');
       return;
     }
     const existing = props.tags.find(
-      tag => tag.name.toLowerCase() == searchTmp
+      tag => tag.name.trim().toLowerCase() == searchTmp
     );
     if (existing) {
       onSelect(existing);
+      return;
     }
     setSelected([...selected, { name: searchTmp }]);
     setSearch('');
