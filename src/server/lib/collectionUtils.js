@@ -1,6 +1,11 @@
 import { connectDB } from '../config/database';
 import { v4 as uuid } from 'uuid';
 
+const asyncFilter = async (arr, predicate) => {
+  const results = await Promise.all(arr.map(predicate));
+  return arr.filter((_v, index) => results[index]);
+};
+
 class collectionUtils {
   constructor(collectionName, attributes, required = [], uniq = []) {
     this.collectionName = collectionName;
@@ -54,19 +59,19 @@ class collectionUtils {
         })`
       );
     }
-    const notUniq = this.uniq.filter(uniqAttr => {
+    const notUniq = await asyncFilter(this.uniq, async uniqAttr => {
       if (element[uniqAttr]) {
         const search = {};
         search[uniqAttr] = element[uniqAttr];
-        return !!collection.findOne(search);
+        return !!(await collection.findOne(search));
       }
       return false;
     });
     if (notUniq.length > 0) {
       throw new Error(
-        `Unicité non-respectée : ${notUniq.join()} (collection ${
-          this.collectionName
-        })`
+        `Unicité non-respectée : ${notUniq.join()} = ${notUniq
+          .map(uniqAttr => element[uniqAttr])
+          .join()} (collection ${this.collectionName})`
       );
     }
 
@@ -89,20 +94,19 @@ class collectionUtils {
   update = async element => {
     const db = await connectDB();
     const collection = db.collection(this.collectionName);
-
-    const notUniq = this.uniq.filter(uniqAttr => {
+    const notUniq = await asyncFilter(this.uniq, async uniqAttr => {
       if (element[uniqAttr]) {
         const search = {};
         search[uniqAttr] = element[uniqAttr];
-        return !!collection.findOne(search);
+        return !!(await collection.findOne(search));
       }
       return false;
     });
     if (notUniq.length > 0) {
       throw new Error(
-        `Unicité non-respectée : ${notUniq.join()} (collection ${
-          this.collectionName
-        })`
+        `Unicité non-respectée : ${notUniq.join()} = ${notUniq
+          .map(uniqAttr => element[uniqAttr])
+          .join()}(collection ${this.collectionName})`
       );
     }
 
