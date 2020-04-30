@@ -9,7 +9,8 @@ services:
       - db
     container_name: api
     environment:
-      - DB_STRING=mongodb://api-db:27017/${DB_NAME}
+      - DB_URL=mongodb://api-db:27017/
+      - DB_NAME=${DB_NAME}
       - SECRET=${SECRET}
       - PORT=${PORT}
       - HOST=0.0.0.0
