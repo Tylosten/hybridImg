@@ -56,7 +56,6 @@ export const SelectCreateTags = props => {
   };
 
   const onCreate = async () => {
-    console.log('onCreate');
     const searchTmp = search.trim().toLowerCase();
 
     if (!searchTmp) {

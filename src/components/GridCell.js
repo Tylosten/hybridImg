@@ -140,11 +140,6 @@ function extraProps(store, props) {
     col: props.col.id,
     grid: props.grid,
   });
-  if (!cell) {
-    console.log(
-      `cell for ${props.line.name} and ${props.col.name} is undefined {line : ${props.line.id}, col : ${props.col.id}}`
-    );
-  }
   const hybrids = cell.hybrids.map(id => store.hybrids[id]).reverse();
   return {
     cell,
