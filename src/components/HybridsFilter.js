@@ -38,6 +38,7 @@ const HybridsFilter = ({ grids, tags, users }) => {
               <Control>
                 <Input
                   size="small"
+                  placeholder="Nom"
                   value={filter.name}
                   onChange={e => setFilter({ ...filter, name: e.target.value })}
                 />

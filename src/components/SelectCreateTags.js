@@ -91,6 +91,7 @@ export const SelectCreateTags = props => {
                 <Input
                   size={size}
                   type="text"
+                  placeholer="Tag"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   onKeyPress={e => {

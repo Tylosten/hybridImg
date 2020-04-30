@@ -144,6 +144,7 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
                   <Input
                     value={newPwd}
                     onChange={e => setNewPwd(e.target.value)}
+                    placeholder="Mot de passe"
                     type="password"
                   />
                   {!newPwd ? <Help color="danger">Requis</Help> : <></>}
@@ -155,6 +156,7 @@ const AdminUsersList = ({ users, userId, dispatchToStore }) => {
                   <Input
                     value={checkPwd}
                     onChange={e => setCheckPwd(e.target.value)}
+                    placeholder="Confirmer mot de passe"
                     type="password"
                   />
                   {newPwd !== checkPwd ? (

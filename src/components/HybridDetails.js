@@ -123,7 +123,11 @@ export const HybridDetails = props => {
             <Field>
               <Label>Auteurice</Label>
               <Control>
-                <Input value={hybrid.user.name} disabled />
+                <Input
+                  value={hybrid.user.name}
+                  placeholder="Auteurice"
+                  disabled
+                />
               </Control>
             </Field>
             <Field>

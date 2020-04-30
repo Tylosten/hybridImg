@@ -45,6 +45,7 @@ const UserDetails = ({ user }) => {
                   <Input
                     value={oldPwd}
                     onChange={e => setOldPwd(e.target.value)}
+                    placeholder="Ancien mot de passe"
                     type="password"
                   />
                   {!oldPwd ? <Help color="danger">Requis</Help> : <></>}
@@ -56,6 +57,7 @@ const UserDetails = ({ user }) => {
                   <Input
                     value={newPwd}
                     onChange={e => setNewPwd(e.target.value)}
+                    placeholder="Nouveau mot de passe"
                     type="password"
                   />
                   {!newPwd ? <Help color="danger">Requis</Help> : <></>}
@@ -66,6 +68,7 @@ const UserDetails = ({ user }) => {
                 <Control>
                   <Input
                     value={checkPwd}
+                    placeholder="Confirmer mot de passe"
                     onChange={e => setCheckPwd(e.target.value)}
                     type="password"
                   />
