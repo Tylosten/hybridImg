@@ -1,4 +1,4 @@
-FROM node:14.0.0-alpine3.11 as builder
+FROM node:12.16.3-alpine3.9 as builder
 
 RUN apk add --no-cache \
   python \
@@ -11,7 +11,7 @@ RUN yarn build-all
 RUN mkdir ./to_copy && mv ./public ./views ./build ./package.json ./yarn.lock ./.reactful.json ./to_copy
 
 
-FROM node:14.0.0-alpine3.11
+FROM node:12.16.3-alpine3.9
 WORKDIR /app
 COPY --from=builder /app/to_copy ./
 RUN yarn install --production
