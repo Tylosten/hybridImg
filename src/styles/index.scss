@@ -1,3 +1,7 @@
 @import 'bulma';
 @import '~bulma-slider';
 @import '~bulma-tooltip';
+
+.notification a:not(.button):not(.dropdown-item) {
+  text-decoration: none;
+}
