@@ -34,12 +34,7 @@ app.use(
 );
 
 app.locals.serialize = serialize;
-
-try {
-  app.locals.gVars = require('../../.reactful.json');
-} catch (err) {
-  app.locals.gVars = {};
-}
+app.locals.gVars = require('../../.reactful.json');
 
 /**
  * -------------- SESSION SETUP ----------------
