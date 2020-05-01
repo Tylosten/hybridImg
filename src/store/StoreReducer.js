@@ -49,6 +49,7 @@ export const StoreMiddleware = dispatch => {
           .post('/register', {
             username: action.username,
             password: action.password,
+            captcha: action.captcha,
           })
           .then(res => {
             return dispatch({ ...action, user: res.data });

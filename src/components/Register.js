@@ -9,8 +9,8 @@ import StoreProvider from '../store/StoreProvider';
 const Register = ({ dispatchToStore, authenticated }) => {
   const [help, setHelp] = useState();
 
-  const onSubmit = (username, password) => {
-    dispatchToStore(createUser({ username, password }))
+  const onSubmit = (username, password, captcha) => {
+    dispatchToStore(createUser({ username, password, captcha }))
       .then(() => {
         dispatchToStore(login(username, password)).catch(err => {
           setHelp(
@@ -38,6 +38,7 @@ const Register = ({ dispatchToStore, authenticated }) => {
                   submitLabel="S'inscrire"
                   help={help}
                   withCheck
+                  withCaptcha
                 />
               </Message.Body>
             </Message>

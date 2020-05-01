@@ -66,10 +66,11 @@ export const createTag = ({ name }) => ({
   name,
 });
 
-export const createUser = ({ username, password }) => ({
+export const createUser = ({ username, password, captcha }) => ({
   type: actionTypes.CREATE_USER,
   username,
   password,
+  captcha,
 });
 
 export const deleteUser = ({ id }) => ({

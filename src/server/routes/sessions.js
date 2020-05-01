@@ -3,6 +3,8 @@ import { genPassword, verifyPassword } from 'server/lib/passwordUtils';
 import dbUtils from 'server/lib/dbUtils';
 import { connectDB } from 'server/config/database';
 import isAuth from 'server/routes/isAuth';
+import svgCaptcha from 'svg-captcha';
+import sharp from 'sharp';
 
 export const sessions = app => {
   app.post('/login', (req, res, next) => {
@@ -23,8 +25,21 @@ export const sessions = app => {
     })(req, res, next);
   });
 
+  app.get('/captcha', (req, res) => {
+    const captcha = svgCaptcha.create();
+    req.session.captcha = captcha.text;
+    const pngStream = sharp(Buffer.from(captcha.data)).png();
+
+    res.type('png');
+    res.status(200);
+    pngStream.pipe(res);
+  });
+
   app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, captcha } = req.body;
+    if (captcha !== req.session.captcha) {
+      throw new Error('Captcha incorrect');
+    }
     const user = await dbUtils.addUser(username, password, 'user');
     return res.status(200).json(user);
   });
