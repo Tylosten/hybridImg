@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  api:
+    image: tylosten/hybridimg
+    ports:
+      - '${PORT}:${PORT}'
+    depends_on:
+      - db
+    container_name: api
+    environment:
+      - DB_URL=mongodb://api-db:27017/
+      - DB_NAME=${DB_NAME}
+      - SECRET=${SECRET}
+      - PORT=${PORT}
+      - HOST=0.0.0.0
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    volumes:
+      - api-data:/app/public/Images
+
+  db:
+    image: mongo
+    ports:
+      - '27017:27017'
+    container_name: api-db
+
+volumes:
+  api-data:
