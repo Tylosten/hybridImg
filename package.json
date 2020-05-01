@@ -12,7 +12,7 @@
     "build-react": "cross-env NODE_ENV=production webpack --progress -p",
     "build-node": "babel src -d build --config-file ./babel-node.config.js --copy-files",
     "build-all": "yarn install && yarn build-react && yarn build-node",
-    "prod-start": "cross-env NODE_ENV=production NODE_PATH=./build pm2-runtime start -i max build/server/server.js --name hybridImgProd",
+    "prod-start": "cross-env NODE_ENV=production NODE_PATH=./build pm2-runtime start build/server/server.js --name hybridImgProd",
     "prod-stop": "pm2 stop hybridImgProd",
     "prod-reload": "pm2 reload --update-env hybridImgProd",
     "prod-logs": "pm2 logs --update-env hybridImgProd",
