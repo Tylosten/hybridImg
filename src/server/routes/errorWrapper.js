@@ -3,7 +3,10 @@ const errorWrapperFn = fn => {
     try {
       return await fn(req, res, next);
     } catch (err) {
-      next(err);
+      if (typeof err === 'string') {
+        return res.status(400).json({ message: err });
+      }
+      return res.status(500).json({ message: err.message });
     }
   };
 };
