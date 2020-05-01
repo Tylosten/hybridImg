@@ -59,11 +59,12 @@ export const ElementsDisplay = ({
   }
 
   const onNbByPageChange = e => {
-    const totalPage = Math.ceil(elements.length / e.target.value);
+    const newByPage = parseInt(e.target.value);
+    const totalPage = Math.ceil(elements.length / newByPage);
     if (page > totalPage) {
       setPage(totalPage);
     }
-    setNbByPage(e.target.value);
+    setNbByPage(newByPage);
   };
 
   return (
