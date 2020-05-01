@@ -16,5 +16,4 @@ WORKDIR /app
 COPY --from=builder /app/to_copy ./
 RUN yarn install --production
 
-EXPOSE 8080
 CMD ["yarn", "prod-start"]
