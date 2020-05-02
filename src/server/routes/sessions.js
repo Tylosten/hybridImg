@@ -37,7 +37,10 @@ export const sessions = app => {
 
   app.post('/register', async (req, res) => {
     const { username, password, captcha } = req.body;
-    if (captcha !== req.session.captcha) {
+    if (
+      captcha !== req.session.captcha &&
+      req.session.passport.user.role !== 'admin'
+    ) {
       throw new Error('Captcha incorrect');
     }
     const user = await dbUtils.addUser(username, password, 'user');
