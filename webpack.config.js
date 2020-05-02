@@ -1,7 +1,8 @@
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
 const WebpackChunkHash = require('webpack-chunk-hash');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -51,24 +52,11 @@ const config = {
     }),
     new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
-    function() {
-      this.plugin('done', stats => {
-        let gVars = {};
-        try {
-          gVars = require('./.reactful.json');
-        } catch (err) {
-          // do nothing
-        }
-        fs.writeFileSync(
-          path.resolve('.reactful.json'),
-          JSON.stringify(
-            Object.assign({}, gVars, stats.toJson()['assetsByChunkName']),
-            null,
-            2
-          )
-        );
-      });
-    },
+    new HtmlWebpackPlugin({
+      path: path.resolve('public', 'bundles'),
+      filename: 'index.ejs',
+      template: '!!raw-loader!./views/index.ejs',
+    }),
   ],
 };
 

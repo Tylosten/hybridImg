@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import express from 'express';
+import path from 'path';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import serialize from 'serialize-javascript';
@@ -22,7 +21,9 @@ const app = express();
 app.enable('trust proxy');
 app.use(morgan('common'));
 app.use(express.static('public'));
+app.use(express.static(path.resolve('public', 'bundles')));
 app.set('view engine', 'ejs');
+app.set('views', path.resolve('public', 'bundles'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -34,7 +35,6 @@ app.use(
 );
 
 app.locals.serialize = serialize;
-app.locals.gVars = require('../../.reactful.json');
 
 /**
  * -------------- SESSION SETUP ----------------
@@ -77,14 +77,5 @@ app.use(routes);
  */
 
 app.listen(config.port, config.host, () => {
-  fs.writeFileSync(
-    path.resolve('.reactful.json'),
-    JSON.stringify(
-      { ...app.locals.gVars, host: config.host, port: config.port },
-      null,
-      2
-    )
-  );
-
   console.info(`Running on ${config.host}:${config.port}...`);
 });

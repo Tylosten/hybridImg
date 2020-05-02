@@ -15,10 +15,6 @@ export async function serverRenderer(url, data) {
     ...data,
   };
 
-  const pageData = {
-    title: `Hello ${initialData.appName}`,
-  };
-
   const context = {};
 
   return Promise.resolve({
@@ -28,6 +24,5 @@ export async function serverRenderer(url, data) {
         <App store={store} />
       </StaticRouter>
     ),
-    pageData,
   });
 }
