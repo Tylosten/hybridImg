@@ -125,7 +125,9 @@ const extraprops = store => {
   return {
     grids: Object.values(store.grids),
     tags: Object.values(store.tags),
-    users: Object.values(store.users),
+    users: Object.values(store.users).filter(u =>
+      Object.values(store.hybrids).some(h => h.user === u.id)
+    ),
   };
 };
 
