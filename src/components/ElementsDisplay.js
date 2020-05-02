@@ -36,13 +36,15 @@ export const ElementsDisplay = ({
     params.set('page', JSON.stringify(page));
     params.set('byLine', JSON.stringify(nbByLine));
     params.set('byPage', JSON.stringify(nbByPage));
-    history.push(`?${params.toString()}`);
+    const totalPage = Math.ceil(elements.length / nbByPage);
+    if (page > totalPage) {
+      setPage(totalPage || 1);
+    } else {
+      history.push({ search: `?${params.toString()}` });
+    }
   }, [nbByLine, nbByPage, page]);
 
   const totalPage = Math.ceil(elements.length / nbByPage);
-  if (page > totalPage) {
-    setPage(totalPage);
-  }
 
   const pageStartIndex = (page - 1) * nbByPage;
   const pageElements = elements.slice(
